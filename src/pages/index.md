@@ -5,9 +5,9 @@ image: /img/house2.jpg
 heading: Brainchild Building Solutions
 subheading: Supplying building materials to the Washington, DC Metro Area since 2007
 mainpitch:
-  title: Why Brainchild
+  title: Who We Are
   description: >
-    Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate 
+    Brainchild Building Solutions was founded in 2007 by Mark Ascher with the mission of being a valuable partner to builders, homeowners, architects, engineers, and tradesmen. These partnerships consist of providing value-engineered designs and sales of engineered wood products (EWP), as well as floor and roof truss systems.
 description: >-
   Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate
 intro:

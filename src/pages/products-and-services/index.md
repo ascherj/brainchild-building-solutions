@@ -1,7 +1,7 @@
 ---
 templateKey: 'products-and-services-page'
 path: /products-and-services
-title: Our Coffee
+title: What We Offer
 image: /img/jumbotron.jpg
 heading: Great coffee with a conscience
 description: >-
