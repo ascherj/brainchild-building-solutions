@@ -1,11 +1,11 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { graphql } from 'gatsby'
-import Layout from '../components/Layout'
-import Features from '../components/Features'
-import Testimonials from '../components/Testimonials'
-import Pricing from '../components/Pricing'
-import PreviewCompatibleImage from '../components/PreviewCompatibleImage'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { graphql } from 'gatsby';
+import Layout from '../components/Layout';
+import Features from '../components/Features';
+import Testimonials from '../components/Testimonials';
+import Pricing from '../components/Pricing';
+import PreviewCompatibleImage from '../components/PreviewCompatibleImage';
 
 export const ProductsAndServicesPageTemplate = ({
   image,
@@ -102,7 +102,7 @@ export const ProductsAndServicesPageTemplate = ({
       </div>
     </section>
   </div>
-)
+);
 
 ProductsAndServicesPageTemplate.propTypes = {
   image: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
@@ -126,10 +126,10 @@ ProductsAndServicesPageTemplate.propTypes = {
     description: PropTypes.string,
     plans: PropTypes.array,
   }),
-}
+};
 
 const ProductsAndServicesPage = ({ data }) => {
-  const { frontmatter } = data.markdownRemark
+  const { frontmatter } = data.markdownRemark;
 
   return (
     <Layout>
@@ -145,8 +145,8 @@ const ProductsAndServicesPage = ({ data }) => {
         pricing={frontmatter.pricing}
       />
     </Layout>
-  )
-}
+  );
+};
 
 ProductsAndServicesPage.propTypes = {
   data: PropTypes.shape({
@@ -154,9 +154,9 @@ ProductsAndServicesPage.propTypes = {
       frontmatter: PropTypes.object,
     }),
   }),
-}
+};
 
-export default ProductsAndServicesPage
+export default ProductsAndServicesPage;
 
 export const productsAndServicesPageQuery = graphql`
   query ProductsAndServicesPage($id: String!) {
@@ -244,4 +244,4 @@ export const productsAndServicesPageQuery = graphql`
       }
     }
   }
-`
+`;
