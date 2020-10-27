@@ -1,7 +1,10 @@
 ---
 templateKey: 'about-page'
 path: /about
-title: The Brainchild Difference
+title: About Brainchild
+image1:
+  alt: Brainchild's founder, Mark Ascher
+  image: /img/mark_ascher.png
 ---
 
 ### Competitive pricing
