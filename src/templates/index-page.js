@@ -6,7 +6,6 @@ import Layout from '../components/Layout';
 import Features from '../components/Features';
 import BlogRoll from '../components/BlogRoll';
 import Hero from '../components/Hero';
-import styled from 'styled-components';
 
 const Description = ({ description }) => (
   <div className="section">
@@ -49,6 +48,30 @@ const Products = ({ description, products }) => (
   </div>
 );
 
+const LatestStories = () => (
+  <div className="section">
+    <div className="container">
+      <div className="columns">
+        <div className="column is-10 is-offset-1">
+          <div className="content">
+            <div className="column is-12">
+              <h3 className="has-text-weight-semibold is-size-2">
+                Latest stories
+              </h3>
+              <BlogRoll />
+              <div className="column is-12 has-text-centered">
+                <Link className="btn" to="/blog">
+                  Read more
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
 export const IndexPageTemplate = ({
   image,
   heading,
@@ -59,34 +82,10 @@ export const IndexPageTemplate = ({
 }) => (
   <div>
     <Hero image={image} heading={heading} subheading={subheading} />
-
     <Description description={mainpitch.description} />
 
-    {/* Products */}
-    <Products description={description} products={products} />
-
-    {/* Latest stories */}
-    <div className="section">
-      <div className="container">
-        <div className="columns">
-          <div className="column is-10 is-offset-1">
-            <div className="content">
-              <div className="column is-12">
-                <h3 className="has-text-weight-semibold is-size-2">
-                  Latest stories
-                </h3>
-                <BlogRoll />
-                <div className="column is-12 has-text-centered">
-                  <Link className="btn" to="/blog">
-                    Read more
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    {/* <Products description={description} products={products} /> */}
+    {/* <LatestStories /> */}
   </div>
 );
 
