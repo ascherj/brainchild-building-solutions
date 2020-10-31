@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Hero = ({ image, title, subheading }) => (
+const Hero = ({ image, heading, subheading }) => (
   <div
     className="full-width-image margin-top-0 my-hero"
     style={{
@@ -30,7 +30,7 @@ const Hero = ({ image, title, subheading }) => (
           padding: '0.25em',
         }}
       >
-        {title}
+        {heading}
       </h1>
       <h3
         className="has-text-weight-bold is-size-5-mobile is-size-5-tablet is-size-4-widescreen"

@@ -6,76 +6,97 @@ import Layout from '../components/Layout';
 import Features from '../components/Features';
 import BlogRoll from '../components/BlogRoll';
 import Hero from '../components/Hero';
+import styled from 'styled-components';
+
+const Description = ({ description }) => (
+  <div className="section">
+    <div className="container">
+      <div className="section">
+        <div className="columns">
+          <div className="column is-10 is-offset-1">
+            <div className="content">
+              <h3>{description}</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
+const Products = ({ description, products }) => (
+  <div className="section" style={{ background: '#eee' }}>
+    <div className="container">
+      <div className="section">
+        <div className="columns">
+          <div className="column is-10 is-offset-1">
+            <h3 className="has-text-weight-semibold is-size-3">
+              What We Offer
+            </h3>
+            <p>{description}</p>
+          </div>
+        </div>
+        <Features gridItems={products.blurbs} />
+        <div className="columns">
+          <div className="column is-12 has-text-centered">
+            <Link className="btn" to="/products-and-services">
+              See all products
+            </Link>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+);
 
 export const IndexPageTemplate = ({
   image,
-  title,
   heading,
   subheading,
   mainpitch,
   description,
-  intro,
+  products,
 }) => (
   <div>
-    <Hero image={image} title={title} subheading={subheading} />
-    <section className="section section--gradient">
+    <Hero image={image} heading={heading} subheading={subheading} />
+
+    <Description description={mainpitch.description} />
+
+    {/* Products */}
+    <Products description={description} products={products} />
+
+    {/* Latest stories */}
+    <div className="section">
       <div className="container">
-        <div className="section">
-          <div className="columns">
-            <div className="column is-10 is-offset-1">
-              <div className="content">
-                <div className="content">
-                  <div className="tile">
-                    <h1 className="title">{mainpitch.title}</h1>
-                  </div>
-                  <div className="tile">
-                    <h3 className="subtitle">{mainpitch.description}</h3>
-                  </div>
-                </div>
-                <div className="columns">
-                  <div className="column is-12">
-                    <h3 className="has-text-weight-semibold is-size-2">
-                      {heading}
-                    </h3>
-                    <p>{description}</p>
-                  </div>
-                </div>
-                <Features gridItems={intro.blurbs} />
-                <div className="columns">
-                  <div className="column is-12 has-text-centered">
-                    <Link className="btn" to="/products-and-services">
-                      See all products
-                    </Link>
-                  </div>
-                </div>
-                <div className="column is-12">
-                  <h3 className="has-text-weight-semibold is-size-2">
-                    Latest stories
-                  </h3>
-                  <BlogRoll />
-                  <div className="column is-12 has-text-centered">
-                    <Link className="btn" to="/blog">
-                      Read more
-                    </Link>
-                  </div>
+        <div className="columns">
+          <div className="column is-10 is-offset-1">
+            <div className="content">
+              <div className="column is-12">
+                <h3 className="has-text-weight-semibold is-size-2">
+                  Latest stories
+                </h3>
+                <BlogRoll />
+                <div className="column is-12 has-text-centered">
+                  <Link className="btn" to="/blog">
+                    Read more
+                  </Link>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </section>
+    </div>
   </div>
 );
 
 IndexPageTemplate.propTypes = {
   image: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-  title: PropTypes.string,
   heading: PropTypes.string,
   subheading: PropTypes.string,
   mainpitch: PropTypes.object,
   description: PropTypes.string,
-  intro: PropTypes.shape({
+  products: PropTypes.shape({
     blurbs: PropTypes.array,
   }),
 };
@@ -87,12 +108,11 @@ const IndexPage = ({ data }) => {
     <Layout>
       <IndexPageTemplate
         image={frontmatter.image}
-        title={frontmatter.title}
         heading={frontmatter.heading}
         subheading={frontmatter.subheading}
         mainpitch={frontmatter.mainpitch}
         description={frontmatter.description}
-        intro={frontmatter.intro}
+        products={frontmatter.products}
       />
     </Layout>
   );
@@ -112,7 +132,6 @@ export const pageQuery = graphql`
   query IndexPageTemplate {
     markdownRemark(frontmatter: { templateKey: { eq: "index-page" } }) {
       frontmatter {
-        title
         image {
           childImageSharp {
             fluid(maxWidth: 2048, quality: 100) {
@@ -126,8 +145,7 @@ export const pageQuery = graphql`
           title
           description
         }
-        description
-        intro {
+        products {
           blurbs {
             image {
               childImageSharp {
