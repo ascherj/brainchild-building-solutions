@@ -1,26 +1,26 @@
-import React from 'react'
-import { navigate } from 'gatsby-link'
-import Layout from '../../components/Layout'
+import React from 'react';
+import { navigate } from 'gatsby-link';
+import Layout from '../../components/Layout';
 
 function encode(data) {
   return Object.keys(data)
     .map((key) => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
-    .join('&')
+    .join('&');
 }
 
 export default class Index extends React.Component {
   constructor(props) {
-    super(props)
-    this.state = { isValidated: false }
+    super(props);
+    this.state = { isValidated: false };
   }
 
   handleChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value })
-  }
+    this.setState({ [e.target.name]: e.target.value });
+  };
 
   handleSubmit = (e) => {
-    e.preventDefault()
-    const form = e.target
+    e.preventDefault();
+    const form = e.target;
     fetch('/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -30,8 +30,8 @@ export default class Index extends React.Component {
       }),
     })
       .then(() => navigate(form.getAttribute('action')))
-      .catch((error) => alert(error))
-  }
+      .catch((error) => alert(error));
+  };
 
   render() {
     return (
@@ -101,7 +101,7 @@ export default class Index extends React.Component {
                   </div>
                 </div>
                 <div className="field">
-                  <button className="button is-link" type="submit">
+                  <button className="button is-link" type="submit" disabled>
                     Send
                   </button>
                 </div>
@@ -110,6 +110,6 @@ export default class Index extends React.Component {
           </div>
         </section>
       </Layout>
-    )
+    );
   }
 }
