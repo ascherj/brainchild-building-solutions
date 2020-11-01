@@ -44,15 +44,15 @@ export const AboutPageTemplate = ({
                     salesman, design partner, and engineer. He obtained a B.S.
                     in Civil Engineering from Northeastern University in 1987,
                     and has subsequently worked 30+ years in the building
-                    industry. Mark's credits his engineering background and
-                    years of industry experience as critical components to the
-                    success of Brainchild Building Solutions. He emphasizes
-                    relationship building and understanding of the customer's
-                    vision in order to deliver exceptional service with
-                    enthusiasm and value. These factors separate him from the
-                    typical lumber yard salesman and enable him to position
-                    himself strategically in the field helping builders and
-                    developers achieve their construction goals.
+                    industry. Mark credits his engineering background and years
+                    of industry experience as critical components to the success
+                    of Brainchild Building Solutions. He emphasizes relationship
+                    building and understanding of the customer's vision in order
+                    to deliver exceptional service with enthusiasm and value.
+                    These factors separate him from the typical lumber yard
+                    salesman and enable him to position himself strategically in
+                    the field helping builders and developers achieve their
+                    construction goals.
                   </p>
                 </div>
               </FounderStyles>
