@@ -39,7 +39,14 @@ export default class Index extends React.Component {
         <section className="section">
           <div className="container">
             <div className="content">
-              <h1>Contact</h1>
+              <h3 className="title is-size-3 has-text-weight-bold">
+                Contact Brainchild
+              </h3>
+              <p>
+                Do you have a question about our services? Are you looking for a
+                quote? Please fill out and submit the form and we will follow up
+                with you soon.
+              </p>
               <form
                 name="contact"
                 method="post"
@@ -73,7 +80,7 @@ export default class Index extends React.Component {
                 </div>
                 <div className="field">
                   <label className="label" htmlFor={'email'}>
-                    Email
+                    Your Email
                   </label>
                   <div className="control">
                     <input

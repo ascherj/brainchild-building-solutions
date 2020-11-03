@@ -10,11 +10,16 @@ import Hero from '../components/Hero';
 const Description = ({ description }) => (
   <div className="section">
     <div className="container">
-      <div className="section">
+      <div className="section pb-0">
         <div className="columns">
           <div className="column is-10 is-offset-1">
             <div className="content">
-              <h3>{description}</h3>
+              <h4 className="is-size-4">{description}</h4>
+              <div className="has-text-centered mt-6">
+                <Link className="btn" to="/contact">
+                  Get in Touch
+                </Link>
+              </div>
             </div>
           </div>
         </div>

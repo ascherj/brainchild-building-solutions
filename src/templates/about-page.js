@@ -32,13 +32,13 @@ export const AboutPageTemplate = ({
         <div className="columns">
           <div className="column is-10 is-offset-1">
             <div className="section">
-              <h2 className="title is-size-3 has-text-weight-bold is-bold-light">
-                {title}
-              </h2>
+              <h3 className="title is-size-3 has-text-weight-bold">{title}</h3>
               <FounderStyles className="mark-ascher content">
                 <Img fixed={image.childImageSharp.fixed} alt={alt} />
                 <div>
-                  <h2>Brainchild's Founder, Mark Ascher</h2>
+                  <h2 className="is-size-2">
+                    Brainchild's Founder, Mark Ascher
+                  </h2>
                   <p>
                     Brainchild Building Solutions founder, Mark Ascher, is a
                     salesman, design partner, and engineer. He obtained a B.S.
