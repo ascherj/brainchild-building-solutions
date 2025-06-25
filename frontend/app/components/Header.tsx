@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { settingsQuery } from "@/sanity/lib/queries";
 import { sanityFetch } from "@/sanity/lib/live";
 
@@ -18,16 +19,27 @@ export default async function Header() {
   ];
 
   // Use navigation from Sanity if available, otherwise use defaults
-  const navigationItems = settings?.navigation?.mainNavigation?.length
-    ? settings.navigation.mainNavigation.sort((a: any, b: any) => (a.order || 0) - (b.order || 0))
+  const navigation = settings?.navigation as any;
+  const navigationItems = navigation?.mainNavigation?.length
+    ? navigation.mainNavigation.sort((a: any, b: any) => (a.order || 0) - (b.order || 0))
     : defaultNavigation;
 
   return (
     <header className="fixed z-50 h-24 inset-0 bg-white/80 flex items-center backdrop-blur-lg">
       <div className="container py-6 px-2 sm:px-6">
         <div className="flex items-center justify-between gap-5">
-          <Link className="flex items-center gap-2" href="/">
-            <span className="text-lg sm:text-2xl pl-2 font-semibold">
+          <Link className="flex items-center gap-3" href="/">
+            {settings?.logo?.asset && (
+              <Image
+                src={settings.logo.asset._ref}
+                alt={settings.logo.alt || `${settings?.businessName || 'Company'} logo`}
+                width={120}
+                height={60}
+                className="h-8 sm:h-12 w-auto object-contain"
+                priority
+              />
+            )}
+            <span className="text-lg sm:text-2xl font-semibold">
               {settings?.businessName || settings?.title || "Brainchild Building Solutions"}
             </span>
           </Link>

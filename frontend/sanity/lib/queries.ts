@@ -2,6 +2,10 @@ import { defineQuery } from "next-sanity";
 
 export const settingsQuery = defineQuery(`*[_type == "settings"][0]{
   ...,
+  logo{
+    asset,
+    alt
+  },
   navigation{
     mainNavigation[]{
       title,
