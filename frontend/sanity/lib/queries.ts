@@ -1,6 +1,16 @@
 import { defineQuery } from "next-sanity";
 
-export const settingsQuery = defineQuery(`*[_type == "settings"][0]`);
+export const settingsQuery = defineQuery(`*[_type == "settings"][0]{
+  ...,
+  navigation{
+    mainNavigation[]{
+      title,
+      slug,
+      isExternal,
+      order
+    }
+  }
+}`);
 
 const postFields = /* groq */ `
   _id,
