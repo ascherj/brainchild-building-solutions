@@ -13,8 +13,8 @@ export const page = defineType({
   icon: DocumentIcon,
   fields: [
     defineField({
-      name: 'name',
-      title: 'Name',
+      name: 'title',
+      title: 'Page Title',
       type: 'string',
       validation: (Rule) => Rule.required(),
     }),
@@ -25,20 +25,32 @@ export const page = defineType({
       type: 'slug',
       validation: (Rule) => Rule.required(),
       options: {
-        source: 'name',
+        source: 'title',
         maxLength: 96,
       },
     }),
     defineField({
-      name: 'heading',
-      title: 'Heading',
-      type: 'string',
-      validation: (Rule) => Rule.required(),
+      name: 'heroImage',
+      title: 'Hero Image',
+      type: 'image',
+      options: {
+        hotspot: true,
+      },
+      fields: [
+        defineField({
+          name: 'alt',
+          title: 'Alternative text',
+          type: 'string',
+          description: 'Important for accessibility and SEO',
+        }),
+      ],
     }),
     defineField({
-      name: 'subheading',
-      title: 'Subheading',
-      type: 'string',
+      name: 'bodyBlocks',
+      title: 'Page Content',
+      type: 'array',
+      of: [{type: 'block'}, {type: 'image'}],
+      description: 'Main page content using rich text and images',
     }),
     defineField({
       name: 'pageBuilder',

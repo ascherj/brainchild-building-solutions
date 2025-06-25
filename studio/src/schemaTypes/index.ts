@@ -1,6 +1,12 @@
+import {aboutPage} from './documents/aboutPage'
+import {homePage} from './documents/homePage'
 import {person} from './documents/person'
 import {page} from './documents/page'
 import {post} from './documents/post'
+import {product} from './documents/product'
+import {project} from './documents/project'
+import {service} from './documents/service'
+import {testimonial} from './documents/testimonial'
 import {callToAction} from './objects/callToAction'
 import {infoSection} from './objects/infoSection'
 import {settings} from './singletons/settings'
@@ -13,7 +19,14 @@ export const schemaTypes = [
   // Singletons
   settings,
   // Documents
+  homePage,
+  aboutPage,
   page,
+  product,
+  project,
+  service,
+  testimonial,
+  // Legacy documents (can be removed if not needed)
   post,
   person,
   // Objects

@@ -29,3 +29,10 @@ next-env.d.ts
 
 # VS Code
 .vscode
+
+# Project files
+PRODUCT_REQUIREMENTS_DOCUMENT.md
+PROJECT_CONTEXT.md
+
+# Cursor files
+.cursor/rules/brainchild-building-solutions.mdc

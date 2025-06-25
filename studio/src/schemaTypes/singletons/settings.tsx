@@ -15,17 +15,62 @@ export const settings = defineType({
   icon: CogIcon,
   fields: [
     defineField({
+      name: 'businessName',
+      title: 'Business Name',
+      type: 'string',
+      description: 'Official business name',
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: 'logo',
+      title: 'Company Logo',
+      type: 'image',
+      options: {
+        hotspot: true,
+      },
+      fields: [
+        defineField({
+          name: 'alt',
+          title: 'Alternative text',
+          type: 'string',
+          description: 'Important for accessibility and SEO',
+        }),
+      ],
+    }),
+    defineField({
       name: 'title',
-      description: 'This field is the title of your blog.',
-      title: 'Title',
+      description: 'This field is the title of your website.',
+      title: 'Site Title',
       type: 'string',
       initialValue: demo.title,
       validation: (rule) => rule.required(),
     }),
     defineField({
+      name: 'contactInfo',
+      type: 'object',
+      title: 'Contact Information',
+      fields: [
+        defineField({
+          name: 'phone',
+          title: 'Phone Number',
+          type: 'string',
+        }),
+        defineField({
+          name: 'email',
+          title: 'Email Address',
+          type: 'string',
+        }),
+        defineField({
+          name: 'address',
+          title: 'Business Address',
+          type: 'text',
+        }),
+      ],
+    }),
+    defineField({
       name: 'description',
-      description: 'Used on the Homepage',
-      title: 'Description',
+      description: 'Used on the Homepage and for SEO',
+      title: 'Site Description',
       type: 'array',
       initialValue: demo.description,
       of: [
