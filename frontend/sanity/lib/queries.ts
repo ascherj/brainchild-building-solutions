@@ -109,3 +109,23 @@ export const pagesSlugs = defineQuery(`
   *[_type == "page" && defined(slug.current)]
   {"slug": slug.current}
 `);
+
+export const aboutPageQuery = defineQuery(`
+  *[_type == "aboutPage"][0]{
+    title,
+    companyStory,
+    missionStatement,
+    teamMembers[]{
+      name,
+      role,
+      bio,
+      image{
+        asset,
+        alt
+      }
+    },
+    certifications,
+    yearsInBusiness,
+    serviceArea
+  }
+`);
