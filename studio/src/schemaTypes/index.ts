@@ -1,4 +1,5 @@
 import {aboutPage} from './documents/aboutPage'
+import {contactPage} from './documents/contactPage'
 import {homePage} from './documents/homePage'
 import {person} from './documents/person'
 import {page} from './documents/page'
@@ -21,6 +22,7 @@ export const schemaTypes = [
   // Documents
   homePage,
   aboutPage,
+  contactPage,
   page,
   product,
   project,

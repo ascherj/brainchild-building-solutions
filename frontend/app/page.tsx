@@ -1,8 +1,15 @@
 import { Suspense } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { sanityFetch } from "@/sanity/lib/live";
+import { settingsQuery } from "@/sanity/lib/queries";
 
 export default async function Page() {
+
+  const { data: settings } = await sanityFetch({
+    query: settingsQuery,
+  });
+
   return (
     <>
       {/* Hero Section */}
@@ -12,7 +19,7 @@ export default async function Page() {
           <div className="container">
             <div className="relative min-h-[80vh] mx-auto max-w-4xl pt-20 pb-20 space-y-8 flex flex-col items-center justify-center text-center">
               <div className="text-red-400 text-sm sm:text-base font-semibold uppercase tracking-wider mb-4">
-                Brainchild Building Solutions
+                {settings?.businessName}
               </div>
               <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-tight">
                 Hassle-free roof trusses and building components delivered to your jobsite.

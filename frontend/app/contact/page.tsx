@@ -1,29 +1,22 @@
-import { defineQuery } from "next-sanity";
 import { sanityFetch } from "@/sanity/lib/live";
+import { contactPageQuery, settingsQuery } from "@/sanity/lib/queries";
 import Link from "next/link";
 
-const settingsQuery = defineQuery(`
-  *[_type == "settings"][0]{
-    businessName,
-    contactInfo
-  }
-`);
-
 export default async function ContactPage() {
-  const { data: settings } = await sanityFetch({
-    query: settingsQuery,
-  });
+  const [{ data: contactPage }, { data: settings }] = await Promise.all([
+    sanityFetch({ query: contactPageQuery }),
+    sanityFetch({ query: settingsQuery }),
+  ]);
 
   return (
     <div className="container mx-auto px-4 py-8 mt-24">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            Get Your Quote Today
+            {contactPage?.title || "Get Your Quote Today"}
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Ready to start your project? Contact us for a detailed quote on building components and materials.
-            We work with contractors and builders throughout the region.
+            {contactPage?.subtitle || "Ready to start your project? Contact us for a detailed quote on building components and materials. We work with contractors and builders throughout the region."}
           </p>
         </div>
 
@@ -31,7 +24,7 @@ export default async function ContactPage() {
           {/* Contact Form */}
           <div className="bg-white rounded-lg shadow-lg p-8">
             <h2 className="text-2xl font-bold text-gray-900 mb-6">
-              Request a Quote
+              {contactPage?.formTitle || "Request a Quote"}
             </h2>
 
             <form
@@ -122,8 +115,6 @@ export default async function ContactPage() {
                   <option value="">Select project type</option>
                   <option value="residential-single">Residential - Single Family</option>
                   <option value="residential-multi">Residential - Multi-Family</option>
-                  <option value="commercial">Commercial</option>
-                  <option value="industrial">Industrial</option>
                   <option value="other">Other</option>
                 </select>
               </div>
@@ -184,7 +175,7 @@ export default async function ContactPage() {
           <div className="space-y-8">
             <div className="bg-gray-50 rounded-lg p-8">
               <h2 className="text-2xl font-bold text-gray-900 mb-6">
-                Contact Information
+                {contactPage?.contactInfoTitle || "Contact Information"}
               </h2>
 
               <div className="space-y-4">
@@ -247,31 +238,42 @@ export default async function ContactPage() {
 
             <div className="bg-blue-50 rounded-lg p-8">
               <h3 className="text-lg font-bold text-gray-900 mb-4">
-                Why Choose {settings?.businessName || 'Brainchild Building Solutions'}?
+                {contactPage?.whyChooseUsTitle || `Why Choose ${settings?.businessName || 'Brainchild Building Solutions'}?`}
               </h3>
               <ul className="space-y-3 text-gray-700">
-                <li className="flex items-start">
-                  <span className="text-blue-600 mr-2 mt-1">✓</span>
-                  Trusted relationships with quality suppliers
-                </li>
-                <li className="flex items-start">
-                  <span className="text-blue-600 mr-2 mt-1">✓</span>
-                  Competitive pricing and reliable delivery
-                </li>
-                <li className="flex items-start">
-                  <span className="text-blue-600 mr-2 mt-1">✓</span>
-                  Expert guidance on component selection
-                </li>
-                <li className="flex items-start">
-                  <span className="text-blue-600 mr-2 mt-1">✓</span>
-                  Serving contractors throughout the region
-                </li>
+                {contactPage?.benefits?.length ? (
+                  contactPage.benefits.map((benefit: string, index: number) => (
+                    <li key={index} className="flex items-start">
+                      <span className="text-blue-600 mr-2 mt-1">✓</span>
+                      {benefit}
+                    </li>
+                  ))
+                ) : (
+                  <>
+                    <li className="flex items-start">
+                      <span className="text-blue-600 mr-2 mt-1">✓</span>
+                      Trusted relationships with quality suppliers
+                    </li>
+                    <li className="flex items-start">
+                      <span className="text-blue-600 mr-2 mt-1">✓</span>
+                      Competitive pricing and reliable delivery
+                    </li>
+                    <li className="flex items-start">
+                      <span className="text-blue-600 mr-2 mt-1">✓</span>
+                      Expert guidance on component selection
+                    </li>
+                    <li className="flex items-start">
+                      <span className="text-blue-600 mr-2 mt-1">✓</span>
+                      Serving contractors throughout the region
+                    </li>
+                  </>
+                )}
               </ul>
             </div>
 
             <div className="text-center">
               <p className="text-gray-600 mb-4">
-                Prefer to browse our offerings first?
+                {contactPage?.callToActionText || "Prefer to browse our offerings first?"}
               </p>
               <div className="flex flex-col sm:flex-row gap-3">
                 <Link
@@ -295,7 +297,11 @@ export default async function ContactPage() {
   );
 }
 
-export const metadata = {
-  title: "Contact | Get Your Building Components Quote",
-  description: "Contact Brainchild Building Solutions for a quote on building components and materials. We serve contractors and builders throughout the region.",
-};
+export async function generateMetadata() {
+  const { data: contactPage } = await sanityFetch({ query: contactPageQuery });
+
+  return {
+    title: contactPage?.seoTitle || "Contact | Get Your Building Components Quote",
+    description: contactPage?.seoDescription || "Contact Brainchild Building Solutions for a quote on building components and materials. We serve contractors and builders throughout the region.",
+  };
+}

@@ -797,7 +797,7 @@ export type AllSanitySchemaTypes = CallToAction | Link | InfoSection | BlockCont
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./sanity/lib/queries.ts
 // Variable: settingsQuery
-// Query: *[_type == "settings"][0]{  ...,  logo{    asset,    alt  },  navigation{    mainNavigation[]{      title,      slug,      isExternal,      order    }  }}
+// Query: *[_type == "settings"][0]{  ...,  logo{    asset,    alt  },  navigation{    mainNavigation[]{      title,      slug,      isExternal,      order    }  },  businessName,  contactInfo}
 export type SettingsQueryResult = {
   _id: string;
   _type: "settings";
@@ -815,11 +815,11 @@ export type SettingsQueryResult = {
     alt: string | null;
   } | null;
   title: string;
-  contactInfo?: {
+  contactInfo: {
     phone?: string;
     email?: string;
     address?: string;
-  };
+  } | null;
   description?: Array<{
     children?: Array<{
       marks?: Array<string>;
@@ -1131,12 +1131,15 @@ export type AboutPageQueryResult = {
   yearsInBusiness: number | null;
   serviceArea: string | null;
 } | null;
+// Variable: contactPageQuery
+// Query: *[_type == "contactPage"][0]{    title,    subtitle,    formTitle,    contactInfoTitle,    whyChooseUsTitle,    benefits,    callToActionText,    heroImage{      asset,      alt    },    seoTitle,    seoDescription  }
+export type ContactPageQueryResult = null;
 
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    "*[_type == \"settings\"][0]{\n  ...,\n  logo{\n    asset,\n    alt\n  },\n  navigation{\n    mainNavigation[]{\n      title,\n      slug,\n      isExternal,\n      order\n    }\n  }\n}": SettingsQueryResult;
+    "*[_type == \"settings\"][0]{\n  ...,\n  logo{\n    asset,\n    alt\n  },\n  navigation{\n    mainNavigation[]{\n      title,\n      slug,\n      isExternal,\n      order\n    }\n  },\n  businessName,\n  contactInfo\n}": SettingsQueryResult;
     "\n  *[_type == 'page' && slug.current == $slug][0]{\n    _id,\n    _type,\n    name,\n    slug,\n    heading,\n    subheading,\n    \"pageBuilder\": pageBuilder[]{\n      ...,\n      _type == \"callToAction\" => {\n        \n  link {\n      ...,\n      \n  _type == \"link\" => {\n    \"page\": page->slug.current,\n    \"post\": post->slug.current\n  }\n\n      }\n,\n      },\n      _type == \"infoSection\" => {\n        content[]{\n          ...,\n          markDefs[]{\n            ...,\n            \n  _type == \"link\" => {\n    \"page\": page->slug.current,\n    \"post\": post->slug.current\n  }\n\n          }\n        }\n      },\n    },\n  }\n": GetPageQueryResult;
     "\n  *[_type == \"page\" || _type == \"post\" && defined(slug.current)] | order(_type asc) {\n    \"slug\": slug.current,\n    _type,\n    _updatedAt,\n  }\n": SitemapDataResult;
     "\n  *[_type == \"post\" && defined(slug.current)] | order(date desc, _updatedAt desc) {\n    \n  _id,\n  \"status\": select(_originalId in path(\"drafts.**\") => \"draft\", \"published\"),\n  \"title\": coalesce(title, \"Untitled\"),\n  \"slug\": slug.current,\n  excerpt,\n  coverImage,\n  \"date\": coalesce(date, _updatedAt),\n  \"author\": author->{firstName, lastName, picture},\n\n  }\n": AllPostsQueryResult;
@@ -1145,5 +1148,6 @@ declare module "@sanity/client" {
     "\n  *[_type == \"post\" && defined(slug.current)]\n  {\"slug\": slug.current}\n": PostPagesSlugsResult;
     "\n  *[_type == \"page\" && defined(slug.current)]\n  {\"slug\": slug.current}\n": PagesSlugsResult;
     "\n  *[_type == \"aboutPage\"][0]{\n    title,\n    companyStory,\n    missionStatement,\n    teamMembers[]{\n      name,\n      role,\n      bio,\n      image{\n        asset,\n        alt\n      }\n    },\n    certifications,\n    yearsInBusiness,\n    serviceArea\n  }\n": AboutPageQueryResult;
+    "\n  *[_type == \"contactPage\"][0]{\n    title,\n    subtitle,\n    formTitle,\n    contactInfoTitle,\n    whyChooseUsTitle,\n    benefits,\n    callToActionText,\n    heroImage{\n      asset,\n      alt\n    },\n    seoTitle,\n    seoDescription\n  }\n": ContactPageQueryResult;
   }
 }

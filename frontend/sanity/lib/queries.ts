@@ -13,7 +13,9 @@ export const settingsQuery = defineQuery(`*[_type == "settings"][0]{
       isExternal,
       order
     }
-  }
+  },
+  businessName,
+  contactInfo
 }`);
 
 const postFields = /* groq */ `
@@ -127,5 +129,23 @@ export const aboutPageQuery = defineQuery(`
     certifications,
     yearsInBusiness,
     serviceArea
+  }
+`);
+
+export const contactPageQuery = defineQuery(`
+  *[_type == "contactPage"][0]{
+    title,
+    subtitle,
+    formTitle,
+    contactInfoTitle,
+    whyChooseUsTitle,
+    benefits,
+    callToActionText,
+    heroImage{
+      asset,
+      alt
+    },
+    seoTitle,
+    seoDescription
   }
 `);
