@@ -40,11 +40,12 @@ const relatedProductsQuery = defineQuery(`
 export default async function ProductPage({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
+  const resolvedParams = await params;
   const { data: product } = await sanityFetch({
     query: productQuery,
-    params,
+    params: resolvedParams,
   });
 
   if (!product) {
@@ -53,7 +54,7 @@ export default async function ProductPage({
 
   const { data: relatedProducts = [] } = await sanityFetch({
     query: relatedProductsQuery,
-    params: { category: product.category, slug: params.slug },
+    params: { category: product.category, slug: resolvedParams.slug },
   });
 
   return (
@@ -273,6 +274,9 @@ export async function generateStaticParams() {
     query: defineQuery(`*[_type == "product" && defined(slug.current)]{
       "slug": slug.current
     }`),
+    // Use the published perspective in generateStaticParams
+    perspective: "published",
+    stega: false,
   });
 
   return products.data?.map((product: any) => ({
@@ -283,11 +287,12 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
+  const resolvedParams = await params;
   const { data: product } = await sanityFetch({
     query: productQuery,
-    params,
+    params: resolvedParams,
   });
 
   if (!product) {

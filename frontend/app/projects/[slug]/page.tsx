@@ -49,11 +49,12 @@ const relatedProjectsQuery = defineQuery(`
 export default async function ProjectPage({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
+  const resolvedParams = await params;
   const { data: project } = await sanityFetch({
     query: projectQuery,
-    params,
+    params: resolvedParams,
   });
 
   if (!project) {
@@ -62,7 +63,7 @@ export default async function ProjectPage({
 
   const { data: relatedProjects = [] } = await sanityFetch({
     query: relatedProjectsQuery,
-    params: { projectType: project.projectType, slug: params.slug },
+    params: { projectType: project.projectType, slug: resolvedParams.slug },
   });
 
   return (
@@ -357,6 +358,9 @@ export async function generateStaticParams() {
     query: defineQuery(`*[_type == "project" && defined(slug.current)]{
       "slug": slug.current
     }`),
+    // Use the published perspective in generateStaticParams
+    perspective: "published",
+    stega: false,
   });
 
   return projects.data?.map((project: any) => ({
@@ -367,11 +371,12 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
+  const resolvedParams = await params;
   const { data: project } = await sanityFetch({
     query: projectQuery,
-    params,
+    params: resolvedParams,
   });
 
   if (!project) {

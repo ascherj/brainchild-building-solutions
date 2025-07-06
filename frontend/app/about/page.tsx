@@ -2,6 +2,7 @@ import { defineQuery } from "next-sanity";
 import { sanityFetch } from "@/sanity/lib/live";
 import CustomPortableText from "@/app/components/PortableText";
 import Link from "next/link";
+import { type PortableTextBlock } from "next-sanity";
 
 const aboutPageQuery = defineQuery(`
   *[_type == "aboutPage"][0]{
@@ -34,10 +35,14 @@ export default async function AboutPage() {
     companyStory: [
       {
         _type: "block",
+        _key: "company-story-1",
+        style: "normal" as const,
         children: [
           {
             _type: "span",
-            text: "Mark Ascher has been in this industry since 1989. You can have confidence knowing that he comes from a technical civil engineering background. Brainchild Building Solutions was founded in 2007 and has been a reliable supplier of trusses and building components for residential and commercial projects in the greater Maryland, D.C. and Virginia area. Why not trust an expert for your next job?"
+            _key: "span-1",
+            text: "Mark Ascher has been in this industry since 1989. You can have confidence knowing that he comes from a technical civil engineering background. Brainchild Building Solutions was founded in 2007 and has been a reliable supplier of trusses and building components for residential and commercial projects in the greater Maryland, D.C. and Virginia area. Why not trust an expert for your next job?",
+            marks: [] as string[]
           }
         ]
       }
@@ -99,7 +104,7 @@ export default async function AboutPage() {
                 </h3>
                                  <div className="text-lg leading-relaxed">
                    {data.companyStory && Array.isArray(data.companyStory) ? (
-                     <CustomPortableText value={data.companyStory} />
+                     <CustomPortableText value={data.companyStory as PortableTextBlock[]} />
                    ) : (
                      <p>
                        Mark Ascher has been in this industry since 1989. You can have confidence knowing that he comes from a technical civil engineering background. Brainchild Building Solutions was founded in 2007 and has been a reliable supplier of trusses and building components for residential and commercial projects in the greater Maryland, D.C. and Virginia area. Why not trust an expert for your next job?
@@ -213,7 +218,7 @@ export default async function AboutPage() {
       <div className="py-16 bg-blue-900">
         <div className="container mx-auto max-w-4xl px-4 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-8">
-            Let's work together!
+            Let&apos;s work together!
           </h2>
           <Link
             href="/contact"
