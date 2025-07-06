@@ -24,24 +24,27 @@ export default async function Header() {
     ? navigation.mainNavigation.sort((a: any, b: any) => (a.order || 0) - (b.order || 0))
     : defaultNavigation;
 
+  const businessName = settings?.businessName || settings?.title || "Brainchild Building Solutions";
+
   return (
-    <header className="fixed z-50 h-24 inset-0 bg-white/80 flex items-center backdrop-blur-lg">
+    <header className="fixed z-50 h-24 inset-0 bg-white/95 flex items-center backdrop-blur-lg shadow-sm">
       <div className="container py-6 px-2 sm:px-6">
         <div className="flex items-center justify-between gap-5">
           <Link className="flex items-center gap-3" href="/">
-            {settings?.logo?.asset && (
+            {settings?.logo?.asset ? (
               <Image
                 src={settings.logo.asset._ref}
-                alt={settings.logo.alt || `${settings?.businessName || 'Company'} logo`}
+                alt={settings.logo.alt || `${businessName} logo`}
                 width={120}
                 height={60}
                 className="h-8 sm:h-12 w-auto object-contain"
                 priority
               />
+            ) : (
+              <span className="text-lg sm:text-2xl font-bold text-gray-900">
+                {businessName}
+              </span>
             )}
-            <span className="text-lg sm:text-2xl font-semibold">
-              {settings?.businessName || settings?.title || "Brainchild Building Solutions"}
-            </span>
           </Link>
 
           <nav>
@@ -56,14 +59,14 @@ export default async function Header() {
                       href={item.slug}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="hover:underline transition-colors duration-200"
+                      className="hover:text-red-600 transition-colors duration-200 font-medium"
                     >
                       {item.title}
                     </a>
                   ) : (
                     <Link
                       href={item.slug}
-                      className="hover:underline transition-colors duration-200"
+                      className="hover:text-red-600 transition-colors duration-200 font-medium"
                     >
                       {item.title}
                     </Link>
@@ -73,7 +76,7 @@ export default async function Header() {
 
               <li className="sm:before:w-[1px] sm:before:bg-gray-200 before:block flex sm:gap-4 md:gap-6">
                 <Link
-                  className="rounded-full flex gap-2 items-center bg-blue-600 hover:bg-blue-700 focus:bg-blue-700 py-2 px-4 justify-center sm:py-3 sm:px-6 text-white transition-colors duration-200 text-sm font-medium"
+                  className="rounded-full flex gap-2 items-center bg-red-600 hover:bg-red-700 focus:bg-red-700 py-2 px-4 justify-center sm:py-3 sm:px-6 text-white transition-colors duration-200 text-sm font-medium"
                   href="/contact"
                 >
                   <span className="whitespace-nowrap">Get Quote</span>
