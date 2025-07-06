@@ -1,0 +1,8 @@
+[build]
+  command = "npm --workspace frontend run build"
+  publish = "frontend/.next"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+  [plugins.inputs]
+    disableForms = true

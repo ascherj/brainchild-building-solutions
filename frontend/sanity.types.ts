@@ -415,6 +415,16 @@ export type Settings = {
     _type: "block";
     _key: string;
   }>;
+  navigation?: {
+    mainNavigation?: Array<{
+      title: string;
+      slug: string;
+      isExternal?: boolean;
+      order?: number;
+      _type: "navigationItem";
+      _key: string;
+    }>;
+  };
   ogImage?: {
     asset?: {
       _ref: string;
@@ -842,6 +852,14 @@ export type SettingsQueryResult = {
     _type: "block";
     _key: string;
   }>;
+  navigation: {
+    mainNavigation: Array<{
+      title: string;
+      slug: string;
+      isExternal: boolean | null;
+      order: number | null;
+    }> | null;
+  } | null;
   ogImage?: {
     asset?: {
       _ref: string;
@@ -856,7 +874,6 @@ export type SettingsQueryResult = {
     metadataBase?: string;
     _type: "image";
   };
-  navigation: null;
 } | null;
 // Variable: getPageQuery
 // Query: *[_type == 'page' && slug.current == $slug][0]{    _id,    _type,    name,    slug,    heading,    subheading,    "pageBuilder": pageBuilder[]{      ...,      _type == "callToAction" => {          link {      ...,        _type == "link" => {    "page": page->slug.current,    "post": post->slug.current  }      },      },      _type == "infoSection" => {        content[]{          ...,          markDefs[]{            ...,              _type == "link" => {    "page": page->slug.current,    "post": post->slug.current  }          }        }      },    },  }
