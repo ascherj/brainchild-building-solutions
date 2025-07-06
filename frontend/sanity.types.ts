@@ -253,6 +253,36 @@ export type Product = {
   order?: number;
 };
 
+export type ContactPage = {
+  _id: string;
+  _type: "contactPage";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title: string;
+  subtitle?: string;
+  formTitle?: string;
+  contactInfoTitle?: string;
+  whyChooseUsTitle?: string;
+  benefits?: Array<string>;
+  callToActionText?: string;
+  heroImage?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  seoTitle?: string;
+  seoDescription?: string;
+};
+
 export type AboutPage = {
   _id: string;
   _type: "aboutPage";
@@ -793,7 +823,7 @@ export type SanityAssetSourceData = {
   url?: string;
 };
 
-export type AllSanitySchemaTypes = CallToAction | Link | InfoSection | BlockContent | Service | Project | Testimonial | Product | AboutPage | HomePage | Settings | Page | Post | Person | SanityAssistInstructionTask | SanityAssistTaskStatus | SanityAssistSchemaTypeAnnotations | SanityAssistOutputType | SanityAssistOutputField | SanityAssistInstructionContext | AssistInstructionContext | SanityAssistInstructionUserInput | SanityAssistInstructionPrompt | SanityAssistInstructionFieldRef | SanityAssistInstruction | SanityAssistSchemaTypeField | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
+export type AllSanitySchemaTypes = CallToAction | Link | InfoSection | BlockContent | Service | Project | Testimonial | Product | ContactPage | AboutPage | HomePage | Settings | Page | Post | Person | SanityAssistInstructionTask | SanityAssistTaskStatus | SanityAssistSchemaTypeAnnotations | SanityAssistOutputType | SanityAssistOutputField | SanityAssistInstructionContext | AssistInstructionContext | SanityAssistInstructionUserInput | SanityAssistInstructionPrompt | SanityAssistInstructionFieldRef | SanityAssistInstruction | SanityAssistSchemaTypeField | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./sanity/lib/queries.ts
 // Variable: settingsQuery
@@ -1133,7 +1163,26 @@ export type AboutPageQueryResult = {
 } | null;
 // Variable: contactPageQuery
 // Query: *[_type == "contactPage"][0]{    title,    subtitle,    formTitle,    contactInfoTitle,    whyChooseUsTitle,    benefits,    callToActionText,    heroImage{      asset,      alt    },    seoTitle,    seoDescription  }
-export type ContactPageQueryResult = null;
+export type ContactPageQueryResult = {
+  title: string;
+  subtitle: string | null;
+  formTitle: string | null;
+  contactInfoTitle: string | null;
+  whyChooseUsTitle: string | null;
+  benefits: Array<string> | null;
+  callToActionText: string | null;
+  heroImage: {
+    asset: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    } | null;
+    alt: string | null;
+  } | null;
+  seoTitle: string | null;
+  seoDescription: string | null;
+} | null;
 
 // Query TypeMap
 import "@sanity/client";
