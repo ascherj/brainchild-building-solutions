@@ -22,7 +22,10 @@ const projectId = process.env.SANITY_STUDIO_PROJECT_ID || 'your-projectID'
 const dataset = process.env.SANITY_STUDIO_DATASET || 'production'
 
 // URL for preview functionality, defaults to localhost:3000 if not set
-const SANITY_STUDIO_PREVIEW_URL = process.env.SANITY_STUDIO_PREVIEW_URL || 'http://localhost:3000'
+const SANITY_STUDIO_PREVIEW_URL =
+  process.env.NODE_ENV === 'development'
+    ? 'http://localhost:3000'
+    : process.env.SANITY_STUDIO_PREVIEW_URL
 
 // Define the home location for the presentation tool
 const homeLocation = {
@@ -67,6 +70,26 @@ export default defineConfig({
           {
             route: '/',
             filter: `_type == "settings" && _id == "siteSettings"`,
+          },
+          {
+            route: '/about',
+            filter: `_type == "aboutPage"`,
+          },
+          {
+            route: '/contact',
+            filter: `_type == "contactPage"`,
+          },
+          {
+            route: '/services',
+            filter: `_type == "service"`,
+          },
+          {
+            route: '/projects',
+            filter: `_type == "project"`,
+          },
+          {
+            route: '/products',
+            filter: `_type == "product"`,
           },
           {
             route: '/:slug',
