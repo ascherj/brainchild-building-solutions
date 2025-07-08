@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { settingsQuery } from "@/sanity/lib/queries";
 import { sanityFetch } from "@/sanity/lib/live";
+import MobileMenu from "@/app/components/MobileMenu";
 
 export default async function Header() {
   const { data: settings } = await sanityFetch({
@@ -27,31 +28,30 @@ export default async function Header() {
   const businessName = settings?.businessName || settings?.title || "Brainchild Building Solutions";
 
   return (
-    <header className="fixed z-50 h-24 inset-0 bg-white/95 flex items-center backdrop-blur-lg shadow-sm">
-      <div className="container py-6 px-2 sm:px-6">
-        <div className="flex items-center justify-between gap-5">
-          <Link className="flex items-center gap-3" href="/">
+    <header className="fixed z-50 h-20 md:h-24 inset-x-0 top-0 bg-white/95 backdrop-blur-lg shadow-sm border-b border-gray-100">
+      <div className="container mx-auto px-4 sm:px-6 h-full">
+        <div className="flex items-center justify-between h-full">
+          {/* Logo */}
+          <Link className="flex items-center gap-3 z-60" href="/">
             {settings?.logo?.asset?.url ? (
               <Image
                 src={settings.logo.asset.url}
                 alt={settings.logo.alt || `${businessName} logo`}
                 width={settings.logo.asset.metadata?.dimensions?.width || 240}
                 height={settings.logo.asset.metadata?.dimensions?.height || 120}
-                className="h-12 sm:h-16 w-auto object-contain"
+                className="h-10 sm:h-12 md:h-16 w-auto object-contain"
                 priority
               />
             ) : (
-              <span className="text-lg sm:text-2xl font-bold text-gray-900">
+              <span className="text-xl sm:text-2xl font-bold text-gray-900">
                 {businessName}
               </span>
             )}
           </Link>
 
-          <nav>
-            <ul
-              role="list"
-              className="flex items-center gap-4 md:gap-6 leading-5 text-xs sm:text-base tracking-tight"
-            >
+          {/* Desktop Navigation */}
+          <nav className="hidden lg:block">
+            <ul className="flex items-center gap-8 text-base font-medium">
               {navigationItems.map((item: any, index: number) => (
                 <li key={item.slug || index}>
                   {item.isExternal ? (
@@ -59,24 +59,23 @@ export default async function Header() {
                       href={item.slug}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="hover:text-blue-500 transition-colors duration-200 font-medium"
+                      className="hover:text-blue-600 transition-colors duration-200 py-2"
                     >
                       {item.title}
                     </a>
                   ) : (
-                                      <Link
-                    href={item.slug}
-                    className="hover:text-blue-500 transition-colors duration-200 font-medium"
-                  >
-                    {item.title}
-                  </Link>
+                    <Link
+                      href={item.slug}
+                      className="hover:text-blue-600 transition-colors duration-200 py-2"
+                    >
+                      {item.title}
+                    </Link>
                   )}
                 </li>
               ))}
-
-              <li className="sm:before:w-[1px] sm:before:bg-gray-200 before:block flex sm:gap-4 md:gap-6">
+              <li>
                 <Link
-                  className="rounded-full flex gap-2 items-center bg-blue-500 hover:bg-blue-600 focus:bg-blue-600 py-2 px-4 justify-center sm:py-3 sm:px-6 text-white transition-colors duration-200 text-sm font-medium"
+                  className="rounded-full flex gap-2 items-center bg-blue-600 hover:bg-blue-700 focus:bg-blue-700 py-3 px-6 text-white transition-colors duration-200 font-medium shadow-md hover:shadow-lg"
                   href="/contact"
                 >
                   <span className="whitespace-nowrap">Get Quote</span>
@@ -92,6 +91,9 @@ export default async function Header() {
               </li>
             </ul>
           </nav>
+
+          {/* Mobile Menu Component */}
+          <MobileMenu navigationItems={navigationItems} />
         </div>
       </div>
     </header>
