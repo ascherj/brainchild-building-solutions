@@ -3,7 +3,16 @@ import { defineQuery } from "next-sanity";
 export const settingsQuery = defineQuery(`*[_type == "settings"][0]{
   ...,
   logo{
-    asset,
+    asset->{
+      _id,
+      url,
+      metadata{
+        dimensions{
+          width,
+          height
+        }
+      }
+    },
     alt
   },
   navigation{
@@ -24,9 +33,37 @@ const postFields = /* groq */ `
   "title": coalesce(title, "Untitled"),
   "slug": slug.current,
   excerpt,
-  coverImage,
+  coverImage{
+    asset->{
+      _id,
+      url,
+      metadata{
+        dimensions{
+          width,
+          height
+        }
+      }
+    },
+    alt
+  },
   "date": coalesce(date, _updatedAt),
-  "author": author->{firstName, lastName, picture},
+  "author": author->{
+    firstName,
+    lastName,
+    picture{
+      asset->{
+        _id,
+        url,
+        metadata{
+          dimensions{
+            width,
+            height
+          }
+        }
+      },
+      alt
+    }
+  },
 `;
 
 const linkReference = /* groq */ `
@@ -122,7 +159,16 @@ export const aboutPageQuery = defineQuery(`
       role,
       bio,
       image{
-        asset,
+        asset->{
+          _id,
+          url,
+          metadata{
+            dimensions{
+              width,
+              height
+            }
+          }
+        },
         alt
       }
     },
@@ -142,7 +188,16 @@ export const contactPageQuery = defineQuery(`
     benefits,
     callToActionText,
     heroImage{
-      asset,
+      asset->{
+        _id,
+        url,
+        metadata{
+          dimensions{
+            width,
+            height
+          }
+        }
+      },
       alt
     },
     seoTitle,

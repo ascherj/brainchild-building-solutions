@@ -33,11 +33,11 @@ export default async function Header() {
           <Link className="flex items-center gap-3" href="/">
             {settings?.logo?.asset ? (
               <Image
-                src={settings.logo.asset._ref}
+                src={settings.logo.asset.url}
                 alt={settings.logo.alt || `${businessName} logo`}
-                width={120}
-                height={60}
-                className="h-8 sm:h-12 w-auto object-contain"
+                width={settings.logo.asset.metadata?.dimensions?.width || 240}
+                height={settings.logo.asset.metadata?.dimensions?.height || 120}
+                className="h-12 sm:h-16 w-auto object-contain"
                 priority
               />
             ) : (
