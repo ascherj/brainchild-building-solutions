@@ -31,7 +31,7 @@ export default async function Header() {
       <div className="container py-6 px-2 sm:px-6">
         <div className="flex items-center justify-between gap-5">
           <Link className="flex items-center gap-3" href="/">
-            {settings?.logo?.asset ? (
+            {settings?.logo?.asset?.url ? (
               <Image
                 src={settings.logo.asset.url}
                 alt={settings.logo.alt || `${businessName} logo`}
