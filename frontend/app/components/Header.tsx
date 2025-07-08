@@ -59,24 +59,24 @@ export default async function Header() {
                       href={item.slug}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="hover:text-red-600 transition-colors duration-200 font-medium"
+                      className="hover:text-blue-500 transition-colors duration-200 font-medium"
                     >
                       {item.title}
                     </a>
                   ) : (
-                    <Link
-                      href={item.slug}
-                      className="hover:text-red-600 transition-colors duration-200 font-medium"
-                    >
-                      {item.title}
-                    </Link>
+                                      <Link
+                    href={item.slug}
+                    className="hover:text-blue-500 transition-colors duration-200 font-medium"
+                  >
+                    {item.title}
+                  </Link>
                   )}
                 </li>
               ))}
 
               <li className="sm:before:w-[1px] sm:before:bg-gray-200 before:block flex sm:gap-4 md:gap-6">
                 <Link
-                  className="rounded-full flex gap-2 items-center bg-red-600 hover:bg-red-700 focus:bg-red-700 py-2 px-4 justify-center sm:py-3 sm:px-6 text-white transition-colors duration-200 text-sm font-medium"
+                  className="rounded-full flex gap-2 items-center bg-blue-500 hover:bg-blue-600 focus:bg-blue-600 py-2 px-4 justify-center sm:py-3 sm:px-6 text-white transition-colors duration-200 text-sm font-medium"
                   href="/contact"
                 >
                   <span className="whitespace-nowrap">Get Quote</span>

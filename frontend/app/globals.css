@@ -13,9 +13,11 @@
   --color-framework: #000;
   --color-black: #0b0b0b;
   --color-white: #fff;
-  --color-brand: #f50;
-  --color-blue: #0052ff;
-  --color-yellow: #cdea19;
+  --color-brand: #3266ff;
+  --color-brand-blue: #3266ff;
+  --color-brand-yellow: #fccf00;
+  --color-blue: #3266ff;
+  --color-yellow: #fccf00;
   --color-gray-50: #f6f6f8;
   --color-gray-100: #eeeef1;
   --color-gray-200: #e3e4e8;

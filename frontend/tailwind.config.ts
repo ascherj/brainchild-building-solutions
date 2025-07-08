@@ -15,6 +15,39 @@ export default {
       colors: {
         black: "#0d0e12",
         white: "#fff",
+        // Brand colors - new primary brand colors
+        brand: {
+          blue: "#3266ff",
+          yellow: "#fccf00",
+        },
+        // Primary brand blue palette
+        blue: {
+          50: "#eff3ff",
+          100: "#dbe4ff",
+          200: "#bfcfff",
+          300: "#93aaff",
+          400: "#5c7aff",
+          500: "#3266ff", // Primary brand blue
+          600: "#1d47ff",
+          700: "#1538f0",
+          800: "#1630c7",
+          900: "#1a2f9e",
+          950: "#131d5e",
+        },
+        // Primary brand yellow palette
+        yellow: {
+          50: "#fefce8",
+          100: "#fef9c3",
+          200: "#fef08a",
+          300: "#fde047",
+          400: "#fccf00", // Primary brand yellow
+          500: "#eab308",
+          600: "#ca8a04",
+          700: "#a16207",
+          800: "#854d0e",
+          900: "#713f12",
+          950: "#422006",
+        },
         cyan: {
           50: "#e7fefe",
           100: "#c5fcfc",
@@ -67,19 +100,6 @@ export default {
           900: "#3a2415",
           950: "#251a13",
         },
-        yellow: {
-          50: "#fefae1",
-          100: "#fcf3bb",
-          200: "#f9e994",
-          300: "#f7d455",
-          400: "#f9bc15",
-          500: "#d28a04",
-          600: "#965908",
-          700: "#653a0b",
-          800: "#3b220c",
-          900: "#271a11",
-          950: "#181410",
-        },
         green: {
           50: "#e7f9ed",
           100: "#d0f4dc",
@@ -91,7 +111,7 @@ export default {
           700: "#297343",
           800: "#215233",
           900: "#183122",
-          950: "#14211a",
+          950: "#14221a",
         },
       },
       fontFamily: {

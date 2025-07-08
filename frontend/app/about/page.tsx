@@ -222,7 +222,7 @@ export default async function AboutPage() {
           </h2>
           <Link
             href="/contact"
-            className="inline-block bg-red-600 hover:bg-red-700 text-white font-bold py-4 px-8 rounded-lg text-lg transition-colors duration-200"
+            className="inline-block bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-bold py-4 px-8 rounded-lg text-lg transition-colors duration-200"
           >
             CONTACT US
           </Link>

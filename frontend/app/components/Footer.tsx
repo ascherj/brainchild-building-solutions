@@ -16,7 +16,7 @@ export default function Footer() {
               <div className="flex space-x-4">
                 <a
                   href="tel:+1234567890"
-                  className="text-red-400 hover:text-red-300 transition-colors"
+                  className="text-blue-400 hover:text-blue-300 transition-colors"
                   aria-label="Phone"
                 >
                   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
@@ -25,7 +25,7 @@ export default function Footer() {
                 </a>
                 <a
                   href="mailto:info@brainchildbuilding.com"
-                  className="text-red-400 hover:text-red-300 transition-colors"
+                  className="text-blue-400 hover:text-blue-300 transition-colors"
                   aria-label="Email"
                 >
                   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
@@ -102,7 +102,7 @@ export default function Footer() {
               <div className="pt-4">
                 <Link
                   href="/contact"
-                  className="inline-flex items-center px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg transition-colors duration-200"
+                  className="inline-flex items-center px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg transition-colors duration-200"
                 >
                   Request Quote
                 </Link>
