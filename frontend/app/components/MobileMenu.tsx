@@ -83,9 +83,9 @@ export default function MobileMenu({ navigationItems }: MobileMenuProps) {
           />
 
           {/* Mobile Menu Panel */}
-          <div className="fixed inset-x-0 top-20 md:top-24 bottom-0 bg-white z-50 lg:hidden shadow-2xl">
+          <div className="fixed inset-x-0 top-20 md:top-24 bottom-0 bg-white z-50 lg:hidden shadow-2xl flex flex-col">
             {/* Menu Header */}
-            <div className="bg-gradient-to-r from-blue-900 to-blue-800 px-6 py-4 border-b border-blue-700">
+            <div className="bg-gradient-to-r from-blue-900 to-blue-800 px-6 py-4 border-b border-blue-700 flex-shrink-0">
               <div className="flex items-center justify-between">
                 <h2 className="text-xl font-bold text-white">Navigation</h2>
                 <button
@@ -101,7 +101,7 @@ export default function MobileMenu({ navigationItems }: MobileMenuProps) {
             </div>
 
             {/* Scrollable Content */}
-            <div className="h-full pb-20 bg-gray-50">
+            <div className="flex-1 pb-20 overflow-y-auto bg-gray-50">
               {/* Navigation Items */}
               <div className="bg-white">
                 {safeNavigationItems.map((item: NavigationItem, index: number) => (
