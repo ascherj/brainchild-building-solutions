@@ -25,6 +25,11 @@ export default async function ProjectsPage() {
     query: projectsQuery,
   });
 
+  // Filter out projects that don't have required data (slug, title)
+  const validProjects = projects?.filter((project: any) =>
+    project.slug?.current && project.title
+  ) || [];
+
   return (
     <div className="container mx-auto px-4 py-8 mt-24">
       <div className="max-w-6xl mx-auto">
@@ -38,9 +43,9 @@ export default async function ProjectsPage() {
           </p>
         </div>
 
-        {projects && projects.length > 0 ? (
+        {validProjects.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {projects.map((project: any) => (
+            {validProjects.map((project: any) => (
               <div
                 key={project._id}
                 className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
