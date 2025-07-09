@@ -2,6 +2,14 @@
 
 import { useState } from 'react';
 
+// Extend form attributes to include Netlify-specific props
+declare module 'react' {
+  interface FormHTMLAttributes<T> {
+    netlify?: boolean;
+    'netlify-honeypot'?: string;
+  }
+}
+
 interface FormData {
   firstName: string;
   lastName: string;
@@ -105,14 +113,20 @@ export default function ContactForm() {
     <form
       name="contact"
       method="POST"
-      data-netlify="true"
-      data-netlify-honeypot="bot-field"
+      netlify
+      netlify-honeypot="bot-field"
       onSubmit={handleSubmit}
       className="space-y-6"
     >
       {/* Netlify form fields */}
       <input type="hidden" name="form-name" value="contact" />
-      <input type="hidden" name="bot-field" />
+      
+      {/* Honeypot field for spam protection */}
+      <p className="hidden">
+        <label>
+          Don&apos;t fill this out if you&apos;re human: <input name="bot-field" />
+        </label>
+      </p>
 
       {submitStatus === 'error' && (
         <div className="bg-red-50 border border-red-200 rounded-md p-4">
