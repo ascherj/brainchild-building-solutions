@@ -1,6 +1,7 @@
 import { sanityFetch } from "@/sanity/lib/live";
 import { contactPageQuery, settingsQuery } from "@/sanity/lib/queries";
 import Link from "next/link";
+import ContactForm from "./ContactForm";
 
 export default async function ContactPage() {
   const [{ data: contactPage }, { data: settings }] = await Promise.all([
@@ -27,148 +28,7 @@ export default async function ContactPage() {
               {contactPage?.formTitle || "Request a Quote"}
             </h2>
 
-            <form
-              name="contact"
-              method="POST"
-              data-netlify="true"
-              data-netlify-honeypot="bot-field"
-              className="space-y-6"
-            >
-              {/* Netlify form fields */}
-              <input type="hidden" name="form-name" value="contact" />
-              <input type="hidden" name="bot-field" />
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-1">
-                    First Name *
-                  </label>
-                  <input
-                    type="text"
-                    id="firstName"
-                    name="firstName"
-                    required
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 mb-1">
-                    Last Name *
-                  </label>
-                  <input
-                    type="text"
-                    id="lastName"
-                    name="lastName"
-                    required
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                  Email Address *
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  required
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                />
-              </div>
-
-              <div>
-                <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
-                  Phone Number *
-                </label>
-                <input
-                  type="tel"
-                  id="phone"
-                  name="phone"
-                  required
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                />
-              </div>
-
-              <div>
-                <label htmlFor="company" className="block text-sm font-medium text-gray-700 mb-1">
-                  Company/Organization
-                </label>
-                <input
-                  type="text"
-                  id="company"
-                  name="company"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                />
-              </div>
-
-              <div>
-                <label htmlFor="projectType" className="block text-sm font-medium text-gray-700 mb-1">
-                  Project Type
-                </label>
-                <select
-                  id="projectType"
-                  name="projectType"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                >
-                  <option value="">Select project type</option>
-                  <option value="residential-single">Residential - Single Family</option>
-                  <option value="residential-multi">Residential - Multi-Family</option>
-                  <option value="other">Other</option>
-                </select>
-              </div>
-
-              <div>
-                <label htmlFor="components" className="block text-sm font-medium text-gray-700 mb-1">
-                  Components Needed
-                </label>
-                <textarea
-                  id="components"
-                  name="components"
-                  rows={3}
-                  placeholder="e.g., roof trusses, floor joists, engineered beams..."
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                ></textarea>
-              </div>
-
-              <div>
-                <label htmlFor="timeline" className="block text-sm font-medium text-gray-700 mb-1">
-                  Project Timeline
-                </label>
-                <select
-                  id="timeline"
-                  name="timeline"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                >
-                  <option value="">Select timeline</option>
-                  <option value="immediate">Immediate (within 2 weeks)</option>
-                  <option value="month">Within 1 month</option>
-                  <option value="quarter">Within 3 months</option>
-                  <option value="flexible">Flexible timing</option>
-                </select>
-              </div>
-
-              <div>
-                <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
-                  Additional Details
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  rows={4}
-                  placeholder="Tell us more about your project, specific requirements, or any questions you have..."
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                ></textarea>
-              </div>
-
-              <button
-                type="submit"
-                className="w-full bg-blue-600 text-white py-3 px-4 rounded-md font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-200"
-              >
-                Send Quote Request
-              </button>
-            </form>
+            <ContactForm />
           </div>
 
           {/* Contact Information */}
