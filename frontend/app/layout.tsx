@@ -72,7 +72,7 @@ export default async function RootLayout({
           rel="preload"
           as="image"
           href="/images/roof_trusses.jpeg"
-          fetchpriority="high"
+          fetchPriority="high"
         />
       </head>
       <body>
