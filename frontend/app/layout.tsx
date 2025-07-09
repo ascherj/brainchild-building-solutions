@@ -66,6 +66,15 @@ export default async function RootLayout({
 
   return (
     <html lang="en" className={`${inter.variable} bg-white text-black`}>
+      <head>
+        {/* Preload critical hero image for LCP optimization */}
+        <link
+          rel="preload"
+          as="image"
+          href="/images/roof_trusses.jpeg"
+          fetchpriority="high"
+        />
+      </head>
       <body>
         <section className="min-h-screen pt-20 md:pt-24">
           {/* The <Toaster> component is responsible for rendering toast notifications used in /app/client-utils.ts and /app/components/DraftModeToast.tsx */}

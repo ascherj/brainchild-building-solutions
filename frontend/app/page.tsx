@@ -14,10 +14,20 @@ export default async function Page() {
     <>
       {/* Hero Section */}
       <div className="relative">
-        <div className="relative bg-[url(/images/roof_trusses.jpeg)] bg-cover bg-center bg-no-repeat min-h-[80vh]">
-          <div className="bg-black/60 w-full h-full absolute top-0"></div>
+        <div className="relative min-h-[80vh] overflow-hidden">
+          {/* Hero Background Image - Optimized for LCP */}
+          <Image
+            src="/images/roof_trusses.jpeg"
+            alt="Roof trusses and building components"
+            fill
+            priority
+            className="object-cover"
+            sizes="100vw"
+            quality={85}
+          />
+          <div className="bg-black/60 w-full h-full absolute top-0 z-10"></div>
           <div className="container">
-            <div className="relative min-h-[80vh] mx-auto max-w-4xl pt-20 pb-20 space-y-8 flex flex-col items-center justify-center text-center">
+            <div className="relative min-h-[80vh] mx-auto max-w-4xl pt-20 pb-20 space-y-8 flex flex-col items-center justify-center text-center z-20">
               <div className="text-yellow-400 text-sm sm:text-base font-semibold uppercase tracking-wider mb-4">
                 {settings?.businessName}
               </div>

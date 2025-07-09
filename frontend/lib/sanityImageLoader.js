@@ -11,6 +11,11 @@ export default function sanityImageLoader({ src, width, quality }) {
   if (src.startsWith('http://') || src.startsWith('https://')) {
     return src;
   }
+  
+  // Handle static images from /public directory - pass through as-is
+  if (src.startsWith('/images/') || src.startsWith('/')) {
+    return src;
+  }
 
   // Handle Sanity image references
   // src can be either a reference string or a full image object
