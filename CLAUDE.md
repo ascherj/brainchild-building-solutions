@@ -81,7 +81,7 @@ npm run extract-types
 #### Content Architecture
 **Document Types:**
 - `homePage` - Homepage content (singleton)
-- `aboutPage` - About page content (singleton)  
+- `aboutPage` - About page content (singleton)
 - `contactPage` - Contact page content (singleton)
 - `page` - Flexible pages with page builder
 - `product` - Building components catalog
@@ -168,6 +168,21 @@ npm run extract-types
 - Studio: `npm run build` (includes schema extraction)
 - Deployment: Netlify automatically runs build process
 
+## Git Commit Guidelines
+
+### Commit Message Format
+- **DO NOT include Claude co-author attribution** in commit messages
+- **No "Generated with Claude Code" footer** - keep commits clean and professional
+- **No "Co-Authored-By: Claude" lines** - this is a portfolio project for interviews
+- **Use conventional commit format** (feat:, fix:, docs:, etc.)
+- **Focus on technical achievements** and business impact in commit descriptions
+
+### Rationale
+- This is a professional portfolio project used for job interviews
+- Clean commit history demonstrates individual technical contributions
+- Employers expect to see developer's personal work and decision-making
+- AI assistance is normal in 2025 development but attribution in Git history is unnecessary
+
 ## Important Notes
 
 - **No existing CLAUDE.md found** - this is the initial version
@@ -175,3 +190,8 @@ npm run extract-types
 - **Workspace structure** - always work in correct subdirectory (frontend/ or studio/)
 - **Lead generation priority** - every decision should support contact form conversions
 - **Mobile-first approach** - essential for construction industry target users
+
+## Performance Optimization Guidelines
+
+### Optimization Strategy
+- Update @PERFORMANCE_OPTIMIZATIONS.md on-the-fly whenever performance optimizations are made
