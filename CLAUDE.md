@@ -77,6 +77,7 @@ npm run extract-types
 - TypeScript types auto-generated from Sanity schemas via `sanity typegen`
 - Custom image loader for Sanity assets: `frontend/lib/sanityImageLoader.js`
 - Visual editing enabled in draft mode
+- **Schema Update Workflow**: See `SANITY_SCHEMA_WORKFLOW.md` for complete process when modifying schemas
 
 #### Content Architecture
 **Document Types:**
@@ -154,10 +155,13 @@ npm run extract-types
 
 ## Testing & Quality
 
-### Type Safety
+### Type Safety & Schema Changes
+- **Always follow the Schema Update Workflow** documented in `SANITY_SCHEMA_WORKFLOW.md`
+- **Required sequence**: `extract-types` (studio) → `typegen` (frontend) → type-check
 - Run `npm run typegen` in frontend/ after schema changes
 - TypeScript strict mode enforced
 - Sanity types auto-generated from schemas
+- **Critical**: Update GROQ queries when adding new schema fields
 
 ### Linting
 - Frontend: `npm run lint` (ESLint + Next.js rules)
