@@ -329,7 +329,10 @@ export type AboutPage = {
     _key: string;
   }>;
   certifications?: Array<string>;
-  yearsInBusiness?: number;
+  markStartedYear: number;
+  companyEstablishedYear: number;
+  personalInterests?: Array<string>;
+  whatSetsMarkApart?: Array<string>;
   serviceArea?: string;
 };
 
@@ -1125,7 +1128,7 @@ export type PagesSlugsResult = Array<{
   slug: string;
 }>;
 // Variable: aboutPageQuery
-// Query: *[_type == "aboutPage"][0]{    title,    companyStory,    missionStatement,    teamMembers[]{      name,      role,      bio,      image{        asset->{          _id,          url,          metadata{            dimensions{              width,              height            }          }        },        alt      }    },    certifications,    yearsInBusiness,    serviceArea  }
+// Query: *[_type == "aboutPage"][0]{    title,    companyStory,    missionStatement,    teamMembers[]{      name,      role,      bio,      image{        asset->{          _id,          url,          metadata{            dimensions{              width,              height            }          }        },        alt      }    },    certifications,    markStartedYear,    companyEstablishedYear,    personalInterests,    whatSetsMarkApart,    serviceArea  }
 export type AboutPageQueryResult = {
   title: string;
   companyStory: Array<{
@@ -1166,7 +1169,10 @@ export type AboutPageQueryResult = {
     } | null;
   }> | null;
   certifications: Array<string> | null;
-  yearsInBusiness: number | null;
+  markStartedYear: number;
+  companyEstablishedYear: number;
+  personalInterests: Array<string> | null;
+  whatSetsMarkApart: Array<string> | null;
   serviceArea: string | null;
 } | null;
 // Variable: contactPageQuery
@@ -1208,7 +1214,7 @@ declare module "@sanity/client" {
     "\n  *[_type == \"post\" && slug.current == $slug] [0] {\n    content[]{\n    ...,\n    markDefs[]{\n      ...,\n      \n  _type == \"link\" => {\n    \"page\": page->slug.current,\n    \"post\": post->slug.current\n  }\n\n    }\n  },\n    \n  _id,\n  \"status\": select(_originalId in path(\"drafts.**\") => \"draft\", \"published\"),\n  \"title\": coalesce(title, \"Untitled\"),\n  \"slug\": slug.current,\n  excerpt,\n  coverImage{\n    asset->{\n      _id,\n      url,\n      metadata{\n        dimensions{\n          width,\n          height\n        }\n      }\n    },\n    alt\n  },\n  \"date\": coalesce(date, _updatedAt),\n  \"author\": author->{\n    firstName,\n    lastName,\n    picture{\n      asset->{\n        _id,\n        url,\n        metadata{\n          dimensions{\n            width,\n            height\n          }\n        }\n      },\n      alt\n    }\n  },\n\n  }\n": PostQueryResult;
     "\n  *[_type == \"post\" && defined(slug.current)]\n  {\"slug\": slug.current}\n": PostPagesSlugsResult;
     "\n  *[_type == \"page\" && defined(slug.current)]\n  {\"slug\": slug.current}\n": PagesSlugsResult;
-    "\n  *[_type == \"aboutPage\"][0]{\n    title,\n    companyStory,\n    missionStatement,\n    teamMembers[]{\n      name,\n      role,\n      bio,\n      image{\n        asset->{\n          _id,\n          url,\n          metadata{\n            dimensions{\n              width,\n              height\n            }\n          }\n        },\n        alt\n      }\n    },\n    certifications,\n    yearsInBusiness,\n    serviceArea\n  }\n": AboutPageQueryResult;
+    "\n  *[_type == \"aboutPage\"][0]{\n    title,\n    companyStory,\n    missionStatement,\n    teamMembers[]{\n      name,\n      role,\n      bio,\n      image{\n        asset->{\n          _id,\n          url,\n          metadata{\n            dimensions{\n              width,\n              height\n            }\n          }\n        },\n        alt\n      }\n    },\n    certifications,\n    markStartedYear,\n    companyEstablishedYear,\n    personalInterests,\n    whatSetsMarkApart,\n    serviceArea\n  }\n": AboutPageQueryResult;
     "\n  *[_type == \"contactPage\"][0]{\n    title,\n    subtitle,\n    formTitle,\n    contactInfoTitle,\n    whyChooseUsTitle,\n    benefits,\n    callToActionText,\n    heroImage{\n      asset->{\n        _id,\n        url,\n        metadata{\n          dimensions{\n            width,\n            height\n          }\n        }\n      },\n      alt\n    },\n    seoTitle,\n    seoDescription\n  }\n": ContactPageQueryResult;
   }
 }

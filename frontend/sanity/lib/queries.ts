@@ -173,7 +173,10 @@ export const aboutPageQuery = defineQuery(`
       }
     },
     certifications,
-    yearsInBusiness,
+    markStartedYear,
+    companyEstablishedYear,
+    personalInterests,
+    whatSetsMarkApart,
     serviceArea
   }
 `);
