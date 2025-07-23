@@ -1,37 +1,17 @@
-import { defineQuery } from "next-sanity";
 import { sanityFetch } from "@/sanity/lib/live";
+import { aboutPageQuery } from "@/sanity/lib/queries";
 import CustomPortableText from "@/app/components/PortableText";
 import Link from "next/link";
 import { type PortableTextBlock } from "next-sanity";
-
-const aboutPageQuery = defineQuery(`
-  *[_type == "aboutPage"][0]{
-    title,
-    companyStory,
-    missionStatement,
-    teamMembers[]{
-      name,
-      role,
-      bio,
-      image{
-        asset,
-        alt
-      }
-    },
-    certifications,
-    yearsInBusiness,
-    serviceArea
-  }
-`);
 
 export default async function AboutPage() {
   const { data: aboutData } = await sanityFetch({
     query: aboutPageQuery,
   });
 
-  // Fallback data based on the old website content
+  // Fallback data based on the updated about content
   const fallbackData = {
-    title: "About Us",
+    title: "About",
     companyStory: [
       {
         _type: "block",
@@ -41,7 +21,20 @@ export default async function AboutPage() {
           {
             _type: "span",
             _key: "span-1",
-            text: "Mark Ascher has been in this industry since 1989. You can have confidence knowing that he comes from a technical civil engineering background. Brainchild Building Solutions was founded in 2007 and has been a reliable supplier of trusses and building components for residential and commercial projects in the greater Maryland, D.C. and Virginia area. Why not trust an expert for your next job?",
+            text: "As a civil engineering graduate from Northeastern University (BS '87), my career evolved from a foundational understanding of large-scale infrastructure to a deep specialization in floor and roof truss systems. This unique path has equipped me with a comprehensive perspective on structural design. Mark has been doing this work since 1989 and founded Brainchild in 2007.",
+            marks: [] as string[]
+          }
+        ]
+      },
+      {
+        _type: "block",
+        _key: "company-story-2",
+        style: "normal" as const,
+        children: [
+          {
+            _type: "span",
+            _key: "span-2",
+            text: "I offer dedicated consulting services for high-end custom builders, as well as commercial and multi-family projects, focusing on more than just supplying trusses. My true enjoyment comes from fostering strong relationships with clients, architects, and engineers. I'm here to collaboratively value engineer your designs, helping you find the smartest, most economical structural solutions that perfectly align with your project's aesthetic and performance requirements. Let's build efficiently, without compromise.",
             marks: [] as string[]
           }
         ]
@@ -56,31 +49,50 @@ export default async function AboutPage() {
       }
     ],
     certifications: ["Civil Engineering", "Building Component Specialist"],
-    yearsInBusiness: 17,
+    markStartedYear: 1989,
+    companyEstablishedYear: 2007,
+    personalInterests: [
+      "Summitted Mount Kilimanjaro (even with altitude sickness!)",
+      "Ridden motorcycles off-road in Alaska, Baja, and Nepal",
+      "Snowboarded with family in Switzerland and the Rockies",
+      "Ran the Boston Marathon",
+      "Embracing outdoor adventures that fuel determination"
+    ],
+    whatSetsMarkApart: [
+      "Civil engineering background from Northeastern University",
+      "35+ years of experience since 1989",
+      "Deep specialization in floor and roof truss systems",
+      "Collaborative value engineering approach",
+      "Strong relationships with clients, architects, and engineers"
+    ],
     serviceArea: "Greater Maryland, D.C. and Virginia area"
   };
 
   const data = aboutData || fallbackData;
 
+  const currentYear = new Date().getFullYear();
+  const yearsOfExperience = currentYear - (data.markStartedYear || 1989);
+
   const stats = [
     { number: "350", label: "Satisfied Clients" },
-    { number: "32", label: "Years of Experience" },
+    { number: yearsOfExperience.toString(), label: "Years of Experience" },
     { number: "2,000", label: "Completed Projects" }
   ];
 
-  const personalInterests = [
-    "Riding his motorcycle",
-    "Snowboarding",
-    "Running marathons & triathlons (well...back in the day!)",
-    "Hiking",
-    "Enjoying the presence of his family and friends"
+  const personalInterests = data.personalInterests || [
+    "Summitted Mount Kilimanjaro (even with altitude sickness!)",
+    "Ridden motorcycles off-road in Alaska, Baja, and Nepal",
+    "Snowboarded with family in Switzerland and the Rockies",
+    "Ran the Boston Marathon",
+    "Embracing outdoor adventures that fuel determination"
   ];
 
-  const whatSetsMarkApart = [
-    "His civil engineering background",
-    "His 30 years of experience navigating this industry",
-    "His repeat client rate",
-    "His competitive rates & multiple supply options"
+  const whatSetsMarkApart = data.whatSetsMarkApart || [
+    "Civil engineering background from Northeastern University",
+    "35+ years of experience since 1989",
+    "Deep specialization in floor and roof truss systems",
+    "Collaborative value engineering approach",
+    "Strong relationships with clients, architects, and engineers"
   ];
 
   return (
@@ -163,10 +175,10 @@ export default async function AboutPage() {
           <div className="grid md:grid-cols-2 gap-8 md:gap-12">
             <div className="bg-white rounded-lg shadow-lg p-6 md:p-8">
               <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-6 leading-tight">
-                While Mark is not hard at work he enjoys...
+                Beyond the Office
               </h3>
               <ul className="space-y-3">
-                {personalInterests.map((interest, index) => (
+                {personalInterests.map((interest: string, index: number) => (
                   <li key={index} className="flex items-start">
                     <div className="w-2 h-2 bg-blue-600 rounded-full mt-2 mr-3 flex-shrink-0"></div>
                     <span className="text-sm md:text-base text-gray-700 leading-relaxed">{interest}</span>
