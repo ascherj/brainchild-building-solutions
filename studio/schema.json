@@ -2232,10 +2232,37 @@
         },
         "optional": true
       },
-      "yearsInBusiness": {
+      "markStartedYear": {
         "type": "objectAttribute",
         "value": {
           "type": "number"
+        },
+        "optional": false
+      },
+      "companyEstablishedYear": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "number"
+        },
+        "optional": false
+      },
+      "personalInterests": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "array",
+          "of": {
+            "type": "string"
+          }
+        },
+        "optional": true
+      },
+      "whatSetsMarkApart": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "array",
+          "of": {
+            "type": "string"
+          }
         },
         "optional": true
       },
