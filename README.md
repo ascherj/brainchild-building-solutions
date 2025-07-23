@@ -34,12 +34,13 @@ A lead-generation focused website for Brainchild Building Solutions, a building 
 
 ## 🏗️ Tech Stack
 
-- **Frontend:** Next.js 15 with App Router, TypeScript
-- **Styling:** Tailwind CSS + shadcn/ui components
-- **CMS:** Sanity v3 with TypeScript
-- **Deployment:** Netlify (frontend + forms)
-- **Images:** Next.js Image optimization
+- **Frontend:** Next.js 15 with App Router, React 19, TypeScript
+- **Styling:** Tailwind CSS 4.x + shadcn/ui components
+- **CMS:** Sanity v3 with TypeScript auto-generation
+- **Deployment:** Netlify (frontend + forms) + Sanity Cloud (studio)
+- **Images:** Next.js Image optimization with Sanity image loader
 - **Forms:** Netlify Forms with honeypot spam protection
+- **Architecture:** Monorepo with npm workspaces
 
 ## 📋 Site Structure
 
@@ -57,6 +58,7 @@ A lead-generation focused website for Brainchild Building Solutions, a building 
 - Node.js 18+ and npm
 - Git
 - Sanity account (for CMS)
+- Netlify account (for deployment and forms)
 
 ### Installation
 
@@ -84,7 +86,12 @@ A lead-generation focused website for Brainchild Building Solutions, a building 
 
 4. **Run the development servers**
    ```bash
+   # Start both Next.js and Sanity Studio
    npm run dev
+   
+   # Or start individually:
+   npm run dev:next    # Frontend only
+   npm run dev:studio  # Studio only
    ```
 
    This starts:
@@ -99,26 +106,41 @@ A lead-generation focused website for Brainchild Building Solutions, a building 
    npm run import-sample-data
    ```
 3. **Create your first content** using the Studio interface
+4. **Generate TypeScript types** after schema changes:
+   ```bash
+   cd studio && npm run extract-types
+   cd ../frontend && npm run typegen
+   ```
 
 ## 📁 Project Structure
 
 ```
 brainchild_building_solutions/
-├── frontend/                 # Next.js application
-│   ├── app/                 # App Router pages
-│   │   ├── about/          # About page
-│   │   ├── contact/        # Contact page
-│   │   ├── products/       # Product catalog
-│   │   ├── projects/       # Project gallery
-│   │   └── services/       # Services page
-│   ├── components/         # React components
-│   ├── lib/               # Utilities and API clients
-│   └── sanity/            # Sanity configuration
-├── studio/                # Sanity Studio
+├── frontend/                    # Next.js application
+│   ├── app/                    # App Router pages
+│   │   ├── about/             # About page with dynamic content
+│   │   ├── contact/           # Contact page
+│   │   ├── products/          # Product catalog
+│   │   ├── projects/          # Project gallery
+│   │   ├── services/          # Services page
+│   │   └── components/        # Reusable UI components
+│   ├── lib/                   # Utilities and helpers
+│   ├── sanity/                # Sanity integration
+│   │   ├── lib/              # Client, queries, and API
+│   │   └── schema/           # Type definitions
+│   └── sanity.types.ts       # Auto-generated TypeScript types
+├── studio/                    # Sanity Studio CMS
 │   ├── src/
-│   │   ├── schemaTypes/   # Content schemas
-│   │   └── structure/     # Studio structure
-└── netlify.toml          # Netlify deployment config
+│   │   ├── schemaTypes/      # Content type definitions
+│   │   │   ├── documents/    # Document schemas
+│   │   │   └── objects/      # Object schemas
+│   │   └── structure/        # Studio UI structure
+│   └── schema.json           # Extracted schema for type generation
+├── CLAUDE.md                  # Development guidelines
+├── SANITY_SCHEMA_WORKFLOW.md  # Schema update process
+├── SANITY_TYPESCRIPT_INTEGRATION.md # TypeScript integration guide
+├── PERFORMANCE_OPTIMIZATIONS.md # Performance tracking
+└── netlify.toml              # Netlify deployment config
 ```
 
 ## 🎨 Content Types (Sanity Schemas)
@@ -129,11 +151,20 @@ brainchild_building_solutions/
 - **`service`** - Core services with benefits and descriptions
 - **`testimonial`** - Client testimonials with ratings and author info
 - **`homePage`** - Homepage hero and featured content (singleton)
-- **`aboutPage`** - Company information and team (singleton)
-- **`page`** - Flexible pages for Resources, Contact, etc.
+- **`aboutPage`** - Company information with dynamic years calculation (singleton)
+- **`contactPage`** - Contact page content and form configuration (singleton)
+- **`page`** - Flexible pages with page builder components
+- **`post`** - Blog posts (legacy)
+- **`person`** - Team members and authors
+
+### Object Types
+- **`blockContent`** - Rich text content with custom marks
+- **`callToAction`** - CTA blocks with internal/external links
+- **`infoSection`** - Structured content sections
+- **`link`** - Flexible internal/external link handling
 
 ### Settings
-- **`settings`** - Business info, contact details, social links
+- **`settings`** - Global site settings, navigation, business info (singleton)
 
 ## 🚀 Deployment
 
@@ -141,9 +172,9 @@ brainchild_building_solutions/
 
 1. **Connect your GitHub repository** to Netlify
 2. **Set build settings:**
-   - Build command: `npm run build`
+   - Build command: `npm run build --workspace=frontend`
    - Publish directory: `frontend/out`
-   - Root directory: `frontend`
+   - Base directory: `/` (monorepo root)
 3. **Configure environment variables** in Netlify dashboard
 4. **Enable Netlify Forms** for contact form functionality
 
@@ -151,7 +182,7 @@ brainchild_building_solutions/
 
 ```bash
 cd studio
-npx sanity deploy
+npm run deploy
 ```
 
 ## 📊 Performance Targets
@@ -216,15 +247,55 @@ npx sanity deploy
 
 ## 📚 Resources
 
-- [Next.js Documentation](https://nextjs.org/docs)
-- [Sanity Documentation](https://www.sanity.io/docs)
-- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
+### Framework Documentation
+- [Next.js 15 Documentation](https://nextjs.org/docs)
+- [React 19 Documentation](https://react.dev/)
+- [TypeScript Documentation](https://www.typescriptlang.org/docs/)
+
+### CMS & Content
+- [Sanity v3 Documentation](https://www.sanity.io/docs)
+- [GROQ Query Language](https://www.sanity.io/docs/groq)
+- [Sanity TypeScript Integration](https://www.sanity.io/docs/typescript)
+
+### Styling & UI
+- [Tailwind CSS 4.x Documentation](https://tailwindcss.com/docs)
 - [shadcn/ui Components](https://ui.shadcn.com/)
+- [Radix UI Primitives](https://www.radix-ui.com/primitives)
+
+### Deployment & Forms
+- [Netlify Documentation](https://docs.netlify.com/)
 - [Netlify Forms Documentation](https://docs.netlify.com/forms/setup/)
 
-## 📋 Project Context
+### Project-Specific Guides
+- [SANITY_SCHEMA_WORKFLOW.md](./SANITY_SCHEMA_WORKFLOW.md) - Schema update process
+- [SANITY_TYPESCRIPT_INTEGRATION.md](./SANITY_TYPESCRIPT_INTEGRATION.md) - TypeScript integration
+- [PERFORMANCE_OPTIMIZATIONS.md](./PERFORMANCE_OPTIMIZATIONS.md) - Performance tracking
 
-For complete business context, user personas, and technical requirements, see [PROJECT_CONTEXT.md](PROJECT_CONTEXT.md).
+## 📋 Development Documentation
+
+### Essential Reading
+- **[CLAUDE.md](./CLAUDE.md)** - Complete development guidelines and project overview
+- **[SANITY_SCHEMA_WORKFLOW.md](./SANITY_SCHEMA_WORKFLOW.md)** - Step-by-step schema update process
+- **[SANITY_TYPESCRIPT_INTEGRATION.md](./SANITY_TYPESCRIPT_INTEGRATION.md)** - TypeScript integration deep dive
+- **[PERFORMANCE_OPTIMIZATIONS.md](./PERFORMANCE_OPTIMIZATIONS.md)** - Performance improvements tracker
+
+### Development Commands Reference
+```bash
+# Root level commands
+npm run dev                    # Start both frontend and studio
+npm run dev:next              # Start frontend only
+npm run dev:studio            # Start studio only
+npm run import-sample-data     # Import sample content
+
+# Frontend commands (in /frontend)
+npm run build                  # Production build
+npm run lint                   # ESLint check
+npm run typegen               # Generate TypeScript types
+
+# Studio commands (in /studio)
+npm run extract-types          # Extract schema to JSON
+npm run deploy                 # Deploy studio to Sanity
+```
 
 ---
 
