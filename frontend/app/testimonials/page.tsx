@@ -95,13 +95,13 @@ export default async function TestimonialsPage() {
                 <div key={testimonial._id} className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-8 shadow-lg border-l-4 border-blue-600">
                   <div className="flex items-center mb-6">
                     {testimonial.image?.asset?.url && (
-                      <div className="w-16 h-16 rounded-full overflow-hidden mr-4">
+                      <div className="w-16 h-12 rounded-lg overflow-hidden mr-4 bg-gray-100 flex-shrink-0">
                         <Image
                           src={testimonial.image.asset.url}
                           alt={testimonial.image.alt || testimonial.authorName}
                           width={64}
-                          height={64}
-                          className="object-cover"
+                          height={48}
+                          className="object-contain w-full h-full"
                         />
                       </div>
                     )}
@@ -157,13 +157,13 @@ export default async function TestimonialsPage() {
               <div key={testimonial._id} className="bg-white rounded-lg p-6 shadow-lg hover:shadow-xl transition-shadow duration-300">
                 <div className="flex items-center mb-4">
                   {testimonial.image?.asset?.url && (
-                    <div className="w-12 h-12 rounded-full overflow-hidden mr-3">
+                    <div className="w-12 h-9 rounded-lg overflow-hidden mr-3 bg-gray-100 flex-shrink-0">
                       <Image
                         src={testimonial.image.asset.url}
                         alt={testimonial.image.alt || testimonial.authorName}
                         width={48}
-                        height={48}
-                        className="object-cover"
+                        height={36}
+                        className="object-contain w-full h-full"
                       />
                     </div>
                   )}
