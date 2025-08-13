@@ -3,18 +3,18 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 
-interface NavigationItem {
-  title: string;
-  slug: string;
-  isExternal?: boolean;
-  order?: number;
-}
+// Static navigation items - same as Header component
+const navigationItems = [
+  { title: "Home", slug: "/" },
+  { title: "About", slug: "/about" },
+  { title: "Services", slug: "/services" },
+  { title: "Products", slug: "/products" },
+  { title: "Projects", slug: "/projects" },
+  { title: "Testimonials", slug: "/testimonials" },
+  { title: "Contact", slug: "/contact" },
+];
 
-interface MobileMenuProps {
-  navigationItems: NavigationItem[];
-}
-
-export default function MobileMenu({ navigationItems }: MobileMenuProps) {
+export default function MobileMenu() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   // Close mobile menu when clicking outside or on escape
@@ -39,16 +39,6 @@ export default function MobileMenu({ navigationItems }: MobileMenuProps) {
   }, [isMobileMenuOpen]);
 
   const closeMobileMenu = () => setIsMobileMenuOpen(false);
-
-  // Fallback navigation items if none provided
-  const safeNavigationItems = navigationItems && navigationItems.length > 0 ? navigationItems : [
-    { title: "Home", slug: "/", order: 1 },
-    { title: "About", slug: "/about", order: 2 },
-    { title: "Services", slug: "/services", order: 3 },
-    { title: "Products", slug: "/products", order: 4 },
-    { title: "Projects", slug: "/projects", order: 5 },
-    { title: "Contact", slug: "/contact", order: 6 },
-  ];
 
   return (
     <>
@@ -104,33 +94,18 @@ export default function MobileMenu({ navigationItems }: MobileMenuProps) {
             <div className="flex-1 min-h-[50vh] overflow-y-auto bg-gray-50">
               {/* Navigation Items */}
               <div className="bg-white">
-                {safeNavigationItems.map((item: NavigationItem, index: number) => (
+                {navigationItems.map((item, index) => (
                   <div key={item.slug || index} className="border-b border-gray-100 last:border-b-0">
-                    {item.isExternal ? (
-                      <a
-                        href={item.slug}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center justify-between px-6 py-4 text-gray-900 hover:bg-blue-50 hover:text-blue-700 active:bg-blue-100 transition-all duration-200"
-                        onClick={closeMobileMenu}
-                      >
-                        <span className="text-lg font-medium">{item.title}</span>
-                        <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                        </svg>
-                      </a>
-                    ) : (
-                      <Link
-                        href={item.slug}
-                        className="flex items-center justify-between px-6 py-4 text-gray-900 hover:bg-blue-50 hover:text-blue-700 active:bg-blue-100 transition-all duration-200 block"
-                        onClick={closeMobileMenu}
-                      >
-                        <span className="text-lg font-medium">{item.title}</span>
-                        <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                        </svg>
-                      </Link>
-                    )}
+                    <Link
+                      href={item.slug}
+                      className="flex items-center justify-between px-6 py-4 text-gray-900 hover:bg-blue-50 hover:text-blue-700 active:bg-blue-100 transition-all duration-200 block"
+                      onClick={closeMobileMenu}
+                    >
+                      <span className="text-lg font-medium">{item.title}</span>
+                      <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </Link>
                   </div>
                 ))}
               </div>

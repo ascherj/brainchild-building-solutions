@@ -4,26 +4,21 @@ import { settingsQuery } from "@/sanity/lib/queries";
 import { sanityFetch } from "@/sanity/lib/live";
 import MobileMenu from "@/app/components/MobileMenu";
 
+// Static navigation items
+const navigationItems = [
+  { title: "Home", slug: "/" },
+  { title: "About", slug: "/about" },
+  { title: "Services", slug: "/services" },
+  { title: "Products", slug: "/products" },
+  { title: "Projects", slug: "/projects" },
+  { title: "Testimonials", slug: "/testimonials" },
+  { title: "Contact", slug: "/contact" },
+];
+
 export default async function Header() {
   const { data: settings } = await sanityFetch({
     query: settingsQuery,
   });
-
-  // Default navigation items if not configured in Sanity
-  const defaultNavigation = [
-    { title: "Home", slug: "/", order: 1 },
-    { title: "About", slug: "/about", order: 2 },
-    { title: "Services", slug: "/services", order: 3 },
-    { title: "Products", slug: "/products", order: 4 },
-    { title: "Projects", slug: "/projects", order: 5 },
-    { title: "Contact", slug: "/contact", order: 6 },
-  ];
-
-  // Use navigation from Sanity if available, otherwise use defaults
-  const navigation = settings?.navigation as any;
-  const navigationItems = navigation?.mainNavigation?.length
-    ? navigation.mainNavigation.sort((a: any, b: any) => (a.order || 0) - (b.order || 0))
-    : defaultNavigation;
 
   const businessName = settings?.businessName || settings?.title || "Brainchild Building Solutions";
 
@@ -52,25 +47,14 @@ export default async function Header() {
           {/* Desktop Navigation */}
           <nav className="hidden lg:block">
             <ul className="flex items-center gap-8 text-base font-medium">
-              {navigationItems.map((item: any, index: number) => (
+              {navigationItems.map((item, index) => (
                 <li key={item.slug || index}>
-                  {item.isExternal ? (
-                    <a
-                      href={item.slug}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="hover:text-blue-600 transition-colors duration-200 py-2"
-                    >
-                      {item.title}
-                    </a>
-                  ) : (
-                    <Link
-                      href={item.slug}
-                      className="hover:text-blue-600 transition-colors duration-200 py-2"
-                    >
-                      {item.title}
-                    </Link>
-                  )}
+                  <Link
+                    href={item.slug}
+                    className="hover:text-blue-600 transition-colors duration-200 py-2"
+                  >
+                    {item.title}
+                  </Link>
                 </li>
               ))}
               <li>
@@ -93,7 +77,7 @@ export default async function Header() {
           </nav>
 
           {/* Mobile Menu Component */}
-          <MobileMenu navigationItems={navigationItems} />
+          <MobileMenu />
         </div>
       </div>
     </header>

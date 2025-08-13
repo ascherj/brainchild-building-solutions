@@ -157,67 +157,12 @@ export const settings = defineType({
       ],
     }),
     defineField({
-      name: 'navigation',
-      title: 'Navigation Settings',
-      type: 'object',
-      fields: [
-        defineField({
-          name: 'mainNavigation',
-          title: 'Main Navigation',
-          type: 'array',
-          of: [
-            defineField({
-              name: 'navigationItem',
-              title: 'Navigation Item',
-              type: 'object',
-              fields: [
-                defineField({
-                  name: 'title',
-                  title: 'Menu Title',
-                  type: 'string',
-                  validation: (rule) => rule.required(),
-                }),
-                defineField({
-                  name: 'slug',
-                  title: 'URL Path',
-                  type: 'string',
-                  description: 'URL path (e.g., "/about", "/services", "/contact")',
-                  validation: (rule) => rule.required(),
-                }),
-                defineField({
-                  name: 'isExternal',
-                  title: 'External Link',
-                  type: 'boolean',
-                  initialValue: false,
-                }),
-                defineField({
-                  name: 'order',
-                  title: 'Display Order',
-                  type: 'number',
-                  description: 'Lower numbers appear first',
-                }),
-              ],
-              preview: {
-                select: {
-                  title: 'title',
-                  subtitle: 'slug',
-                },
-              },
-            }),
-          ],
-        }),
-      ],
-    }),
-    defineField({
       name: 'ogImage',
       title: 'Open Graph Image',
       type: 'image',
       description: 'Displayed on social cards and search engine results.',
       options: {
         hotspot: true,
-        aiAssist: {
-          imageDescriptionField: 'alt',
-        },
       },
       fields: [
         defineField({

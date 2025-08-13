@@ -15,14 +15,6 @@ export const settingsQuery = defineQuery(`*[_type == "settings"][0]{
     },
     alt
   },
-  navigation{
-    mainNavigation[]{
-      title,
-      slug,
-      isExternal,
-      order
-    }
-  },
   businessName,
   contactInfo
 }`);
@@ -205,5 +197,30 @@ export const contactPageQuery = defineQuery(`
     },
     seoTitle,
     seoDescription
+  }
+`);
+
+export const testimonialsQuery = defineQuery(`
+  *[_type == "testimonial"] | order(featured desc, date desc, _createdAt desc) {
+    _id,
+    authorName,
+    authorTitle,
+    quote,
+    image{
+      asset->{
+        _id,
+        url,
+        metadata{
+          dimensions{
+            width,
+            height
+          }
+        }
+      },
+      alt
+    },
+    rating,
+    featured,
+    date
   }
 `);
