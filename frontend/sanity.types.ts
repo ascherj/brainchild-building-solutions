@@ -111,6 +111,29 @@ export type BlockContent = Array<{
   _key: string;
 }>;
 
+export type TopBuilder = {
+  _id: string;
+  _type: "topBuilder";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name: string;
+  logo: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  website: string;
+  order?: number;
+};
+
 export type Service = {
   _id: string;
   _type: "service";
@@ -816,7 +839,7 @@ export type SanityAssetSourceData = {
   url?: string;
 };
 
-export type AllSanitySchemaTypes = CallToAction | Link | InfoSection | BlockContent | Service | Project | Testimonial | Product | ContactPage | AboutPage | HomePage | Settings | Page | Post | Person | SanityAssistInstructionTask | SanityAssistTaskStatus | SanityAssistSchemaTypeAnnotations | SanityAssistOutputType | SanityAssistOutputField | SanityAssistInstructionContext | AssistInstructionContext | SanityAssistInstructionUserInput | SanityAssistInstructionPrompt | SanityAssistInstructionFieldRef | SanityAssistInstruction | SanityAssistSchemaTypeField | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
+export type AllSanitySchemaTypes = CallToAction | Link | InfoSection | BlockContent | TopBuilder | Service | Project | Testimonial | Product | ContactPage | AboutPage | HomePage | Settings | Page | Post | Person | SanityAssistInstructionTask | SanityAssistTaskStatus | SanityAssistSchemaTypeAnnotations | SanityAssistOutputType | SanityAssistOutputField | SanityAssistInstructionContext | AssistInstructionContext | SanityAssistInstructionUserInput | SanityAssistInstructionPrompt | SanityAssistInstructionFieldRef | SanityAssistInstruction | SanityAssistSchemaTypeField | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./sanity/lib/queries.ts
 // Variable: settingsQuery
@@ -1207,6 +1230,27 @@ export type TestimonialsQueryResult = Array<{
   featured: boolean | null;
   date: string | null;
 }>;
+// Variable: topBuildersQuery
+// Query: *[_type == "topBuilder"] | order(order asc, name asc) {    _id,    name,    logo{      asset->{        _id,        url,        metadata{          dimensions{            width,            height          }        }      },      alt    },    website,    order  }
+export type TopBuildersQueryResult = Array<{
+  _id: string;
+  name: string;
+  logo: {
+    asset: {
+      _id: string;
+      url: string | null;
+      metadata: {
+        dimensions: {
+          width: number | null;
+          height: number | null;
+        } | null;
+      } | null;
+    } | null;
+    alt: null;
+  };
+  website: string;
+  order: number | null;
+}>;
 
 // Query TypeMap
 import "@sanity/client";
@@ -1223,5 +1267,6 @@ declare module "@sanity/client" {
     "\n  *[_type == \"aboutPage\"][0]{\n    title,\n    companyStory,\n    missionStatement,\n    teamMembers[]{\n      name,\n      role,\n      bio,\n      image{\n        asset->{\n          _id,\n          url,\n          metadata{\n            dimensions{\n              width,\n              height\n            }\n          }\n        },\n        alt\n      }\n    },\n    certifications,\n    markStartedYear,\n    companyEstablishedYear,\n    personalInterests,\n    whatSetsMarkApart,\n    serviceArea\n  }\n": AboutPageQueryResult;
     "\n  *[_type == \"contactPage\"][0]{\n    title,\n    subtitle,\n    formTitle,\n    contactInfoTitle,\n    whyChooseUsTitle,\n    benefits,\n    callToActionText,\n    heroImage{\n      asset->{\n        _id,\n        url,\n        metadata{\n          dimensions{\n            width,\n            height\n          }\n        }\n      },\n      alt\n    },\n    seoTitle,\n    seoDescription\n  }\n": ContactPageQueryResult;
     "\n  *[_type == \"testimonial\"] | order(featured desc, date desc, _createdAt desc) {\n    _id,\n    authorName,\n    authorTitle,\n    quote,\n    image{\n      asset->{\n        _id,\n        url,\n        metadata{\n          dimensions{\n            width,\n            height\n          }\n        }\n      },\n      alt\n    },\n    rating,\n    featured,\n    date\n  }\n": TestimonialsQueryResult;
+    "\n  *[_type == \"topBuilder\"] | order(order asc, name asc) {\n    _id,\n    name,\n    logo{\n      asset->{\n        _id,\n        url,\n        metadata{\n          dimensions{\n            width,\n            height\n          }\n        }\n      },\n      alt\n    },\n    website,\n    order\n  }\n": TopBuildersQueryResult;
   }
 }

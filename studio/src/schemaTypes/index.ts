@@ -8,6 +8,7 @@ import {product} from './documents/product'
 import {project} from './documents/project'
 import {service} from './documents/service'
 import {testimonial} from './documents/testimonial'
+import topBuilder from './documents/topBuilder'
 import {callToAction} from './objects/callToAction'
 import {infoSection} from './objects/infoSection'
 import {settings} from './singletons/settings'
@@ -28,6 +29,7 @@ export const schemaTypes = [
   project,
   service,
   testimonial,
+  topBuilder,
   // Legacy documents (can be removed if not needed)
   post,
   person,

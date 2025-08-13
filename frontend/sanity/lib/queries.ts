@@ -224,3 +224,25 @@ export const testimonialsQuery = defineQuery(`
     date
   }
 `);
+
+export const topBuildersQuery = defineQuery(`
+  *[_type == "topBuilder"] | order(order asc, name asc) {
+    _id,
+    name,
+    logo{
+      asset->{
+        _id,
+        url,
+        metadata{
+          dimensions{
+            width,
+            height
+          }
+        }
+      },
+      alt
+    },
+    website,
+    order
+  }
+`);

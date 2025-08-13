@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { sanityFetch } from "@/sanity/lib/live";
 import { settingsQuery } from "@/sanity/lib/queries";
+import TopBuilders from "./components/TopBuilders";
 
 export default async function Page() {
 
@@ -118,6 +119,9 @@ export default async function Page() {
           </div>
         </div>
       </div>
+
+      {/* Top Builders Section */}
+      <TopBuilders />
 
       {/* CTA Section */}
       <div className="bg-blue-500 text-white py-16">
