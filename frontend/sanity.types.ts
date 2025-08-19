@@ -384,6 +384,36 @@ export type HomePage = {
     text?: string;
     link?: string;
   };
+  trustSection?: {
+    heading?: string;
+    content?: string;
+    callToAction?: {
+      text?: string;
+      link?: string;
+    };
+  };
+  servicesSection?: {
+    heading?: string;
+    subtitle?: string;
+    services?: Array<{
+      title?: string;
+      description?: string;
+      icon?: string;
+      _key: string;
+    }>;
+  };
+  finalCallToAction?: {
+    heading?: string;
+    subtitle?: string;
+    primaryButton?: {
+      text?: string;
+      link?: string;
+    };
+    secondaryButton?: {
+      text?: string;
+      link?: string;
+    };
+  };
   sections?: Array<{
     _key: string;
   } & CallToAction | {
@@ -742,25 +772,25 @@ export type SanityImagePalette = {
 
 export type SanityImageDimensions = {
   _type: "sanity.imageDimensions";
-  height?: number;
-  width?: number;
-  aspectRatio?: number;
+  height: number;
+  width: number;
+  aspectRatio: number;
 };
 
 export type SanityImageHotspot = {
   _type: "sanity.imageHotspot";
-  x?: number;
-  y?: number;
-  height?: number;
-  width?: number;
+  x: number;
+  y: number;
+  height: number;
+  width: number;
 };
 
 export type SanityImageCrop = {
   _type: "sanity.imageCrop";
-  top?: number;
-  bottom?: number;
-  left?: number;
-  right?: number;
+  top: number;
+  bottom: number;
+  left: number;
+  right: number;
 };
 
 export type SanityFileAsset = {
@@ -857,8 +887,8 @@ export type SettingsQueryResult = {
       url: string | null;
       metadata: {
         dimensions: {
-          width: number | null;
-          height: number | null;
+          width: number;
+          height: number;
         } | null;
       } | null;
     } | null;
@@ -994,8 +1024,8 @@ export type AllPostsQueryResult = Array<{
       url: string | null;
       metadata: {
         dimensions: {
-          width: number | null;
-          height: number | null;
+          width: number;
+          height: number;
         } | null;
       } | null;
     } | null;
@@ -1011,8 +1041,8 @@ export type AllPostsQueryResult = Array<{
         url: string | null;
         metadata: {
           dimensions: {
-            width: number | null;
-            height: number | null;
+            width: number;
+            height: number;
           } | null;
         } | null;
       } | null;
@@ -1034,8 +1064,8 @@ export type MorePostsQueryResult = Array<{
       url: string | null;
       metadata: {
         dimensions: {
-          width: number | null;
-          height: number | null;
+          width: number;
+          height: number;
         } | null;
       } | null;
     } | null;
@@ -1051,8 +1081,8 @@ export type MorePostsQueryResult = Array<{
         url: string | null;
         metadata: {
           dimensions: {
-            width: number | null;
-            height: number | null;
+            width: number;
+            height: number;
           } | null;
         } | null;
       } | null;
@@ -1096,8 +1126,8 @@ export type PostQueryResult = {
       url: string | null;
       metadata: {
         dimensions: {
-          width: number | null;
-          height: number | null;
+          width: number;
+          height: number;
         } | null;
       } | null;
     } | null;
@@ -1113,8 +1143,8 @@ export type PostQueryResult = {
         url: string | null;
         metadata: {
           dimensions: {
-            width: number | null;
-            height: number | null;
+            width: number;
+            height: number;
           } | null;
         } | null;
       } | null;
@@ -1165,8 +1195,8 @@ export type AboutPageQueryResult = {
         url: string | null;
         metadata: {
           dimensions: {
-            width: number | null;
-            height: number | null;
+            width: number;
+            height: number;
           } | null;
         } | null;
       } | null;
@@ -1196,8 +1226,8 @@ export type ContactPageQueryResult = {
       url: string | null;
       metadata: {
         dimensions: {
-          width: number | null;
-          height: number | null;
+          width: number;
+          height: number;
         } | null;
       } | null;
     } | null;
@@ -1219,8 +1249,8 @@ export type TestimonialsQueryResult = Array<{
       url: string | null;
       metadata: {
         dimensions: {
-          width: number | null;
-          height: number | null;
+          width: number;
+          height: number;
         } | null;
       } | null;
     } | null;
@@ -1241,8 +1271,8 @@ export type TopBuildersQueryResult = Array<{
       url: string | null;
       metadata: {
         dimensions: {
-          width: number | null;
-          height: number | null;
+          width: number;
+          height: number;
         } | null;
       } | null;
     } | null;
@@ -1251,6 +1281,135 @@ export type TopBuildersQueryResult = Array<{
   website: string;
   order: number | null;
 }>;
+// Variable: homePageQuery
+// Query: *[_type == "homePage"][0]{    heroTitle,    heroSubtitle,    heroImage{      asset->{        _id,        url,        metadata{          dimensions{            width,            height          }        }      },      alt    },    heroCallToAction{      text,      link    },    trustSection{      heading,      content,      callToAction{        text,        link      }    },    servicesSection{      heading,      subtitle,      services[]{        title,        description,        icon      }    },    finalCallToAction{      heading,      subtitle,      primaryButton{        text,        link      },      secondaryButton{        text,        link      }    },    sections[]{      ...,      _type == "callToAction" => {        heading,        text,        buttonText,        link{          ...,            _type == "link" => {    "page": page->slug.current,    "post": post->slug.current  }        }      },      _type == "infoSection" => {        heading,        subheading,        content[]{          ...,          markDefs[]{            ...,              _type == "link" => {    "page": page->slug.current,    "post": post->slug.current  }          }        }      },      _type == "featuredProducts" => {        title,        products[]->{          _id,          title,          slug,          description,          image{            asset->{              _id,              url,              metadata{                dimensions{                  width,                  height                }              }            },            alt          }        }      },      _type == "featuredTestimonials" => {        title,        testimonials[]->{          _id,          authorName,          authorTitle,          quote,          rating,          image{            asset->{              _id,              url,              metadata{                dimensions{                  width,                  height                }              }            },            alt          }        }      }    }  }
+export type HomePageQueryResult = {
+  heroTitle: string;
+  heroSubtitle: string | null;
+  heroImage: {
+    asset: {
+      _id: string;
+      url: string | null;
+      metadata: {
+        dimensions: {
+          width: number;
+          height: number;
+        } | null;
+      } | null;
+    } | null;
+    alt: string | null;
+  } | null;
+  heroCallToAction: {
+    text: string | null;
+    link: string | null;
+  } | null;
+  trustSection: {
+    heading: string | null;
+    content: string | null;
+    callToAction: {
+      text: string | null;
+      link: string | null;
+    } | null;
+  } | null;
+  servicesSection: {
+    heading: string | null;
+    subtitle: string | null;
+    services: Array<{
+      title: string | null;
+      description: string | null;
+      icon: string | null;
+    }> | null;
+  } | null;
+  finalCallToAction: {
+    heading: string | null;
+    subtitle: string | null;
+    primaryButton: {
+      text: string | null;
+      link: string | null;
+    } | null;
+    secondaryButton: {
+      text: string | null;
+      link: string | null;
+    } | null;
+  } | null;
+  sections: Array<{
+    _key: string;
+    _type: "callToAction";
+    heading: string;
+    text: string | null;
+    buttonText: string | null;
+    link: {
+      _type: "link";
+      linkType?: "href" | "page" | "post";
+      href?: string;
+      page: string | null;
+      post: string | null;
+      openInNewTab?: boolean;
+    } | null;
+  } | {
+    title: string | null;
+    products: Array<{
+      _id: string;
+      title: null;
+      slug: Slug;
+      description: string | null;
+      image: null;
+    }> | null;
+    _type: "featuredProducts";
+    _key: string;
+  } | {
+    title: string | null;
+    testimonials: Array<{
+      _id: string;
+      authorName: string;
+      authorTitle: string | null;
+      quote: string;
+      rating: number | null;
+      image: {
+        asset: {
+          _id: string;
+          url: string | null;
+          metadata: {
+            dimensions: {
+              width: number;
+              height: number;
+            } | null;
+          } | null;
+        } | null;
+        alt: string | null;
+      } | null;
+    }> | null;
+    _type: "featuredTestimonials";
+    _key: string;
+  } | {
+    _key: string;
+    _type: "infoSection";
+    heading: string | null;
+    subheading: string | null;
+    content: Array<{
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+      listItem?: "bullet" | "number";
+      markDefs: Array<{
+        linkType?: "href" | "page" | "post";
+        href?: string;
+        page: string | null;
+        post: string | null;
+        openInNewTab?: boolean;
+        _type: "link";
+        _key: string;
+      }> | null;
+      level?: number;
+      _type: "block";
+      _key: string;
+    }> | null;
+  }> | null;
+} | null;
 
 // Query TypeMap
 import "@sanity/client";
@@ -1268,5 +1427,6 @@ declare module "@sanity/client" {
     "\n  *[_type == \"contactPage\"][0]{\n    title,\n    subtitle,\n    formTitle,\n    contactInfoTitle,\n    whyChooseUsTitle,\n    benefits,\n    callToActionText,\n    heroImage{\n      asset->{\n        _id,\n        url,\n        metadata{\n          dimensions{\n            width,\n            height\n          }\n        }\n      },\n      alt\n    },\n    seoTitle,\n    seoDescription\n  }\n": ContactPageQueryResult;
     "\n  *[_type == \"testimonial\"] | order(featured desc, date desc, _createdAt desc) {\n    _id,\n    authorName,\n    authorTitle,\n    quote,\n    image{\n      asset->{\n        _id,\n        url,\n        metadata{\n          dimensions{\n            width,\n            height\n          }\n        }\n      },\n      alt\n    },\n    rating,\n    featured,\n    date\n  }\n": TestimonialsQueryResult;
     "\n  *[_type == \"topBuilder\"] | order(order asc, name asc) {\n    _id,\n    name,\n    logo{\n      asset->{\n        _id,\n        url,\n        metadata{\n          dimensions{\n            width,\n            height\n          }\n        }\n      },\n      alt\n    },\n    website,\n    order\n  }\n": TopBuildersQueryResult;
+    "\n  *[_type == \"homePage\"][0]{\n    heroTitle,\n    heroSubtitle,\n    heroImage{\n      asset->{\n        _id,\n        url,\n        metadata{\n          dimensions{\n            width,\n            height\n          }\n        }\n      },\n      alt\n    },\n    heroCallToAction{\n      text,\n      link\n    },\n    trustSection{\n      heading,\n      content,\n      callToAction{\n        text,\n        link\n      }\n    },\n    servicesSection{\n      heading,\n      subtitle,\n      services[]{\n        title,\n        description,\n        icon\n      }\n    },\n    finalCallToAction{\n      heading,\n      subtitle,\n      primaryButton{\n        text,\n        link\n      },\n      secondaryButton{\n        text,\n        link\n      }\n    },\n    sections[]{\n      ...,\n      _type == \"callToAction\" => {\n        heading,\n        text,\n        buttonText,\n        link{\n          ...,\n          \n  _type == \"link\" => {\n    \"page\": page->slug.current,\n    \"post\": post->slug.current\n  }\n\n        }\n      },\n      _type == \"infoSection\" => {\n        heading,\n        subheading,\n        content[]{\n          ...,\n          markDefs[]{\n            ...,\n            \n  _type == \"link\" => {\n    \"page\": page->slug.current,\n    \"post\": post->slug.current\n  }\n\n          }\n        }\n      },\n      _type == \"featuredProducts\" => {\n        title,\n        products[]->{\n          _id,\n          title,\n          slug,\n          description,\n          image{\n            asset->{\n              _id,\n              url,\n              metadata{\n                dimensions{\n                  width,\n                  height\n                }\n              }\n            },\n            alt\n          }\n        }\n      },\n      _type == \"featuredTestimonials\" => {\n        title,\n        testimonials[]->{\n          _id,\n          authorName,\n          authorTitle,\n          quote,\n          rating,\n          image{\n            asset->{\n              _id,\n              url,\n              metadata{\n                dimensions{\n                  width,\n                  height\n                }\n              }\n            },\n            alt\n          }\n        }\n      }\n    }\n  }\n": HomePageQueryResult;
   }
 }
