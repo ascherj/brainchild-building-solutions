@@ -246,3 +246,124 @@ export const topBuildersQuery = defineQuery(`
     order
   }
 `);
+
+export const homePageQuery = defineQuery(`
+  *[_type == "homePage"][0]{
+    heroTitle,
+    heroSubtitle,
+    heroImage{
+      asset->{
+        _id,
+        url,
+        metadata{
+          dimensions{
+            width,
+            height
+          }
+        }
+      },
+      alt
+    },
+    heroCallToAction{
+      text,
+      link
+    },
+    trustSection{
+      heading,
+      content,
+      callToAction{
+        text,
+        link
+      }
+    },
+    servicesSection{
+      heading,
+      subtitle,
+      services[]{
+        title,
+        description,
+        icon
+      }
+    },
+    finalCallToAction{
+      heading,
+      subtitle,
+      primaryButton{
+        text,
+        link
+      },
+      secondaryButton{
+        text,
+        link
+      }
+    },
+    sections[]{
+      ...,
+      _type == "callToAction" => {
+        heading,
+        text,
+        buttonText,
+        link{
+          ...,
+          ${linkReference}
+        }
+      },
+      _type == "infoSection" => {
+        heading,
+        subheading,
+        content[]{
+          ...,
+          markDefs[]{
+            ...,
+            ${linkReference}
+          }
+        }
+      },
+      _type == "featuredProducts" => {
+        title,
+        products[]->{
+          _id,
+          title,
+          slug,
+          description,
+          image{
+            asset->{
+              _id,
+              url,
+              metadata{
+                dimensions{
+                  width,
+                  height
+                }
+              }
+            },
+            alt
+          }
+        }
+      },
+      _type == "featuredTestimonials" => {
+        title,
+        testimonials[]->{
+          _id,
+          authorName,
+          authorTitle,
+          quote,
+          rating,
+          image{
+            asset->{
+              _id,
+              url,
+              metadata{
+                dimensions{
+                  width,
+                  height
+                }
+              }
+            },
+            alt
+          }
+        }
+      }
+    }
+  }
+`);

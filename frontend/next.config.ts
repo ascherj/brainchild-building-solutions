@@ -6,8 +6,14 @@ const nextConfig: NextConfig = {
     SC_DISABLE_SPEEDY: "false",
   },
   images: {
-    loader: "custom",
-    loaderFile: "./lib/sanityImageLoader.js",
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "cdn.sanity.io",
+        port: "",
+        pathname: "/images/**",
+      },
+    ],
   },
 };
 
