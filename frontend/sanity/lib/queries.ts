@@ -146,6 +146,19 @@ export const aboutPageQuery = defineQuery(`
     title,
     companyStory,
     missionStatement,
+    heroImage{
+      asset->{
+        _id,
+        url,
+        metadata{
+          dimensions{
+            width,
+            height
+          }
+        }
+      },
+      alt
+    },
     teamMembers[]{
       name,
       role,

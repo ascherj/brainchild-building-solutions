@@ -27,6 +27,23 @@ export const aboutPage = defineType({
       description: 'Company mission and values',
     }),
     defineField({
+      name: 'heroImage',
+      title: 'Hero Image',
+      type: 'image',
+      description: 'Image displayed in the left column above the mission statement',
+      options: {
+        hotspot: true,
+      },
+      fields: [
+        defineField({
+          name: 'alt',
+          title: 'Alternative text',
+          type: 'string',
+          description: 'Important for accessibility and SEO',
+        }),
+      ],
+    }),
+    defineField({
       name: 'teamMembers',
       title: 'Team Members',
       type: 'array',

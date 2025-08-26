@@ -2,6 +2,8 @@ import { sanityFetch } from "@/sanity/lib/live";
 import { aboutPageQuery } from "@/sanity/lib/queries";
 import CustomPortableText from "@/app/components/PortableText";
 import Link from "next/link";
+import Image from "next/image";
+import { urlForImage } from "@/sanity/lib/utils";
 import { type PortableTextBlock } from "next-sanity";
 
 export default async function AboutPage() {
@@ -12,6 +14,7 @@ export default async function AboutPage() {
   // Fallback data based on the updated about content
   const fallbackData = {
     title: "About",
+    heroImage: null,
     companyStory: [
       {
         _type: "block",
@@ -21,7 +24,7 @@ export default async function AboutPage() {
           {
             _type: "span",
             _key: "span-1",
-            text: "As a civil engineering graduate from Northeastern University (BS '87), my career evolved from a foundational understanding of large-scale infrastructure to a deep specialization in floor and roof truss systems. This unique path has equipped me with a comprehensive perspective on structural design. Mark has been doing this work since 1989 and founded Brainchild in 2007.",
+            text: "As a civil engineering graduate from Northeastern University (BS '87), Mark's career evolved from a foundational understanding of large-scale infrastructure to a deep specialization in floor and roof truss systems. This unique path has equipped him with a comprehensive perspective on structural design. Mark has been doing this work since 1989 and founded Brainchild in 2007.",
             marks: [] as string[]
           }
         ]
@@ -34,13 +37,13 @@ export default async function AboutPage() {
           {
             _type: "span",
             _key: "span-2",
-            text: "I offer dedicated consulting services for high-end custom builders, as well as commercial and multi-family projects, focusing on more than just supplying trusses. My true enjoyment comes from fostering strong relationships with clients, architects, and engineers. I'm here to collaboratively value engineer your designs, helping you find the smartest, most economical structural solutions that perfectly align with your project's aesthetic and performance requirements. Let's build efficiently, without compromise.",
+            text: "Mark offers dedicated consulting services for high-end custom builders, as well as commercial and multi-family projects, focusing on more than just supplying trusses. His true enjoyment comes from fostering strong relationships with clients, architects, and engineers. He collaboratively value engineers designs, helping clients find the smartest, most economical structural solutions that perfectly align with project aesthetic and performance requirements. Building efficiently, without compromise.",
             marks: [] as string[]
           }
         ]
       }
     ],
-    missionStatement: "Better, more efficient designs, that save you money.",
+    missionStatement: "Building lasting partnerships through 35+ years of civil engineering expertise—collaboratively delivering smart, economical structural solutions for every project.",
     teamMembers: [
       {
         name: "Mark Ascher",
@@ -105,13 +108,21 @@ export default async function AboutPage() {
             </h1>
             <div className="grid md:grid-cols-2 gap-8 md:gap-12 mt-12 md:mt-16 text-left">
               <div>
-                <h2 className="text-xl md:text-2xl lg:text-3xl font-bold mb-6 leading-tight">
-                  {data.missionStatement}
-                </h2>
+                {data.heroImage && (
+                  <div className="mb-6">
+                    <Image
+                      src={urlForImage(data.heroImage)?.url() || ''}
+                      alt={data.heroImage.alt || 'About Brainchild Building Solutions'}
+                      width={500}
+                      height={300}
+                      className="rounded-lg shadow-lg w-full h-auto"
+                    />
+                  </div>
+                )}
               </div>
               <div>
                 <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 md:p-8">
-                  <h3 className="text-lg md:text-xl font-semibold mb-4 text-yellow-400">
+                  <h3 className="text-lg md:text-xl font-semibold mb-4 text-white">
                     Buy from someone you trust.
                   </h3>
                   <div className="text-base md:text-lg leading-relaxed text-white [&>*]:text-white [&_strong]:text-white [&_p]:text-white">
@@ -132,6 +143,13 @@ export default async function AboutPage() {
                   </div>
                 </div>
               </div>
+            </div>
+            
+            {/* Mission Statement - spans full width below both columns */}
+            <div className="mt-12 md:mt-16 text-center">
+              <h2 className="text-xl md:text-2xl lg:text-3xl font-bold leading-tight">
+                {data.missionStatement}
+              </h2>
             </div>
           </div>
         </div>
@@ -167,7 +185,7 @@ export default async function AboutPage() {
         <div className="container mx-auto max-w-6xl px-4">
           <div className="text-center mb-12">
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 leading-tight">
-              Get to know your supplier:
+              Get to Know Your Supplier
             </h2>
           </div>
 
@@ -231,7 +249,7 @@ export default async function AboutPage() {
           </h2>
           <Link
             href="/contact"
-            className="inline-block bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-bold py-3 md:py-4 px-6 md:px-8 rounded-lg text-base md:text-lg transition-colors duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+            className="inline-block bg-white hover:bg-gray-100 text-blue-900 font-bold py-3 md:py-4 px-6 md:px-8 rounded-lg text-base md:text-lg transition-colors duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
           >
             CONTACT US
           </Link>

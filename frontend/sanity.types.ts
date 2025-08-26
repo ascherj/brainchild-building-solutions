@@ -324,6 +324,19 @@ export type AboutPage = {
     _key: string;
   }>;
   missionStatement?: string;
+  heroImage?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
   teamMembers?: Array<{
     name: string;
     role: string;
@@ -1154,7 +1167,7 @@ export type PagesSlugsResult = Array<{
   slug: string;
 }>;
 // Variable: aboutPageQuery
-// Query: *[_type == "aboutPage"][0]{    title,    companyStory,    missionStatement,    teamMembers[]{      name,      role,      bio,      image{        asset->{          _id,          url,          metadata{            dimensions{              width,              height            }          }        },        alt      }    },    certifications,    markStartedYear,    companyEstablishedYear,    personalInterests,    whatSetsMarkApart  }
+// Query: *[_type == "aboutPage"][0]{    title,    companyStory,    missionStatement,    heroImage{      asset->{        _id,        url,        metadata{          dimensions{            width,            height          }        }      },      alt    },    teamMembers[]{      name,      role,      bio,      image{        asset->{          _id,          url,          metadata{            dimensions{              width,              height            }          }        },        alt      }    },    certifications,    markStartedYear,    companyEstablishedYear,    personalInterests,    whatSetsMarkApart  }
 export type AboutPageQueryResult = {
   title: string;
   companyStory: Array<{
@@ -1176,6 +1189,19 @@ export type AboutPageQueryResult = {
     _key: string;
   }> | null;
   missionStatement: string | null;
+  heroImage: {
+    asset: {
+      _id: string;
+      url: string | null;
+      metadata: {
+        dimensions: {
+          width: number;
+          height: number;
+        } | null;
+      } | null;
+    } | null;
+    alt: string | null;
+  } | null;
   teamMembers: Array<{
     name: string;
     role: string;
@@ -1440,7 +1466,7 @@ declare module "@sanity/client" {
     "\n  *[_type == \"post\" && slug.current == $slug] [0] {\n    content[]{\n    ...,\n    markDefs[]{\n      ...,\n      \n  _type == \"link\" => {\n    \"page\": page->slug.current,\n    \"post\": post->slug.current\n  }\n\n    }\n  },\n    \n  _id,\n  \"status\": select(_originalId in path(\"drafts.**\") => \"draft\", \"published\"),\n  \"title\": coalesce(title, \"Untitled\"),\n  \"slug\": slug.current,\n  excerpt,\n  coverImage{\n    asset->{\n      _id,\n      url,\n      metadata{\n        dimensions{\n          width,\n          height\n        }\n      }\n    },\n    alt\n  },\n  \"date\": coalesce(date, _updatedAt),\n  \"author\": author->{\n    firstName,\n    lastName,\n    picture{\n      asset->{\n        _id,\n        url,\n        metadata{\n          dimensions{\n            width,\n            height\n          }\n        }\n      },\n      alt\n    }\n  },\n\n  }\n": PostQueryResult;
     "\n  *[_type == \"post\" && defined(slug.current)]\n  {\"slug\": slug.current}\n": PostPagesSlugsResult;
     "\n  *[_type == \"page\" && defined(slug.current)]\n  {\"slug\": slug.current}\n": PagesSlugsResult;
-    "\n  *[_type == \"aboutPage\"][0]{\n    title,\n    companyStory,\n    missionStatement,\n    teamMembers[]{\n      name,\n      role,\n      bio,\n      image{\n        asset->{\n          _id,\n          url,\n          metadata{\n            dimensions{\n              width,\n              height\n            }\n          }\n        },\n        alt\n      }\n    },\n    certifications,\n    markStartedYear,\n    companyEstablishedYear,\n    personalInterests,\n    whatSetsMarkApart\n  }\n": AboutPageQueryResult;
+    "\n  *[_type == \"aboutPage\"][0]{\n    title,\n    companyStory,\n    missionStatement,\n    heroImage{\n      asset->{\n        _id,\n        url,\n        metadata{\n          dimensions{\n            width,\n            height\n          }\n        }\n      },\n      alt\n    },\n    teamMembers[]{\n      name,\n      role,\n      bio,\n      image{\n        asset->{\n          _id,\n          url,\n          metadata{\n            dimensions{\n              width,\n              height\n            }\n          }\n        },\n        alt\n      }\n    },\n    certifications,\n    markStartedYear,\n    companyEstablishedYear,\n    personalInterests,\n    whatSetsMarkApart\n  }\n": AboutPageQueryResult;
     "\n  *[_type == \"contactPage\"][0]{\n    title,\n    subtitle,\n    formTitle,\n    contactInfoTitle,\n    whyChooseUsTitle,\n    benefits,\n    callToActionText,\n    heroImage{\n      asset->{\n        _id,\n        url,\n        metadata{\n          dimensions{\n            width,\n            height\n          }\n        }\n      },\n      alt\n    },\n    seoTitle,\n    seoDescription\n  }\n": ContactPageQueryResult;
     "\n  *[_type == \"testimonial\"] | order(featured desc, date desc, _createdAt desc) {\n    _id,\n    authorName,\n    authorTitle,\n    quote,\n    image{\n      asset->{\n        _id,\n        url,\n        metadata{\n          dimensions{\n            width,\n            height\n          }\n        }\n      },\n      alt\n    },\n    rating,\n    featured,\n    date\n  }\n": TestimonialsQueryResult;
     "\n  *[_type == \"topBuilder\"] | order(order asc, name asc) {\n    _id,\n    name,\n    logo{\n      asset->{\n        _id,\n        url,\n        metadata{\n          dimensions{\n            width,\n            height\n          }\n        }\n      },\n      alt\n    },\n    website,\n    order\n  }\n": TopBuildersQueryResult;
