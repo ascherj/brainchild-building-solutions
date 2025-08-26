@@ -168,8 +168,7 @@ export const aboutPageQuery = defineQuery(`
     markStartedYear,
     companyEstablishedYear,
     personalInterests,
-    whatSetsMarkApart,
-    serviceArea
+    whatSetsMarkApart
   }
 `);
 

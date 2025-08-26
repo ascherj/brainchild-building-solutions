@@ -2392,13 +2392,6 @@
           }
         },
         "optional": true
-      },
-      "serviceArea": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "string"
-        },
-        "optional": true
       }
     }
   },

@@ -114,12 +114,6 @@ export const aboutPage = defineType({
       of: [{type: 'string'}],
       description: 'Key differentiators and unique qualities',
     }),
-    defineField({
-      name: 'serviceArea',
-      title: 'Service Area',
-      type: 'text',
-      description: 'Geographic areas served',
-    }),
   ],
   preview: {
     prepare() {

@@ -64,8 +64,7 @@ export default async function AboutPage() {
       "Deep specialization in floor and roof truss systems",
       "Collaborative value engineering approach",
       "Strong relationships with clients, architects, and engineers"
-    ],
-    serviceArea: "Greater Maryland, D.C. and Virginia area"
+    ]
   };
 
   const data = aboutData || fallbackData;
@@ -204,36 +203,25 @@ export default async function AboutPage() {
         </div>
       </div>
 
-      {/* Service Area & Certifications */}
-      <div className="py-12 md:py-16 bg-white">
-        <div className="container mx-auto max-w-6xl px-4">
-          <div className="grid md:grid-cols-2 gap-8 md:gap-12">
-            <div className="text-center md:text-left">
-              <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-4 leading-tight">
-                Service Area
+      {/* Certifications */}
+      {data.certifications && data.certifications.length > 0 && (
+        <div className="py-12 md:py-16 bg-white">
+          <div className="container mx-auto max-w-6xl px-4">
+            <div className="text-center">
+              <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-6 leading-tight">
+                Certifications & Credentials
               </h3>
-              <p className="text-base md:text-lg text-gray-600 leading-relaxed">
-                {data.serviceArea}
-              </p>
+              <ul className="space-y-2 max-w-md mx-auto">
+                {data.certifications.map((cert: string, index: number) => (
+                  <li key={index} className="text-base md:text-lg text-gray-600 leading-relaxed">
+                    • {cert}
+                  </li>
+                ))}
+              </ul>
             </div>
-
-            {data.certifications && data.certifications.length > 0 && (
-              <div className="text-center md:text-left">
-                <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-4 leading-tight">
-                  Certifications & Credentials
-                </h3>
-                <ul className="space-y-2">
-                  {data.certifications.map((cert: string, index: number) => (
-                    <li key={index} className="text-base md:text-lg text-gray-600 leading-relaxed">
-                      • {cert}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
           </div>
         </div>
-      </div>
+      )}
 
       {/* Call to Action */}
       <div className="py-12 md:py-16 bg-blue-900">
