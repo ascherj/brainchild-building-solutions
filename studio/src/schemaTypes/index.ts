@@ -5,7 +5,7 @@ import {person} from './documents/person'
 import {page} from './documents/page'
 import {post} from './documents/post'
 import {product} from './documents/product'
-import {project} from './documents/project'
+import {gallery} from './documents/gallery'
 import {service} from './documents/service'
 import {testimonial} from './documents/testimonial'
 import topBuilder from './documents/topBuilder'
@@ -26,7 +26,7 @@ export const schemaTypes = [
   contactPage,
   page,
   product,
-  project,
+  gallery,
   service,
   testimonial,
   topBuilder,

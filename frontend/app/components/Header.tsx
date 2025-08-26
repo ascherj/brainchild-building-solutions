@@ -9,7 +9,7 @@ const navigationItems = [
   { title: "Home", slug: "/" },
   { title: "About", slug: "/about" },
   { title: "Products", slug: "/products" },
-  { title: "Projects", slug: "/projects" },
+  { title: "Gallery", slug: "/gallery" },
   { title: "Testimonials", slug: "/testimonials" },
   { title: "Contact", slug: "/contact" },
 ];

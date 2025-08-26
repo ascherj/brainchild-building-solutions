@@ -134,6 +134,33 @@ export type TopBuilder = {
   order?: number;
 };
 
+export type Testimonial = {
+  _id: string;
+  _type: "testimonial";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  authorName: string;
+  authorTitle?: string;
+  quote: string;
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  rating?: number;
+  featured?: boolean;
+  date?: string;
+};
+
 export type Service = {
   _id: string;
   _type: "service";
@@ -161,20 +188,16 @@ export type Service = {
   order?: number;
 };
 
-export type Project = {
+export type Gallery = {
   _id: string;
-  _type: "project";
+  _type: "gallery";
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
   title: string;
   slug: Slug;
   description?: string;
-  clientName?: string;
-  location?: string;
-  projectType?: "residential-single" | "residential-multi" | "commercial" | "industrial" | "other";
-  componentsSupplied?: Array<string>;
-  images?: Array<{
+  image: {
     asset?: {
       _ref: string;
       _type: "reference";
@@ -184,46 +207,15 @@ export type Project = {
     media?: unknown;
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
-    alt?: string;
+    alt: string;
     caption?: string;
     _type: "image";
-    _key: string;
-  }>;
-  completedDate?: string;
-  featured?: boolean;
-  testimonial?: {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "testimonial";
   };
-};
-
-export type Testimonial = {
-  _id: string;
-  _type: "testimonial";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  authorName: string;
-  authorTitle?: string;
-  quote: string;
-  image?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    alt?: string;
-    _type: "image";
-  };
-  rating?: number;
+  category?: "components" | "construction" | "completed" | "materials" | "equipment" | "team";
+  displayOrder?: number;
   featured?: boolean;
-  date?: string;
+  location?: string;
+  dateTaken?: string;
 };
 
 export type Product = {
@@ -868,7 +860,7 @@ export type SanityAssetSourceData = {
   url?: string;
 };
 
-export type AllSanitySchemaTypes = CallToAction | Link | InfoSection | BlockContent | TopBuilder | Service | Project | Testimonial | Product | ContactPage | AboutPage | HomePage | Settings | Page | Post | Person | SanityAssistInstructionTask | SanityAssistTaskStatus | SanityAssistSchemaTypeAnnotations | SanityAssistOutputType | SanityAssistOutputField | SanityAssistInstructionContext | AssistInstructionContext | SanityAssistInstructionUserInput | SanityAssistInstructionPrompt | SanityAssistInstructionFieldRef | SanityAssistInstruction | SanityAssistSchemaTypeField | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
+export type AllSanitySchemaTypes = CallToAction | Link | InfoSection | BlockContent | TopBuilder | Testimonial | Service | Gallery | Product | ContactPage | AboutPage | HomePage | Settings | Page | Post | Person | SanityAssistInstructionTask | SanityAssistTaskStatus | SanityAssistSchemaTypeAnnotations | SanityAssistOutputType | SanityAssistOutputField | SanityAssistInstructionContext | AssistInstructionContext | SanityAssistInstructionUserInput | SanityAssistInstructionPrompt | SanityAssistInstructionFieldRef | SanityAssistInstruction | SanityAssistSchemaTypeField | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./sanity/lib/queries.ts
 // Variable: settingsQuery
