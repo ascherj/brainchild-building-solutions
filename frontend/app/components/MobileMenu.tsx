@@ -138,8 +138,8 @@ export default function MobileMenu() {
                     </div>
                     <div>
                       <p className="font-medium text-gray-900">Call Us</p>
-                      <a href="tel:+1234567890" className="text-blue-600 hover:text-blue-700 transition-colors duration-200">
-                        (123) 456-7890
+                      <a href="tel:+12408764853" className="text-blue-600 hover:text-blue-700 transition-colors duration-200">
+                        (240) 876-4853
                       </a>
                     </div>
                   </div>

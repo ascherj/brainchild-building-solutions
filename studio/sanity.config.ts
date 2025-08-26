@@ -9,6 +9,7 @@ import {visionTool} from '@sanity/vision'
 import {schemaTypes} from './src/schemaTypes'
 import {structure} from './src/structure'
 import {unsplashImageAsset} from 'sanity-plugin-asset-source-unsplash'
+import {media} from 'sanity-plugin-media'
 import {
   presentationTool,
   defineDocuments,
@@ -80,8 +81,8 @@ export default defineConfig({
             filter: `_type == "contactPage"`,
           },
           {
-            route: '/projects',
-            filter: `_type == "project"`,
+            route: '/gallery',
+            filter: `_type == "gallery"`,
           },
           {
             route: '/products',
@@ -143,6 +144,13 @@ export default defineConfig({
     }),
     // Additional plugins for enhanced functionality
     unsplashImageAsset(),
+    media({
+      creditLine: {
+        enabled: true,
+        excludeSources: ['unsplash'],
+      },
+      maximumUploadSize: 50000000 // 50MB max file size
+    }),
     assist(),
     visionTool(),
   ],
