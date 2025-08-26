@@ -771,25 +771,25 @@ export type SanityImagePalette = {
 
 export type SanityImageDimensions = {
   _type: "sanity.imageDimensions";
-  height: number;
-  width: number;
-  aspectRatio: number;
+  height?: number;
+  width?: number;
+  aspectRatio?: number;
 };
 
 export type SanityImageHotspot = {
   _type: "sanity.imageHotspot";
-  x: number;
-  y: number;
-  height: number;
-  width: number;
+  x?: number;
+  y?: number;
+  height?: number;
+  width?: number;
 };
 
 export type SanityImageCrop = {
   _type: "sanity.imageCrop";
-  top: number;
-  bottom: number;
-  left: number;
-  right: number;
+  top?: number;
+  bottom?: number;
+  left?: number;
+  right?: number;
 };
 
 export type SanityFileAsset = {
@@ -886,8 +886,8 @@ export type SettingsQueryResult = {
       url: string | null;
       metadata: {
         dimensions: {
-          width: number;
-          height: number;
+          width: number | null;
+          height: number | null;
         } | null;
       } | null;
     } | null;
@@ -1023,8 +1023,8 @@ export type AllPostsQueryResult = Array<{
       url: string | null;
       metadata: {
         dimensions: {
-          width: number;
-          height: number;
+          width: number | null;
+          height: number | null;
         } | null;
       } | null;
     } | null;
@@ -1040,8 +1040,8 @@ export type AllPostsQueryResult = Array<{
         url: string | null;
         metadata: {
           dimensions: {
-            width: number;
-            height: number;
+            width: number | null;
+            height: number | null;
           } | null;
         } | null;
       } | null;
@@ -1063,8 +1063,8 @@ export type MorePostsQueryResult = Array<{
       url: string | null;
       metadata: {
         dimensions: {
-          width: number;
-          height: number;
+          width: number | null;
+          height: number | null;
         } | null;
       } | null;
     } | null;
@@ -1080,8 +1080,8 @@ export type MorePostsQueryResult = Array<{
         url: string | null;
         metadata: {
           dimensions: {
-            width: number;
-            height: number;
+            width: number | null;
+            height: number | null;
           } | null;
         } | null;
       } | null;
@@ -1125,8 +1125,8 @@ export type PostQueryResult = {
       url: string | null;
       metadata: {
         dimensions: {
-          width: number;
-          height: number;
+          width: number | null;
+          height: number | null;
         } | null;
       } | null;
     } | null;
@@ -1142,8 +1142,8 @@ export type PostQueryResult = {
         url: string | null;
         metadata: {
           dimensions: {
-            width: number;
-            height: number;
+            width: number | null;
+            height: number | null;
           } | null;
         } | null;
       } | null;
@@ -1194,8 +1194,8 @@ export type AboutPageQueryResult = {
         url: string | null;
         metadata: {
           dimensions: {
-            width: number;
-            height: number;
+            width: number | null;
+            height: number | null;
           } | null;
         } | null;
       } | null;
@@ -1224,8 +1224,8 @@ export type ContactPageQueryResult = {
       url: string | null;
       metadata: {
         dimensions: {
-          width: number;
-          height: number;
+          width: number | null;
+          height: number | null;
         } | null;
       } | null;
     } | null;
@@ -1247,8 +1247,8 @@ export type TestimonialsQueryResult = Array<{
       url: string | null;
       metadata: {
         dimensions: {
-          width: number;
-          height: number;
+          width: number | null;
+          height: number | null;
         } | null;
       } | null;
     } | null;
@@ -1269,8 +1269,8 @@ export type TopBuildersQueryResult = Array<{
       url: string | null;
       metadata: {
         dimensions: {
-          width: number;
-          height: number;
+          width: number | null;
+          height: number | null;
         } | null;
       } | null;
     } | null;
@@ -1317,8 +1317,8 @@ export type HomePageQueryResult = {
       url: string | null;
       metadata: {
         dimensions: {
-          width: number;
-          height: number;
+          width: number | null;
+          height: number | null;
         } | null;
       } | null;
     } | null;
@@ -1396,8 +1396,8 @@ export type HomePageQueryResult = {
           url: string | null;
           metadata: {
             dimensions: {
-              width: number;
-              height: number;
+              width: number | null;
+              height: number | null;
             } | null;
           } | null;
         } | null;
