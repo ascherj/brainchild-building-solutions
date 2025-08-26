@@ -1195,22 +1195,7 @@
           "type": "string"
         }
       },
-      "title": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "string"
-        },
-        "optional": false
-      },
-      "slug": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "inline",
-          "name": "slug"
-        },
-        "optional": false
-      },
-      "description": {
+      "caption": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
@@ -1280,13 +1265,6 @@
               "value": {
                 "type": "string"
               },
-              "optional": false
-            },
-            "caption": {
-              "type": "objectAttribute",
-              "value": {
-                "type": "string"
-              },
               "optional": true
             },
             "_type": {
@@ -1299,67 +1277,6 @@
           }
         },
         "optional": false
-      },
-      "category": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "union",
-          "of": [
-            {
-              "type": "string",
-              "value": "components"
-            },
-            {
-              "type": "string",
-              "value": "construction"
-            },
-            {
-              "type": "string",
-              "value": "completed"
-            },
-            {
-              "type": "string",
-              "value": "materials"
-            },
-            {
-              "type": "string",
-              "value": "equipment"
-            },
-            {
-              "type": "string",
-              "value": "team"
-            }
-          ]
-        },
-        "optional": true
-      },
-      "displayOrder": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "number"
-        },
-        "optional": true
-      },
-      "featured": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "boolean"
-        },
-        "optional": true
-      },
-      "location": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "string"
-        },
-        "optional": true
-      },
-      "dateTaken": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "string"
-        },
-        "optional": true
       }
     }
   },

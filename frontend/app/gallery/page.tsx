@@ -1,25 +1,8 @@
 
-import { defineQuery } from "next-sanity";
 import { sanityFetch } from "@/sanity/lib/live";
+import { galleryQuery } from "@/sanity/lib/queries";
 import Link from "next/link";
 import GalleryClient from "./GalleryClient";
-
-const galleryQuery = defineQuery(`
-  *[_type == "gallery"] | order(featured desc, displayOrder asc, _createdAt desc) {
-    _id,
-    title,
-    description,
-    image{
-      ...,
-      alt,
-      caption
-    },
-    category,
-    featured,
-    location,
-    dateTaken
-  }
-`);
 
 
 export default async function GalleryPage() {

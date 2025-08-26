@@ -273,6 +273,26 @@ export const productsQuery = defineQuery(`
   }
 `);
 
+export const galleryQuery = defineQuery(`
+  *[_type == "gallery"] | order(_createdAt desc) {
+    _id,
+    caption,
+    image{
+      asset->{
+        _id,
+        url,
+        metadata{
+          dimensions{
+            width,
+            height
+          }
+        }
+      },
+      alt
+    }
+  }
+`);
+
 export const homePageQuery = defineQuery(`
   *[_type == "homePage"][0]{
     heroTitle,

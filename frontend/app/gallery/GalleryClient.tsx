@@ -7,17 +7,11 @@ import Link from "next/link";
 
 interface GalleryPhoto {
   _id: string;
-  title: string;
-  description?: string;
+  caption?: string | null;
   image: {
-    alt: string;
-    caption?: string;
+    alt?: string | null;
     [key: string]: any;
   };
-  category?: string;
-  featured: boolean;
-  location?: string;
-  dateTaken?: string;
 }
 
 interface PhotoModalProps {
@@ -115,7 +109,7 @@ function PhotoModal({ photo, isOpen, onClose, onNext, onPrev, currentIndex, tota
           <div className="relative max-w-full max-h-full">
             <Image
               src={urlForImage(photo.image)?.width(1200).height(800).url() || ''}
-              alt={photo.image.alt}
+              alt={photo.image.alt || photo.caption || 'Gallery photo'}
               width={1200}
               height={800}
               className="object-contain max-w-full max-h-[80vh]"
@@ -125,21 +119,15 @@ function PhotoModal({ photo, isOpen, onClose, onNext, onPrev, currentIndex, tota
         </div>
 
         {/* Caption Overlay */}
-        {(photo.image.caption || photo.title || photo.location) && (
+        {photo.caption && (
           <div 
             className="bg-black bg-opacity-75 text-white p-6 max-h-32 overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="max-w-4xl mx-auto">
-              {photo.image.caption && (
-                <p className="text-lg mb-2">{photo.image.caption}</p>
-              )}
               <div className="flex items-center justify-between text-sm text-gray-300">
                 <div>
-                  <span className="font-medium">{photo.title}</span>
-                  {photo.location && (
-                    <span className="ml-2">• {photo.location}</span>
-                  )}
+                  <span className="text-lg">{photo.caption}</span>
                 </div>
                 <div className="text-right">
                   <span>{currentIndex + 1} of {totalPhotos}</span>
@@ -163,11 +151,12 @@ export default function GalleryClient({ photos }: GalleryClientProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
 
-  const categories = ['all', ...Array.from(new Set(photos.map(photo => photo.category).filter(Boolean)))];
 
-  const filteredPhotos = selectedCategory === 'all' 
-    ? photos 
-    : photos.filter(photo => photo.category === selectedCategory);
+  // Simplified: no categories, just show all photos
+  const categories = ['all'];
+
+  // Simplified: just show all photos
+  const filteredPhotos = photos;
 
   const openModal = (photo: GalleryPhoto) => {
     const photoIndex = filteredPhotos.findIndex(p => p._id === photo._id);
@@ -231,48 +220,26 @@ export default function GalleryClient({ photos }: GalleryClientProps) {
       {/* Photo Grid */}
       {filteredPhotos.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-16">
-          {filteredPhotos.map((photo) => (
+          {filteredPhotos.map((photo) => {
+            const imageUrl = urlForImage(photo.image)?.width(300).height(300).url();
+            return (
             <div
               key={photo._id}
-              className={`relative group cursor-pointer overflow-hidden rounded-lg shadow-md hover:shadow-lg transition-all duration-300 ${
-                photo.featured ? 'md:col-span-2 md:row-span-2' : ''
-              }`}
+              className="relative group cursor-pointer overflow-hidden rounded-lg shadow-md hover:shadow-lg transition-all duration-300"
               onClick={() => openModal(photo)}
             >
-              <div className={`relative ${photo.featured ? 'h-64 md:h-full' : 'h-64'}`}>
+              <div className="relative h-64">
                 <Image
-                  src={urlForImage(photo.image)?.width(photo.featured ? 600 : 300).height(photo.featured ? 400 : 300).url() || ''}
-                  alt={photo.image.alt}
+                  src={imageUrl || ''}
+                  alt={photo.image.alt || photo.caption || 'Gallery photo'}
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-300"
                 />
-                
-                {/* Overlay */}
-                <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-end">
-                  <div className="p-4 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                    <h3 className="font-semibold mb-1">{photo.title}</h3>
-                    {photo.image.caption && (
-                      <p className="text-sm opacity-90 line-clamp-2">{photo.image.caption}</p>
-                    )}
-                    {photo.featured && (
-                      <span className="inline-block bg-yellow-500 text-black text-xs font-medium px-2 py-1 rounded mt-2">
-                        Featured
-                      </span>
-                    )}
-                  </div>
-                </div>
 
-                {/* Featured Badge (Top Right) */}
-                {photo.featured && (
-                  <div className="absolute top-2 right-2">
-                    <span className="bg-yellow-500 text-black text-xs font-bold px-2 py-1 rounded">
-                      Featured
-                    </span>
-                  </div>
-                )}
               </div>
             </div>
-          ))}
+            );
+          })}
         </div>
       ) : (
         <div className="text-center py-12 mb-16">
