@@ -29,8 +29,8 @@ export const product = defineType({
       type: 'string',
       options: {
         list: [
-          { title: 'EWP (Engineered Wood Products)', value: 'ewp' },
-          { title: 'Floor and Roof Trusses', value: 'trusses' },
+          { title: 'Floor Systems (EWP)', value: 'floor-systems-ewp' },
+          { title: 'Roof Systems', value: 'roof-systems' },
           { title: 'Wall Panels', value: 'wall-panels' }
         ],
         layout: 'dropdown',
