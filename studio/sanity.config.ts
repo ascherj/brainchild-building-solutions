@@ -80,10 +80,6 @@ export default defineConfig({
             filter: `_type == "contactPage"`,
           },
           {
-            route: '/services',
-            filter: `_type == "service"`,
-          },
-          {
             route: '/projects',
             filter: `_type == "project"`,
           },

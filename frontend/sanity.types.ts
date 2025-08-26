@@ -234,7 +234,7 @@ export type Product = {
   _rev: string;
   name: string;
   slug: Slug;
-  category: "roof-trusses" | "floor-joists" | "engineered-beams" | "lumber" | "hardware" | "other";
+  category: "ewp" | "trusses" | "wall-panels";
   description?: string;
   specsRichText?: Array<{
     children?: Array<{
@@ -1279,6 +1279,33 @@ export type TopBuildersQueryResult = Array<{
   website: string;
   order: number | null;
 }>;
+// Variable: productsQuery
+// Query: *[_type == "product"] | order(category asc, order asc, name asc) {    _id,    name,    slug,    category,    description,    "image": galleryImages[0],    featured,    leadTime,    applications[]  }
+export type ProductsQueryResult = Array<{
+  _id: string;
+  name: string;
+  slug: Slug;
+  category: "ewp" | "trusses" | "wall-panels";
+  description: string | null;
+  image: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    caption?: string;
+    _type: "image";
+    _key: string;
+  } | null;
+  featured: boolean | null;
+  leadTime: string | null;
+  applications: Array<string> | null;
+}>;
 // Variable: homePageQuery
 // Query: *[_type == "homePage"][0]{    heroTitle,    heroSubtitle,    heroImage{      asset->{        _id,        url,        metadata{          dimensions{            width,            height          }        }      },      alt    },    heroCallToAction{      text,      link    },    trustSection{      heading,      content,      callToAction{        text,        link      }    },    servicesSection{      heading,      subtitle,      services[]{        title,        description,        icon      }    },    finalCallToAction{      heading,      subtitle,      primaryButton{        text,        link      },      secondaryButton{        text,        link      }    },    sections[]{      ...,      _type == "callToAction" => {        heading,        text,        buttonText,        link{          ...,            _type == "link" => {    "page": page->slug.current,    "post": post->slug.current  }        }      },      _type == "infoSection" => {        heading,        subheading,        content[]{          ...,          markDefs[]{            ...,              _type == "link" => {    "page": page->slug.current,    "post": post->slug.current  }          }        }      },      _type == "featuredProducts" => {        title,        products[]->{          _id,          title,          slug,          description,          image{            asset->{              _id,              url,              metadata{                dimensions{                  width,                  height                }              }            },            alt          }        }      },      _type == "featuredTestimonials" => {        title,        testimonials[]->{          _id,          authorName,          authorTitle,          quote,          rating,          image{            asset->{              _id,              url,              metadata{                dimensions{                  width,                  height                }              }            },            alt          }        }      }    }  }
 export type HomePageQueryResult = {
@@ -1425,6 +1452,7 @@ declare module "@sanity/client" {
     "\n  *[_type == \"contactPage\"][0]{\n    title,\n    subtitle,\n    formTitle,\n    contactInfoTitle,\n    whyChooseUsTitle,\n    benefits,\n    callToActionText,\n    heroImage{\n      asset->{\n        _id,\n        url,\n        metadata{\n          dimensions{\n            width,\n            height\n          }\n        }\n      },\n      alt\n    },\n    seoTitle,\n    seoDescription\n  }\n": ContactPageQueryResult;
     "\n  *[_type == \"testimonial\"] | order(featured desc, date desc, _createdAt desc) {\n    _id,\n    authorName,\n    authorTitle,\n    quote,\n    image{\n      asset->{\n        _id,\n        url,\n        metadata{\n          dimensions{\n            width,\n            height\n          }\n        }\n      },\n      alt\n    },\n    rating,\n    featured,\n    date\n  }\n": TestimonialsQueryResult;
     "\n  *[_type == \"topBuilder\"] | order(order asc, name asc) {\n    _id,\n    name,\n    logo{\n      asset->{\n        _id,\n        url,\n        metadata{\n          dimensions{\n            width,\n            height\n          }\n        }\n      },\n      alt\n    },\n    website,\n    order\n  }\n": TopBuildersQueryResult;
+    "\n  *[_type == \"product\"] | order(category asc, order asc, name asc) {\n    _id,\n    name,\n    slug,\n    category,\n    description,\n    \"image\": galleryImages[0],\n    featured,\n    leadTime,\n    applications[]\n  }\n": ProductsQueryResult;
     "\n  *[_type == \"homePage\"][0]{\n    heroTitle,\n    heroSubtitle,\n    heroImage{\n      asset->{\n        _id,\n        url,\n        metadata{\n          dimensions{\n            width,\n            height\n          }\n        }\n      },\n      alt\n    },\n    heroCallToAction{\n      text,\n      link\n    },\n    trustSection{\n      heading,\n      content,\n      callToAction{\n        text,\n        link\n      }\n    },\n    servicesSection{\n      heading,\n      subtitle,\n      services[]{\n        title,\n        description,\n        icon\n      }\n    },\n    finalCallToAction{\n      heading,\n      subtitle,\n      primaryButton{\n        text,\n        link\n      },\n      secondaryButton{\n        text,\n        link\n      }\n    },\n    sections[]{\n      ...,\n      _type == \"callToAction\" => {\n        heading,\n        text,\n        buttonText,\n        link{\n          ...,\n          \n  _type == \"link\" => {\n    \"page\": page->slug.current,\n    \"post\": post->slug.current\n  }\n\n        }\n      },\n      _type == \"infoSection\" => {\n        heading,\n        subheading,\n        content[]{\n          ...,\n          markDefs[]{\n            ...,\n            \n  _type == \"link\" => {\n    \"page\": page->slug.current,\n    \"post\": post->slug.current\n  }\n\n          }\n        }\n      },\n      _type == \"featuredProducts\" => {\n        title,\n        products[]->{\n          _id,\n          title,\n          slug,\n          description,\n          image{\n            asset->{\n              _id,\n              url,\n              metadata{\n                dimensions{\n                  width,\n                  height\n                }\n              }\n            },\n            alt\n          }\n        }\n      },\n      _type == \"featuredTestimonials\" => {\n        title,\n        testimonials[]->{\n          _id,\n          authorName,\n          authorTitle,\n          quote,\n          rating,\n          image{\n            asset->{\n              _id,\n              url,\n              metadata{\n                dimensions{\n                  width,\n                  height\n                }\n              }\n            },\n            alt\n          }\n        }\n      }\n    }\n  }\n": HomePageQueryResult;
   }
 }

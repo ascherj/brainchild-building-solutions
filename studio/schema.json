@@ -1470,27 +1470,15 @@
           "of": [
             {
               "type": "string",
-              "value": "roof-trusses"
+              "value": "ewp"
             },
             {
               "type": "string",
-              "value": "floor-joists"
+              "value": "trusses"
             },
             {
               "type": "string",
-              "value": "engineered-beams"
-            },
-            {
-              "type": "string",
-              "value": "lumber"
-            },
-            {
-              "type": "string",
-              "value": "hardware"
-            },
-            {
-              "type": "string",
-              "value": "other"
+              "value": "wall-panels"
             }
           ]
         },

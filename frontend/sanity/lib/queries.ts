@@ -246,6 +246,20 @@ export const topBuildersQuery = defineQuery(`
   }
 `);
 
+export const productsQuery = defineQuery(`
+  *[_type == "product"] | order(category asc, order asc, name asc) {
+    _id,
+    name,
+    slug,
+    category,
+    description,
+    "image": galleryImages[0],
+    featured,
+    leadTime,
+    applications[]
+  }
+`);
+
 export const homePageQuery = defineQuery(`
   *[_type == "homePage"][0]{
     heroTitle,

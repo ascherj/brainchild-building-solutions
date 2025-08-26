@@ -25,20 +25,18 @@ export const product = defineType({
     }),
     defineField({
       name: 'category',
-      title: 'Category',
+      title: 'Product Category',
       type: 'string',
       options: {
         list: [
-          {title: 'Roof Trusses', value: 'roof-trusses'},
-          {title: 'Floor Joists', value: 'floor-joists'},
-          {title: 'Engineered Beams', value: 'engineered-beams'},
-          {title: 'Lumber', value: 'lumber'},
-          {title: 'Hardware', value: 'hardware'},
-          {title: 'Other', value: 'other'},
+          { title: 'EWP (Engineered Wood Products)', value: 'ewp' },
+          { title: 'Floor and Roof Trusses', value: 'trusses' },
+          { title: 'Wall Panels', value: 'wall-panels' }
         ],
         layout: 'dropdown',
       },
-      validation: (Rule) => Rule.required(),
+      validation: Rule => Rule.required(),
+      description: 'Select the main category for this product',
     }),
     defineField({
       name: 'description',
