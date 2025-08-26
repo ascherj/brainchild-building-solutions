@@ -15,6 +15,11 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  // Optimize development experience
+  onDemandEntries: {
+    maxInactiveAge: 25 * 1000, // Keep pages in memory longer
+    pagesBufferLength: 2,
+  },
 };
 
 export default nextConfig;
