@@ -51,12 +51,12 @@ export default function Footer() {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/services" className="hover:text-white transition-colors">
+                  <Link href="/products" className="hover:text-white transition-colors">
                     Jobsite Delivery
                   </Link>
                 </li>
                 <li>
-                  <Link href="/services" className="hover:text-white transition-colors">
+                  <Link href="/products" className="hover:text-white transition-colors">
                     Engineering Support
                   </Link>
                 </li>
@@ -94,10 +94,12 @@ export default function Footer() {
             <div className="space-y-4">
               <h3 className="text-xl font-bold">Service Areas</h3>
               <ul className="space-y-2 text-gray-300">
+                <li>DC</li>
                 <li>Maryland</li>
-                <li>Washington D.C.</li>
-                <li>Northern Virginia</li>
-                <li>Greater Metro Area</li>
+                <li>Virginia</li>
+                <li>West Virginia</li>
+                <li>Delaware</li>
+                <li>Pennsylvania</li>
               </ul>
               <div className="pt-4">
                 <Link

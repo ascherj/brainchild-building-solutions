@@ -8,7 +8,6 @@ import MobileMenu from "@/app/components/MobileMenu";
 const navigationItems = [
   { title: "Home", slug: "/" },
   { title: "About", slug: "/about" },
-  { title: "Services", slug: "/services" },
   { title: "Products", slug: "/products" },
   { title: "Projects", slug: "/projects" },
   { title: "Testimonials", slug: "/testimonials" },
