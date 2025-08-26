@@ -23,7 +23,7 @@ export default async function TopBuilders() {
           </p>
         </div>
         
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-8 items-center justify-items-center">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 items-center justify-items-center max-w-6xl mx-auto">
           {builders.map((builder) => (
             <Link
               key={builder._id}
@@ -33,13 +33,13 @@ export default async function TopBuilders() {
               className="group p-4 transition-all duration-300 hover:scale-105 hover:shadow-lg rounded-lg bg-white border border-gray-200"
             >
               {builder.logo?.asset?.url && (
-                <div className="relative w-24 h-16 md:w-32 md:h-20 lg:w-36 lg:h-24">
+                <div className="relative w-20 h-14 sm:w-24 sm:h-16 md:w-28 md:h-20 lg:w-32 lg:h-22">
                   <Image
                     src={builder.logo.asset.url}
                     alt={builder.logo.alt || `${builder.name} logo`}
                     fill
                     className="object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300"
-                    sizes="(max-width: 768px) 96px, (max-width: 1024px) 128px, 144px"
+                    sizes="(max-width: 640px) 80px, (max-width: 768px) 96px, (max-width: 1024px) 112px, 128px"
                   />
                 </div>
               )}
