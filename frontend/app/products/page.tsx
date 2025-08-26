@@ -6,20 +6,17 @@ import { urlForImage } from "@/sanity/lib/utils";
 
 // Category configuration
 const categories = {
-  ewp: {
-    title: "EWP (Engineered Wood Products)",
-    description: "I-joists, LVL, Glulam columns, Trim joists",
-    icon: "🏗️"
+  "floor-systems-ewp": {
+    title: "Floor Systems (EWP)",
+    description: "I-joists, LVL, Glulam columns, TrimJoist®, Open web floor trusses"
   },
-  trusses: {
-    title: "Floor and Roof Trusses",
-    description: "Open web floor trusses, Roof trusses",
-    icon: "🏠"
+  "roof-systems": {
+    title: "Roof Systems",
+    description: "Roof trusses"
   },
   "wall-panels": {
     title: "Wall Panels",
-    description: "Prefabricated wall panels",
-    icon: "🧱"
+    description: "Prefabricated wall panels"
   }
 };
 
@@ -55,17 +52,14 @@ export default async function ProductsPage() {
         <div className="space-y-16">
           {Object.entries(categories).map(([categoryKey, categoryInfo]) => {
             const categoryProducts = groupedProducts[categoryKey] || [];
-            
+
             return (
               <div key={categoryKey} className="space-y-8">
                 {/* Category Header */}
                 <div className="text-center">
-                  <div className="flex items-center justify-center mb-4">
-                    <span className="text-4xl mr-3">{categoryInfo.icon}</span>
-                    <h2 className="text-3xl font-bold text-gray-900">
-                      {categoryInfo.title}
-                    </h2>
-                  </div>
+                  <h2 className="text-3xl font-bold text-gray-900 mb-4">
+                    {categoryInfo.title}
+                  </h2>
                   <p className="text-lg text-gray-600">
                     {categoryInfo.description}
                   </p>
