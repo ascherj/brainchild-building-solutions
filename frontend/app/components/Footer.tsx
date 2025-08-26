@@ -15,7 +15,7 @@ export default function Footer() {
               </p>
               <div className="flex space-x-4">
                 <a
-                  href="tel:+1234567890"
+                  href="tel:+12408764853"
                   className="text-blue-400 hover:text-blue-300 transition-colors"
                   aria-label="Phone"
                 >
@@ -24,7 +24,7 @@ export default function Footer() {
                   </svg>
                 </a>
                 <a
-                  href="mailto:info@brainchildbuilding.com"
+                  href="mailto:mark@brainchildbuildingsolutions.com"
                   className="text-blue-400 hover:text-blue-300 transition-colors"
                   aria-label="Email"
                 >
