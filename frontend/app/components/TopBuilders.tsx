@@ -30,10 +30,10 @@ export default async function TopBuilders() {
               href={builder.website || '#'}
               target="_blank"
               rel="noopener noreferrer"
-              className="group p-4 transition-all duration-300 hover:scale-105 hover:shadow-lg rounded-lg bg-white border border-gray-200"
+              className="group p-4 transition-all duration-300 hover:scale-105 hover:shadow-lg rounded-lg bg-white border border-gray-200 flex flex-col items-center justify-center w-full"
             >
               {builder.logo?.asset?.url && (
-                <div className="relative w-20 h-14 sm:w-24 sm:h-16 md:w-28 md:h-20 lg:w-32 lg:h-22">
+                <div className="relative w-20 h-14 sm:w-24 sm:h-16 md:w-28 md:h-20 lg:w-32 lg:h-22 mx-auto">
                   <Image
                     src={builder.logo.asset.url}
                     alt={builder.logo.alt || `${builder.name} logo`}
