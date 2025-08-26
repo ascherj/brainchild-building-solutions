@@ -2,15 +2,12 @@ import { Suspense } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { sanityFetch } from "@/sanity/lib/live";
-import { settingsQuery, homePageQuery } from "@/sanity/lib/queries";
+import { homePageQuery } from "@/sanity/lib/queries";
 import { urlForImage } from "@/sanity/lib/utils";
 import TopBuilders from "./components/TopBuilders";
 
 export default async function Page() {
 
-  const { data: settings } = await sanityFetch({
-    query: settingsQuery,
-  });
 
   const { data: homePage } = await sanityFetch({
     query: homePageQuery,
@@ -37,9 +34,6 @@ export default async function Page() {
           <div className="bg-black/60 w-full h-full absolute top-0 z-10"></div>
           <div className="container">
             <div className="relative min-h-[80vh] mx-auto max-w-4xl pt-20 pb-20 space-y-8 flex flex-col items-center justify-center text-center z-20">
-              <div className="text-yellow-400 text-sm sm:text-base font-semibold uppercase tracking-wider mb-4">
-                {settings?.businessName}
-              </div>
               <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-tight">
                 {homePage?.heroTitle || "Hassle-free roof trusses and building components delivered to your job site."}
               </h1>
@@ -106,7 +100,7 @@ export default async function Page() {
                   <div className="flex flex-col sm:flex-row gap-4 justify-center">
                     <Link
                       href={section.link?.page ? `/${section.link.page}` : section.link?.post ? `/posts/${section.link.post}` : section.link?.href || '/'}
-                      className="inline-flex items-center px-8 py-4 bg-yellow-400 text-gray-900 hover:bg-yellow-500 text-lg font-semibold rounded-lg transition-colors duration-200"
+                      className="inline-flex items-center px-8 py-4 bg-white text-blue-600 hover:bg-gray-100 text-lg font-semibold rounded-lg transition-colors duration-200"
                     >
                       {section.buttonText || 'Learn More'}
                     </Link>
@@ -134,7 +128,7 @@ export default async function Page() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href={homePage?.finalCallToAction?.primaryButton?.link || "/contact"}
-                className="inline-flex items-center px-8 py-4 bg-yellow-400 text-gray-900 hover:bg-yellow-500 text-lg font-semibold rounded-lg transition-colors duration-200"
+                className="inline-flex items-center px-8 py-4 bg-white text-blue-600 hover:bg-gray-100 text-lg font-semibold rounded-lg transition-colors duration-200"
               >
                 {homePage?.finalCallToAction?.primaryButton?.text || "REQUEST QUOTE"}
               </Link>
