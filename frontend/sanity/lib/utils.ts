@@ -11,11 +11,11 @@ const imageBuilder = createImageUrlBuilder({
 
 export const urlForImage = (source: any) => {
   // Ensure that source image contains a valid reference
-  if (!source?.asset?._ref) {
+  if (!source?.asset?._ref && !source?.asset?._id) {
     return undefined;
   }
 
-  const imageRef = source?.asset?._ref;
+  const imageRef = source?.asset?._ref || source?.asset?._id;
   const crop = source.crop;
 
   // get the image's og dimensions

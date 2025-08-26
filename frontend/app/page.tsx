@@ -13,7 +13,6 @@ export default async function Page() {
     query: homePageQuery,
   });
 
-  console.log('homePage', homePage);
 
   return (
     <>
@@ -29,7 +28,6 @@ export default async function Page() {
             className="object-cover"
             sizes="100vw"
             quality={85}
-            unoptimized={!homePage?.heroImage}
           />
           <div className="bg-black/60 w-full h-full absolute top-0 z-10"></div>
           <div className="container">
