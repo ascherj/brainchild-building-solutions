@@ -1,0 +1,32 @@
+<html>
+  <body>
+    <form name="contact" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
+      <input type="hidden" name="form-name" value="contact" />
+      <input type="hidden" name="subject" value="Quote Request - %{formName} (%{submissionId})" />
+      
+      <!-- Honeypot field for spam protection -->
+      <input name="bot-field" type="text" />
+      
+      <!-- Form fields matching ContactForm.tsx -->
+      <input name="firstName" type="text" />
+      <input name="lastName" type="text" />
+      <input name="email" type="email" />
+      <input name="phone" type="tel" />
+      <input name="company" type="text" />
+      <select name="projectType">
+        <option value="residential-single">Residential - Single Family</option>
+        <option value="residential-multi">Residential - Multi-Family</option>
+        <option value="commercial">Commercial</option>
+        <option value="other">Other</option>
+      </select>
+      <textarea name="components"></textarea>
+      <select name="timeline">
+        <option value="immediate">Immediate (within 2 weeks)</option>
+        <option value="month">Within 1 month</option>
+        <option value="quarter">Within 3 months</option>
+        <option value="flexible">Flexible timing</option>
+      </select>
+      <textarea name="message"></textarea>
+    </form>
+  </body>
+</html>
