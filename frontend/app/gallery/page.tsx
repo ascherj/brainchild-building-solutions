@@ -11,9 +11,9 @@ export default async function GalleryPage() {
   });
 
   return (
-    <div className="container mx-auto px-4 py-8 mt-24">
-      <div className="max-w-7xl mx-auto">
-        {/* Header */}
+    <div className="w-full min-h-screen mt-24">
+      {/* Header - contained for readability */}
+      <div className="container mx-auto px-4 py-8">
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">
             Photo Gallery
@@ -23,12 +23,14 @@ export default async function GalleryPage() {
             See the quality materials and craftsmanship that define Brainchild Building Solutions.
           </p>
         </div>
+      </div>
 
-        {/* Gallery Client Component */}
-        <GalleryClient photos={photos || []} />
+      {/* Gallery Client Component - full width */}
+      <GalleryClient photos={photos || []} />
 
-        {/* Call to Action */}
-        <div className="bg-green-50 rounded-lg p-8 text-center">
+      {/* Call to Action - contained for readability */}
+      <div className="container mx-auto px-4 py-8">
+        <div className="bg-green-50 rounded-lg p-8 text-center max-w-4xl mx-auto">
           <h2 className="text-2xl font-bold text-gray-900 mb-4">
             Ready to Create Your Own Success Story?
           </h2>
@@ -44,7 +46,6 @@ export default async function GalleryPage() {
           </Link>
         </div>
       </div>
-
     </div>
   );
 }

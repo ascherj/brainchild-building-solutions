@@ -28,7 +28,7 @@ function PhotoModal({ photo, isOpen, onClose, onNext, onPrev, currentIndex, tota
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (!isOpen) return;
-      
+
       switch (e.key) {
         case 'Escape':
           onClose();
@@ -52,7 +52,7 @@ function PhotoModal({ photo, isOpen, onClose, onNext, onPrev, currentIndex, tota
     } else {
       document.body.style.overflow = 'unset';
     }
-    
+
     return () => {
       document.body.style.overflow = 'unset';
     };
@@ -61,7 +61,7 @@ function PhotoModal({ photo, isOpen, onClose, onNext, onPrev, currentIndex, tota
   if (!isOpen || !photo) return null;
 
   return (
-    <div 
+    <div
       className="fixed inset-0 bg-black bg-opacity-95 z-50 flex items-center justify-center p-4"
       onClick={onClose}
     >
@@ -102,16 +102,16 @@ function PhotoModal({ photo, isOpen, onClose, onNext, onPrev, currentIndex, tota
         )}
 
         {/* Image Container */}
-        <div 
+        <div
           className="flex-1 flex items-center justify-center relative"
           onClick={(e) => e.stopPropagation()}
         >
           <div className="relative max-w-full max-h-full">
             <Image
-              src={urlForImage(photo.image)?.width(1200).height(800).url() || ''}
+              src={urlForImage(photo.image)?.width(1600).height(1200).quality(100).url() || ''}
               alt={photo.image.alt || photo.caption || 'Gallery photo'}
-              width={1200}
-              height={800}
+              width={1600}
+              height={1200}
               className="object-contain max-w-full max-h-[80vh]"
               priority
             />
@@ -120,7 +120,7 @@ function PhotoModal({ photo, isOpen, onClose, onNext, onPrev, currentIndex, tota
 
         {/* Caption Overlay */}
         {photo.caption && (
-          <div 
+          <div
             className="bg-black bg-opacity-75 text-white p-6 max-h-32 overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
@@ -198,8 +198,8 @@ export default function GalleryClient({ photos }: GalleryClientProps) {
     <>
       {/* Category Filter */}
       {categories.length > 1 && (
-        <div className="mb-8">
-          <div className="flex flex-wrap justify-center gap-2">
+        <div className="w-full px-4 mb-8">
+          <div className="flex flex-wrap justify-center gap-2 max-w-4xl mx-auto">
             {categories.map((category) => (
               <button
                 key={category}
@@ -219,9 +219,10 @@ export default function GalleryClient({ photos }: GalleryClientProps) {
 
       {/* Photo Grid */}
       {filteredPhotos.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-16">
+        <div className="w-full px-2 sm:px-4 md:px-6 lg:px-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2 sm:gap-4 mb-16">
           {filteredPhotos.map((photo) => {
-            const imageUrl = urlForImage(photo.image)?.width(300).height(300).url();
+            const imageUrl = urlForImage(photo.image)?.width(400).height(400).quality(85).url();
             return (
             <div
               key={photo._id}
@@ -240,22 +241,25 @@ export default function GalleryClient({ photos }: GalleryClientProps) {
             </div>
             );
           })}
+          </div>
         </div>
       ) : (
-        <div className="text-center py-12 mb-16">
-          <div className="text-6xl mb-4">📸</div>
-          <h3 className="text-xl font-medium text-gray-900 mb-2">
-            Gallery Coming Soon
-          </h3>
-          <p className="text-gray-600 mb-6">
-            We&apos;re currently building our photo gallery. Check back soon to see our latest work.
-          </p>
-          <Link
-            href="/contact"
-            className="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition-colors duration-200"
-          >
-            Start Your Project
-          </Link>
+        <div className="w-full px-4">
+          <div className="text-center py-12 mb-16 max-w-2xl mx-auto">
+            <div className="text-6xl mb-4">📸</div>
+            <h3 className="text-xl font-medium text-gray-900 mb-2">
+              Gallery Coming Soon
+            </h3>
+            <p className="text-gray-600 mb-6">
+              We&apos;re currently building our photo gallery. Check back soon to see our latest work.
+            </p>
+            <Link
+              href="/contact"
+              className="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition-colors duration-200"
+            >
+              Start Your Project
+            </Link>
+          </div>
         </div>
       )}
 
