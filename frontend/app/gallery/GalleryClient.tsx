@@ -2,143 +2,17 @@
 
 import Image from "next/image";
 import { urlForImage } from "@/sanity/lib/utils";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
+import PhotoModal from "@/app/components/PhotoModal";
 
 interface GalleryPhoto {
-  _id: string;
+  _id?: string;
   caption?: string | null;
   image: {
     alt?: string | null;
     [key: string]: any;
   };
-}
-
-interface PhotoModalProps {
-  photo: GalleryPhoto | null;
-  isOpen: boolean;
-  onClose: () => void;
-  onNext: () => void;
-  onPrev: () => void;
-  currentIndex: number;
-  totalPhotos: number;
-}
-
-function PhotoModal({ photo, isOpen, onClose, onNext, onPrev, currentIndex, totalPhotos }: PhotoModalProps) {
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (!isOpen) return;
-
-      switch (e.key) {
-        case 'Escape':
-          onClose();
-          break;
-        case 'ArrowRight':
-          onNext();
-          break;
-        case 'ArrowLeft':
-          onPrev();
-          break;
-      }
-    };
-
-    document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [isOpen, onClose, onNext, onPrev]);
-
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
-  }, [isOpen]);
-
-  if (!isOpen || !photo) return null;
-
-  return (
-    <div
-      className="fixed inset-0 bg-black bg-opacity-95 z-50 flex items-center justify-center p-4"
-      onClick={onClose}
-    >
-      <div className="relative w-full h-full max-w-7xl max-h-full flex flex-col">
-        {/* Close Button */}
-        <button
-          onClick={onClose}
-          className="absolute top-4 right-4 z-10 bg-black bg-opacity-50 text-white rounded-full p-2 hover:bg-opacity-70 transition-colors"
-          aria-label="Close modal"
-        >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
-
-        {/* Navigation Buttons */}
-        {totalPhotos > 1 && (
-          <>
-            <button
-              onClick={(e) => { e.stopPropagation(); onPrev(); }}
-              className="absolute left-4 top-1/2 transform -translate-y-1/2 z-10 bg-black bg-opacity-50 text-white rounded-full p-3 hover:bg-opacity-70 transition-colors"
-              aria-label="Previous photo"
-            >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-              </svg>
-            </button>
-            <button
-              onClick={(e) => { e.stopPropagation(); onNext(); }}
-              className="absolute right-4 top-1/2 transform -translate-y-1/2 z-10 bg-black bg-opacity-50 text-white rounded-full p-3 hover:bg-opacity-70 transition-colors"
-              aria-label="Next photo"
-            >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </button>
-          </>
-        )}
-
-        {/* Image Container */}
-        <div
-          className="flex-1 flex items-center justify-center relative"
-          onClick={(e) => e.stopPropagation()}
-        >
-          <div className="relative max-w-full max-h-full">
-            <Image
-              src={urlForImage(photo.image)?.width(1600).height(1200).quality(100).url() || ''}
-              alt={photo.image.alt || photo.caption || 'Gallery photo'}
-              width={1600}
-              height={1200}
-              className="object-contain max-w-full max-h-[80vh]"
-              priority
-            />
-          </div>
-        </div>
-
-        {/* Caption Overlay */}
-        {photo.caption && (
-          <div
-            className="bg-black bg-opacity-75 text-white p-6 max-h-32 overflow-y-auto"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="max-w-4xl mx-auto">
-              <div className="flex items-center justify-between text-sm text-gray-300">
-                <div>
-                  <span className="text-lg">{photo.caption}</span>
-                </div>
-                <div className="text-right">
-                  <span>{currentIndex + 1} of {totalPhotos}</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-      </div>
-    </div>
-  );
 }
 
 interface GalleryClientProps {

@@ -20,15 +20,17 @@ export default async function Page() {
       <div className="relative">
         <div className="relative min-h-[80vh] overflow-hidden">
           {/* Hero Background Image - Optimized for LCP */}
-          <Image
-            src={homePage?.heroImage ? urlForImage(homePage.heroImage)?.url() || "/images/roof_trusses.jpeg" : "/images/roof_trusses.jpeg"}
-            alt={homePage?.heroImage?.alt || "Roof trusses and building components"}
-            fill
-            priority
-            className="object-cover"
-            sizes="100vw"
-            quality={85}
-          />
+          {homePage?.heroImage && urlForImage(homePage.heroImage)?.url() && (
+            <Image
+              src={urlForImage(homePage.heroImage)?.url() || ''}
+              alt={homePage.heroImage.alt || "Building components and construction materials"}
+              fill
+              priority
+              className="object-cover"
+              sizes="100vw"
+              quality={50}
+            />
+          )}
           <div className="bg-black/60 w-full h-full absolute top-0 z-10"></div>
           <div className="container">
             <div className="relative min-h-[80vh] mx-auto max-w-4xl pt-20 pb-20 space-y-8 flex flex-col items-center justify-center text-center z-20">

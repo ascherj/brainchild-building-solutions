@@ -413,3 +413,35 @@ export const homePageQuery = defineQuery(`
     }
   }
 `);
+
+// Product queries
+export const productQuery = defineQuery(`
+  *[_type == "product" && slug.current == $slug][0]{
+    _id,
+    name,
+    slug,
+    category,
+    description,
+    specsRichText,
+    galleryImages[]{
+      ...,
+      alt,
+      caption
+    },
+    leadTime,
+    suppliers[],
+    applications[],
+    featured
+  }
+`);
+
+export const relatedProductsQuery = defineQuery(`
+  *[_type == "product" && category == $category && slug.current != $slug] | order(order asc, name asc) [0...3] {
+    _id,
+    name,
+    slug,
+    category,
+    description,
+    "image": galleryImages[0]
+  }
+`);

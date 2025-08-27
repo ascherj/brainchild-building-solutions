@@ -67,13 +67,6 @@ export default async function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} bg-white text-black`}>
       <head>
-        {/* Preload critical hero image for LCP optimization */}
-        <link
-          rel="preload"
-          as="image"
-          href="/images/roof_trusses.jpeg"
-          fetchPriority="high"
-        />
       </head>
       <body>
         <section className="min-h-screen pt-20 md:pt-24">

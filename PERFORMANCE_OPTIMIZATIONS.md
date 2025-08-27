@@ -42,19 +42,21 @@ Optimize the hero image loading to achieve Core Web Vitals compliance (<2.5s LCP
 
 3. **Code Changes:**
    ```tsx
-   // Before: CSS background image
-   <div className="bg-[url(/images/roof_trusses.jpeg)] bg-cover bg-center">
+   // Before: CSS background image with static fallback
+   <div className="bg-[url(/images/hero-image.jpeg)] bg-cover bg-center">
 
-   // After: Optimized Next.js Image component
-   <Image
-     src="/images/roof_trusses.jpeg"
-     alt="Roof trusses and building components"
-     fill
-     priority
-     className="object-cover"
-     sizes="100vw"
-     quality={85}
-   />
+   // After: Conditional Sanity CMS image with Next.js optimization
+   {homePage?.heroImage && urlForImage(homePage.heroImage)?.url() && (
+     <Image
+       src={urlForImage(homePage.heroImage)?.url() || ''}
+       alt={homePage.heroImage.alt || "Building components"}
+       fill
+       priority
+       className="object-cover"
+       sizes="100vw"
+       quality={85}
+     />
+   )}
    ```
 
 4. **Infrastructure Improvements:**
@@ -76,49 +78,50 @@ Optimize the hero image loading to achieve Core Web Vitals compliance (<2.5s LCP
 - Mobile-first responsive design implementation
 - Build system configuration and troubleshooting
 
-### 2. Hero Image Fallback Optimization
+### 2. Hero Image Architecture Simplification
 
 **📊 Metrics:**
-- **Before:** 2.4MB fallback image causing 8+ second delays
-- **After:** 328KB optimized fallback (86% reduction)
-- **Improvement:** ~7 second reduction in worst-case loading
-- **Network Impact:** Mobile users no longer experience 8+ second hero loading
+- **Before:** 2.4MB static fallback image causing performance issues
+- **After:** CMS-only conditional loading with no fallback
+- **Improvement:** Eliminated unnecessary fallback image loading
+- **Network Impact:** Reduced initial bundle size and removed preload overhead
 
 #### **Situation**
-The homepage hero section was using a 2.4MB uncompressed JPEG as a fallback image when Sanity CDN images weren't available. Due to the `priority` loading attribute on the Image component, this massive fallback was being preloaded immediately on every page visit, causing severe performance issues especially for mobile users on slower connections.
+The homepage hero section was using a 2.4MB uncompressed JPEG as a fallback image when Sanity CDN images weren't available. This created unnecessary complexity and performance overhead, as the fallback was being preloaded on every page visit regardless of whether it would be used.
 
 #### **Task**
-Optimize the fallback image to prevent it from blocking page load performance while maintaining visual quality. The goal was to ensure that even when the Sanity CDN image fails to load, users still get a fast experience that meets Core Web Vitals standards.
+Simplify the hero image architecture by removing the static fallback entirely and relying solely on Sanity CMS for hero images. This approach reduces complexity while ensuring content managers have full control over the hero experience.
 
 #### **Action**
-1. **Root Cause Analysis:**
-   - Identified that `priority` attribute was forcing immediate download of 2.4MB fallback
-   - Discovered fallback image was being loaded regardless of Sanity CDN availability
-   - Found that mobile users on 3G connections experienced 8+ second delays
+1. **Architecture Analysis:**
+   - Identified that static fallbacks created unnecessary preloading overhead
+   - Recognized that CMS-managed hero images provide better content flexibility
+   - Determined that graceful degradation (no image) was acceptable UX
 
-2. **Image Optimization:**
-   - Compressed original 2.4MB JPEG to 328KB while preserving visual quality
-   - Applied modern compression techniques to reduce file size by 86%
-   - Maintained image dimensions and aspect ratio for consistent layout
+2. **Implementation Changes:**
+   - Removed static fallback image and all references
+   - Implemented conditional rendering for hero images from Sanity CMS
+   - Eliminated preload links for static fallback assets
+   - Added proper null-checking for hero image availability
 
-3. **Performance Impact:**
-   - Fallback loading time: 8+ seconds → ~1 second on mobile
-   - Eliminated worst-case scenario blocking of LCP timing
-   - Improved Core Web Vitals compliance when fallback is used
+3. **Performance Optimization:**
+   - Removed unnecessary asset from build bundle
+   - Eliminated preload overhead for unused fallback image
+   - Improved loading performance by focusing on actual CMS content
 
 #### **Result**
-- **Performance Impact:** 86% reduction in fallback image size (2.4MB → 328KB)
-- **User Experience:** Eliminated 8+ second delays when Sanity CDN unavailable
-- **Mobile Optimization:** Fallback now loads in ~1 second on 3G connections
-- **Core Web Vitals:** Fallback scenario now meets <2.5s LCP target
-- **Business Impact:** Reduced bounce rate risk from slow hero loading
-- **Future-Proofing:** Established foundation for additional image optimizations
+- **Architecture:** Simplified hero image handling with CMS-only approach
+- **Performance:** Eliminated unnecessary static asset preloading
+- **Content Management:** Full control over hero images via Sanity CMS
+- **User Experience:** Cleaner loading with no fallback image flash
+- **Maintenance:** Reduced code complexity and asset management overhead
+- **Flexibility:** Content managers can easily update hero images without code changes
 
 **Key Technical Skills Demonstrated:**
-- Image optimization and compression techniques
-- Performance bottleneck identification and resolution
-- Mobile-first performance considerations
-- Fallback strategy implementation
+- Performance architecture simplification
+- CMS integration and conditional rendering
+- Asset optimization through elimination
+- Content management system integration
 
 ---
 

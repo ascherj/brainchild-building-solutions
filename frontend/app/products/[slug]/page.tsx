@@ -1,41 +1,12 @@
 import { defineQuery } from "next-sanity";
 import { sanityFetch } from "@/sanity/lib/live";
+import { productQuery, relatedProductsQuery } from "@/sanity/lib/queries";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { urlForImage } from "@/sanity/lib/utils";
 import { PortableText } from "@portabletext/react";
-
-const productQuery = defineQuery(`
-  *[_type == "product" && slug.current == $slug][0]{
-    _id,
-    name,
-    slug,
-    category,
-    description,
-    specsRichText,
-    galleryImages[]{
-      ...,
-      alt,
-      caption
-    },
-    leadTime,
-    suppliers[],
-    applications[],
-    featured
-  }
-`);
-
-const relatedProductsQuery = defineQuery(`
-  *[_type == "product" && category == $category && slug.current != $slug] | order(order asc, name asc) [0...3] {
-    _id,
-    name,
-    slug,
-    category,
-    description,
-    "image": galleryImages[0]
-  }
-`);
+import ProductGallery from "./ProductGallery";
 
 export default async function ProductPage({
   params,
@@ -75,46 +46,11 @@ export default async function ProductPage({
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Product Images */}
-          <div className="space-y-4">
-            {product.galleryImages && product.galleryImages.length > 0 ? (
-              <>
-                <div className="relative h-96 w-full bg-gray-100 rounded-lg overflow-hidden">
-                  <Image
-                    src={urlForImage(product.galleryImages[0])?.width(600).height(400).url() || ''}
-                    alt={product.galleryImages[0].alt || product.name}
-                    fill
-                    className="object-cover"
-                  />
-                  {product.featured && (
-                    <div className="absolute top-4 left-4">
-                      <span className="bg-blue-600 text-white text-sm font-medium px-3 py-1 rounded-full">
-                        Featured Product
-                      </span>
-                    </div>
-                  )}
-                </div>
-
-                {product.galleryImages.length > 1 && (
-                  <div className="grid grid-cols-3 gap-2">
-                    {product.galleryImages.slice(1, 4).map((image: any, index: number) => (
-                      <div key={index} className="relative h-24 w-full bg-gray-100 rounded overflow-hidden">
-                        <Image
-                          src={urlForImage(image)?.width(200).height(150).url() || ''}
-                          alt={image.alt || `${product.name} ${index + 2}`}
-                          fill
-                          className="object-cover"
-                        />
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </>
-            ) : (
-              <div className="h-96 w-full bg-gray-100 rounded-lg flex items-center justify-center">
-                <span className="text-gray-400">No images available</span>
-              </div>
-            )}
-          </div>
+          <ProductGallery 
+            images={product.galleryImages || []}
+            productName={product.name}
+            featured={product.featured}
+          />
 
           {/* Product Information */}
           <div className="space-y-6">

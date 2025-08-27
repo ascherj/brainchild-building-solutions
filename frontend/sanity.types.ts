@@ -1473,6 +1473,76 @@ export type HomePageQueryResult = {
     }> | null;
   }> | null;
 } | null;
+// Variable: productQuery
+// Query: *[_type == "product" && slug.current == $slug][0]{    _id,    name,    slug,    category,    description,    specsRichText,    galleryImages[]{      ...,      alt,      caption    },    leadTime,    suppliers[],    applications[],    featured  }
+export type ProductQueryResult = {
+  _id: string;
+  name: string;
+  slug: Slug;
+  category: "floor-systems-ewp" | "roof-systems" | "wall-panels";
+  description: string | null;
+  specsRichText: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }> | null;
+  galleryImages: Array<{
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt: string | null;
+    caption: string | null;
+    _type: "image";
+    _key: string;
+  }> | null;
+  leadTime: string | null;
+  suppliers: Array<string> | null;
+  applications: Array<string> | null;
+  featured: boolean | null;
+} | null;
+// Variable: relatedProductsQuery
+// Query: *[_type == "product" && category == $category && slug.current != $slug] | order(order asc, name asc) [0...3] {    _id,    name,    slug,    category,    description,    "image": galleryImages[0]  }
+export type RelatedProductsQueryResult = Array<{
+  _id: string;
+  name: string;
+  slug: Slug;
+  category: "floor-systems-ewp" | "roof-systems" | "wall-panels";
+  description: string | null;
+  image: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    caption?: string;
+    _type: "image";
+    _key: string;
+  } | null;
+}>;
 
 // Query TypeMap
 import "@sanity/client";
@@ -1493,5 +1563,7 @@ declare module "@sanity/client" {
     "\n  *[_type == \"product\"] | order(category asc, order asc, name asc) {\n    _id,\n    name,\n    slug,\n    category,\n    description,\n    \"image\": galleryImages[0],\n    featured,\n    leadTime,\n    applications[]\n  }\n": ProductsQueryResult;
     "\n  *[_type == \"gallery\"] | order(_createdAt desc) {\n    _id,\n    caption,\n    image{\n      asset->{\n        _id,\n        url,\n        metadata{\n          dimensions{\n            width,\n            height\n          }\n        }\n      },\n      alt\n    }\n  }\n": GalleryQueryResult;
     "\n  *[_type == \"homePage\"][0]{\n    heroTitle,\n    heroSubtitle,\n    heroImage{\n      asset->{\n        _id,\n        url,\n        metadata{\n          dimensions{\n            width,\n            height\n          }\n        }\n      },\n      alt\n    },\n    heroCallToAction{\n      text,\n      link\n    },\n    trustSection{\n      heading,\n      content,\n      callToAction{\n        text,\n        link\n      }\n    },\n    servicesSection{\n      heading,\n      subtitle,\n      services[]{\n        title,\n        description,\n        icon\n      }\n    },\n    finalCallToAction{\n      heading,\n      subtitle,\n      primaryButton{\n        text,\n        link\n      },\n      secondaryButton{\n        text,\n        link\n      }\n    },\n    sections[]{\n      ...,\n      _type == \"callToAction\" => {\n        heading,\n        text,\n        buttonText,\n        link{\n          ...,\n          \n  _type == \"link\" => {\n    \"page\": page->slug.current,\n    \"post\": post->slug.current\n  }\n\n        }\n      },\n      _type == \"infoSection\" => {\n        heading,\n        subheading,\n        content[]{\n          ...,\n          markDefs[]{\n            ...,\n            \n  _type == \"link\" => {\n    \"page\": page->slug.current,\n    \"post\": post->slug.current\n  }\n\n          }\n        }\n      },\n      _type == \"featuredProducts\" => {\n        title,\n        products[]->{\n          _id,\n          title,\n          slug,\n          description,\n          image{\n            asset->{\n              _id,\n              url,\n              metadata{\n                dimensions{\n                  width,\n                  height\n                }\n              }\n            },\n            alt\n          }\n        }\n      },\n      _type == \"featuredTestimonials\" => {\n        title,\n        testimonials[]->{\n          _id,\n          authorName,\n          authorTitle,\n          quote,\n          rating,\n          image{\n            asset->{\n              _id,\n              url,\n              metadata{\n                dimensions{\n                  width,\n                  height\n                }\n              }\n            },\n            alt\n          }\n        }\n      }\n    }\n  }\n": HomePageQueryResult;
+    "\n  *[_type == \"product\" && slug.current == $slug][0]{\n    _id,\n    name,\n    slug,\n    category,\n    description,\n    specsRichText,\n    galleryImages[]{\n      ...,\n      alt,\n      caption\n    },\n    leadTime,\n    suppliers[],\n    applications[],\n    featured\n  }\n": ProductQueryResult;
+    "\n  *[_type == \"product\" && category == $category && slug.current != $slug] | order(order asc, name asc) [0...3] {\n    _id,\n    name,\n    slug,\n    category,\n    description,\n    \"image\": galleryImages[0]\n  }\n": RelatedProductsQueryResult;
   }
 }
