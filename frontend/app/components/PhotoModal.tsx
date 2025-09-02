@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { urlForImage } from "@/sanity/lib/utils";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 interface GalleryPhoto {
   _id?: string;
@@ -26,6 +26,17 @@ interface PhotoModalProps {
 }
 
 export default function PhotoModal({ photo, isOpen, onClose, onNext, onPrev, currentIndex, totalPhotos }: PhotoModalProps) {
+  const [isImageLoading, setIsImageLoading] = useState(true);
+  const [imageError, setImageError] = useState(false);
+
+  // Reset loading state when photo changes
+  useEffect(() => {
+    if (photo) {
+      setIsImageLoading(true);
+      setImageError(false);
+    }
+  }, [photo]);
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (!isOpen) return;
@@ -115,13 +126,39 @@ export default function PhotoModal({ photo, isOpen, onClose, onNext, onPrev, cur
           onClick={(e) => e.stopPropagation()}
         >
           <div className="relative w-full h-full flex items-center justify-center">
+            {/* Loading Spinner */}
+            {(isImageLoading || imageError) && (
+              <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 z-10">
+                {imageError ? (
+                  <div className="text-white text-center">
+                    <svg className="w-12 h-12 mx-auto mb-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.732 15.5c-.77.833.192 2.5 1.732 2.5z" />
+                    </svg>
+                    <p className="text-sm">Failed to load image</p>
+                  </div>
+                ) : (
+                  <div className="text-white text-center">
+                    <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-white mb-4"></div>
+                    <p className="text-sm">Loading image...</p>
+                  </div>
+                )}
+              </div>
+            )}
+
             <Image
               src={imageUrl}
               alt={imageAlt}
               fill
-              className="object-contain"
+              className={`object-contain transition-opacity duration-300 ${
+                isImageLoading ? 'opacity-0' : 'opacity-100'
+              }`}
               priority
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 80vw"
+              onLoad={() => setIsImageLoading(false)}
+              onError={() => {
+                setIsImageLoading(false);
+                setImageError(true);
+              }}
             />
           </div>
         </div>
