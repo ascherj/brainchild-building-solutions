@@ -64,22 +64,23 @@ export default function PhotoModal({ photo, isOpen, onClose, onNext, onPrev, cur
   // Handle different image structures (gallery vs product images)
   // Gallery images have photo.image structure, product images are direct references
   const imageSource = photo.image ? photo.image : photo;
-  const imageUrl = urlForImage(imageSource)?.width(1600).height(1200).quality(100).url() || '';
+  // Use flexible dimensions that maintain aspect ratio - let Sanity handle optimal sizing
+  const imageUrl = urlForImage(imageSource)?.quality(95).url() || '';
   const imageAlt = photo.image?.alt || photo.alt || photo.caption || 'Photo';
 
   return (
     <div
-      className="fixed inset-0 bg-black bg-opacity-95 z-50 flex items-center justify-center p-4"
+      className="fixed inset-0 bg-black bg-opacity-95 z-50 flex items-center justify-center p-2 sm:p-4"
       onClick={onClose}
     >
-      <div className="relative w-full h-full max-w-7xl max-h-full flex flex-col">
+      <div className="relative w-full h-full max-w-7xl max-h-full flex flex-col overflow-hidden">
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 z-10 bg-black bg-opacity-50 text-white rounded-full p-2 hover:bg-opacity-70 transition-colors"
+          className="absolute top-2 right-2 sm:top-4 sm:right-4 z-10 bg-black bg-opacity-50 text-white rounded-full p-2 hover:bg-opacity-70 transition-colors touch-manipulation"
           aria-label="Close modal"
         >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
@@ -89,19 +90,19 @@ export default function PhotoModal({ photo, isOpen, onClose, onNext, onPrev, cur
           <>
             <button
               onClick={(e) => { e.stopPropagation(); onPrev(); }}
-              className="absolute left-4 top-1/2 transform -translate-y-1/2 z-10 bg-black bg-opacity-50 text-white rounded-full p-3 hover:bg-opacity-70 transition-colors"
+              className="absolute left-2 sm:left-4 top-1/2 transform -translate-y-1/2 z-10 bg-black bg-opacity-50 text-white rounded-full p-2 sm:p-3 hover:bg-opacity-70 transition-colors touch-manipulation"
               aria-label="Previous photo"
             >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
             </button>
             <button
               onClick={(e) => { e.stopPropagation(); onNext(); }}
-              className="absolute right-4 top-1/2 transform -translate-y-1/2 z-10 bg-black bg-opacity-50 text-white rounded-full p-3 hover:bg-opacity-70 transition-colors"
+              className="absolute right-2 sm:right-4 top-1/2 transform -translate-y-1/2 z-10 bg-black bg-opacity-50 text-white rounded-full p-2 sm:p-3 hover:bg-opacity-70 transition-colors touch-manipulation"
               aria-label="Next photo"
             >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
             </button>
@@ -110,39 +111,39 @@ export default function PhotoModal({ photo, isOpen, onClose, onNext, onPrev, cur
 
         {/* Image Container */}
         <div
-          className="flex-1 flex items-center justify-center relative"
+          className="flex-1 flex items-center justify-center relative p-2 sm:p-4 md:p-8"
           onClick={(e) => e.stopPropagation()}
         >
-          <div className="relative max-w-full max-h-full">
+          <div className="relative w-full h-full flex items-center justify-center">
             <Image
               src={imageUrl}
               alt={imageAlt}
-              width={1600}
-              height={1200}
-              className="object-contain max-w-full max-h-[80vh]"
+              fill
+              className="object-contain"
               priority
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 80vw"
             />
           </div>
         </div>
 
-        {/* Caption Overlay */}
-        {photo.caption && (
-          <div
-            className="bg-black bg-opacity-75 text-white p-6 max-h-32 overflow-y-auto"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="max-w-4xl mx-auto">
-              <div className="flex items-center justify-between text-sm text-gray-300">
-                <div>
-                  <span className="text-lg">{photo.caption}</span>
-                </div>
-                <div className="text-right">
-                  <span>{currentIndex + 1} of {totalPhotos}</span>
-                </div>
+        {/* Caption and Counter */}
+        <div
+          className="bg-black bg-opacity-75 text-white p-4 sm:p-6 flex-shrink-0"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div className="max-w-4xl mx-auto">
+            <div className="flex items-center justify-between text-sm text-gray-300">
+              <div className="flex-1 pr-4">
+                {photo.caption && (
+                  <span className="text-base sm:text-lg block">{photo.caption}</span>
+                )}
+              </div>
+              <div className="text-right flex-shrink-0">
+                <span className="text-sm">{currentIndex + 1} of {totalPhotos}</span>
               </div>
             </div>
           </div>
-        )}
+        </div>
       </div>
     </div>
   );
