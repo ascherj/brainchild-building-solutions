@@ -28,7 +28,7 @@ export default async function Page() {
               priority
               className="object-cover"
               sizes="100vw"
-              quality={50}
+              quality={20}
             />
           )}
           <div className="bg-black/60 w-full h-full absolute top-0 z-10"></div>
